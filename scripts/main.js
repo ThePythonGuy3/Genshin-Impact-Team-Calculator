@@ -183,6 +183,8 @@ let characters = {
     "Zhongli": new character(slime, "Cor Lapis", prithiva, "Basalt Pillar", geo)
 }
 
+let team = 1;
+
 window.onload = function(){
     let scroll_pane = document.getElementById("scroll");
 
@@ -191,8 +193,17 @@ window.onload = function(){
         elem.className = "namecard";
         elem.tabIndex = 1;
         elem.onclick = function() {
-            console.log(el);
-            console.log(val.getDrop(1));
+            if(team != 0){
+                let doc = document.getElementById("team" + team).children[0];
+                let self = event.currentTarget.children[0];
+                doc.src = self.src;
+                doc.style.backgroundImage = self.style.backgroundImage;
+                if(team < 5){
+                    team += 1;
+                } else {
+                    team = 0;
+                }
+            }
         }
 
         let img = document.createElement("img"); // Face image
@@ -215,5 +226,12 @@ window.onload = function(){
         elem.appendChild(elem2);
 
         scroll_pane.appendChild(elem);
+    }
+
+    for(let i = 1; i < 5; i++){
+        document.getElementById("team" + i).onclick = event => {
+            team = i;
+            event.currentTarget.children[0].style.backgroundImage = null;
+        };
     }
 }

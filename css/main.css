@@ -51,6 +51,8 @@ p {
     width: 300px;
 
     vertical-align: center;
+
+    user-select: none;
 }
 
 .namecard:last-child {
@@ -73,18 +75,48 @@ p {
 
     margin-right: 10px;
 
-    height: 115px;
+    height: 105px;
     width: 90px;
 
     float: left;
+
+    user-select: none;
+
+    position: relative;
 }
 
 .teamcard:hover {
     background: #C8C8C8;
 }
 
+.teamcard:active, .teamcard:focus {
+    background: #B8B8B8;
+}
+
 .teamcard:last-child {
     margin-right: 0px;
+}
+
+.teamimage {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    height: 90px;
+    width: 90px;
+    visibility: hidden;
+}
+
+.teamimage[src] {
+    visibility: visible;
+}
+
+.teamname {
+    position: absolute;
+
+    left: 0;
+    top: 70px;
 }
 
 .image {
