@@ -65,6 +65,28 @@ p {
     background: #D0D0D0;
 }
 
+.teamcard {
+    border-radius: 10px;
+    overflow: hidden;
+
+    background: #E0E0E0;
+
+    margin-right: 10px;
+
+    height: 115px;
+    width: 90px;
+
+    float: left;
+}
+
+.teamcard:hover {
+    background: #C8C8C8;
+}
+
+.teamcard:last-child {
+    margin-right: 0px;
+}
+
 .image {
     float:  left;
     height: 55px;

@@ -185,14 +185,17 @@ let characters = {
 
 window.onload = function(){
     let scroll_pane = document.getElementById("scroll");
-    console.log(scroll_pane);
 
     for(const [el, val] of Object.entries(characters)){
-        let elem = document.createElement("div");
+        let elem = document.createElement("div"); // Character namecard container
         elem.className = "namecard";
         elem.tabIndex = 1;
+        elem.onclick = function() {
+            console.log(el);
+            console.log(val.getDrop(1));
+        }
 
-        let img = document.createElement("img");
+        let img = document.createElement("img"); // Face image
         img.className = "image";
         if(val.alias == null){
             img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
@@ -200,7 +203,7 @@ window.onload = function(){
             img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
         }
 
-        let elem2 = document.createElement("p");
+        let elem2 = document.createElement("p"); // Name
         elem2.className = "name";
         elem2.innerHTML = el;
 
