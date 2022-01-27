@@ -183,7 +183,8 @@ let characters = {
     "Zhongli": new character(slime, "Cor Lapis", prithiva, "Basalt Pillar", geo)
 }
 
-let team = 1;
+let team = 0;
+let currentTeam = [null, null, null, null];
 
 window.onload = function(){
     let scroll_pane = document.getElementById("scroll");
@@ -197,12 +198,8 @@ window.onload = function(){
                 let doc = document.getElementById("team" + team).children[0];
                 let self = event.currentTarget.children[0];
                 doc.src = self.src;
-                doc.style.backgroundImage = self.style.backgroundImage;
-                if(team < 5){
-                    team += 1;
-                } else {
-                    team = 0;
-                }
+                currentTeam[team - 1] = val;
+                team = 0;
             }
         }
 
@@ -229,9 +226,12 @@ window.onload = function(){
     }
 
     for(let i = 1; i < 5; i++){
-        document.getElementById("team" + i).onclick = event => {
+        let teamCrd = document.getElementById("team" + i);
+        teamCrd.onclick = event => {
             team = i;
-            event.currentTarget.children[0].style.backgroundImage = null;
         };
+        teamCrd.onfocusout = event => {
+            team = 0;
+        }
     }
 }

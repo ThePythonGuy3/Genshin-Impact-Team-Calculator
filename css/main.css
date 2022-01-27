@@ -68,7 +68,7 @@ p {
 }
 
 .teamcard {
-    border-radius: 10px;
+    border-radius: 10px 3px 10px 10px;
     overflow: hidden;
 
     background: #E0E0E0;
@@ -117,6 +117,12 @@ p {
 
     left: 0;
     top: 70px;
+
+    text-align: center;
+
+    height: 20px; width: 90px;
+
+    background: #F0F0F0;
 }
 
 .image {
@@ -126,6 +132,26 @@ p {
     margin-right: 10px;
     border-radius: 50%;
     user-select: none;
+}
+
+.remove {
+    position: absolute;
+    left: 70px;
+    top: -17px;
+
+    text-align: center;
+
+    height: 20px;
+    width: 20px;
+
+    border-radius: 0 0 0 5px;
+
+    background: #F05050;
+    color: #FEFEFE;
+}
+
+.remove:hover {
+    background: #E54040;
 }
 
 .name {
