@@ -191,7 +191,7 @@ currentLevel = [0, 0, 0, 0];
 window.onload = function() {
     document.getElementById("error").style.display = "none";
 
-    let scroll_pane = document.getElementById("scroll");
+    let scrollpane = document.getElementById("scroll");
 
     for(const [el, val] of Object.entries(characters)) {
         let elem = document.createElement("div"); // Character namecard container
@@ -235,7 +235,7 @@ window.onload = function() {
         elem.appendChild(img);
         elem.appendChild(elem2);
 
-        scroll_pane.appendChild(elem);
+        scrollpane.appendChild(elem);
     }
 
     let teamcontcont = document.getElementById("teamcontcont");
@@ -250,6 +250,10 @@ window.onload = function() {
         teamcard.id = "team" + i;
         teamcard.className = "teamcard";
 
+        teamcard.onclick = event => {
+            team = i;
+        }
+
         let im = document.createElement("img");
         im.src = "resources/plus.png";
         im.className = "teamimage";
@@ -261,33 +265,24 @@ window.onload = function() {
         let im2 = document.createElement("img");
         im2.className = "weapon";
 
-        teamcard.appendChild(im);
-        teamcard.appendChild(pt);
-        teamcard.appendChild(im2);
-        teamcont.appendChild(teamcard);
-        teamcontcont.appendChild(teamcont);
-    }
+        let teamremove = document.createElement("p");
+        teamremove.tabIndex = "1";
+        teamremove.className = "remove";
+        teamremove.innerHTML = "-";
 
-    for(let i = 1; i < 5; i++) {
-        let teamCrd = document.getElementById("team" + i);
-
-        let teamRmv = document.createElement("p");
-        teamRmv.tabIndex = "1";
-        teamRmv.className = "remove";
-        teamRmv.innerHTML = "-";
-
-        teamCrd.onclick = event => {
-            team = i;
-        }
-
-        teamRmv.onclick = event => {
+        teamremove.onclick = event => {
             currentTeam[i - 1] = null;
 
             teamCrd.children[0].src = "resources/plus.png";
             teamCrd.children[2].src = "";
         }
 
-        document.getElementById("teamcont" + i).prepend(teamRmv);
+        teamcard.appendChild(im);
+        teamcard.appendChild(pt);
+        teamcard.appendChild(im2);
+        teamcont.appendChild(teamremove);
+        teamcont.appendChild(teamcard);
+        teamcontcont.appendChild(teamcont);
     }
 
     document.getElementById("loader").style.display = "none";
