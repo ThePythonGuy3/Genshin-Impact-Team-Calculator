@@ -114,8 +114,12 @@ p {
     visibility: visible;
 }
 
-.teamimage[src=""] {
-    visibility: hidden;
+.teamimage[src="resources/plus.png"] {
+    left: 20px;
+    top: 20px;
+
+    height: 50px;
+    width: 50px;
 }
 
 .teamname {
@@ -140,7 +144,7 @@ p {
     user-select: none;
 }
 
-.teamCont {
+.teamcont {
     position: relative;
 
     margin-right: 10px;
@@ -184,4 +188,23 @@ p {
     margin-top: 18px;
     float: left;
     user-select: none;
+}
+
+.weapon {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 25px;
+    height: 25px;
+
+    visibility: hidden;
+}
+
+.weapon[src] {
+    visibility: visible;
+}
+
+.weapon[src=""] {
+    visibility: hidden;
 }
