@@ -3,13 +3,20 @@
   src: url('../font.ttf') format('truetype');
 }
 
+.test {
+    opacity: 0%;
+
+    animation: appearDissapear 5s infinite;
+    animation-delay: 1s;
+}
+
 p {
     font-family: 'Genshin';
 }
 
 #scroll {
     width: 315px;
-    height: 97vh;
+    height: calc(97vh - 60px);
 }
 
 #scroll::-webkit-scrollbar {
