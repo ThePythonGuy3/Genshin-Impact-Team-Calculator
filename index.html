@@ -14,8 +14,17 @@
 	<body style="overflow: hidden;">
 		<div style="display: flex;">
 			<div style="overflow-y: auto; overflow-x: shown; margin-left: 10px; float: left; z-index: 1;" id="scroll"></div> <!-- Character container -->
-			<div style="display: flex; flex-grow: 1; flex-direction: column; align-items: top; margin-left: 10px;">
-				<div style="display: flex; justify-content: center; height: 115px;" id="teamcontcont"></div> <!-- Team container -->
+			<div style="display: flex; flex-grow: 1; flex-direction: column; align-items: top; margin-left: 10px; justify-content: center;">
+				<div style="display: flex; justify-content: center; height: 130px;" id="teamcontcont"></div> <!-- Team container -->
+				<div style="display: flex; flex-grow: 1; justify-content: center; flex-direction: column;">
+					<p style="text-align: center; background: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: 386px; height: 30px;">Calculate</p>
+					<div style="justify-content: center; background: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: 386px;">
+						<p class="material">Character level-up materials:</p>
+						<p class="material">-----------</p>
+						<p class="material">Weapon level-up materials:</p>
+						<p class="material">-----------</p>
+					</div>
+				</div>
 			</div>
 
 			<div id="loader" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">

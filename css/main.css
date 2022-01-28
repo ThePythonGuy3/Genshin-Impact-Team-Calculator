@@ -57,14 +57,20 @@ p {
     background: #F0F0F0;
 
     user-select: none;
+
+    transition: background 300ms;
 }
 
 .namecard:hover {
     background: #E0E0E0;
+
+    transition: 300ms;
 }
 
 .namecard:active {
     background: #D0D0D0;
+
+    transition: 50ms;
 }
 
 .namecard:last-child {
@@ -102,14 +108,16 @@ p {
     height: 115px;
 }
 
+.teamcont:last-child {
+    margin-right: 0;
+}
+
 .teamcard {
     position: absolute;
     left: 0;
     top: 0;
 
     border-radius: 10px;
-
-    margin-right: 10px;
 
     overflow: hidden;
 
@@ -120,18 +128,20 @@ p {
 
     user-select: none;
 
+    transition: background 300ms;
+
 }
 
 .teamcard:hover {
     background: #C8C8C8;
+
+    transition: 300ms;
 }
 
 .teamcard:active, .teamcard:focus {
     background: #B8B8B8;
-}
 
-.teamcard:last-child {
-    margin-right: 0;
+    transition: 50ms;
 }
 
 .weapon {
@@ -186,7 +196,11 @@ p {
     width: 90px;
     height: 20px;
 
+    color: #505050;
     background: #F0F0F0;
+
+    font-size: 15px;
+    line-height: 22px;
 }
 
 .remove {
@@ -208,12 +222,46 @@ p {
     background: #F05050;
 
     user-select: none;
+
+    transition: background 300ms;
 }
 
 .remove:hover {
-    background: #E54040;
+    background: #E22525;
+
+    transition: 300ms;
+}
+
+.remove:active {
+    background: #D62525;
+
+    transition: 50ms;
 }
 
 .remove:last-child {
     margin-right: 0;
+}
+
+.material {
+    width: 368px;
+
+    text-align: center;
+
+    color: #505050;
+
+    font-size: 13px;
+}
+
+@media (max-width: 750px) {
+    .name {
+        display: none;
+    }
+
+    .namecard {
+        width: 80px;
+    }
+
+    #scroll {
+        width: 95px;
+    }
 }
