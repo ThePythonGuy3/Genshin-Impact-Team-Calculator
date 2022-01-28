@@ -252,6 +252,26 @@ p {
     font-size: 13px;
 }
 
+.click {
+    background: #F0F0F0;
+
+    user-select: none;
+
+    transition: background 300ms;
+}
+
+.click:hover {
+    background: #E0E0E0;
+
+    transition: 300ms;
+}
+
+.click:active {
+    background: #C0C0C0;
+
+    transition: 50ms;
+}
+
 @media (max-width: 750px) {
     .name {
         display: none;
