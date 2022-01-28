@@ -15,49 +15,17 @@
 		<div style="display: flex;">
 			<div style="overflow-y: auto; overflow-x: shown; margin-left: 10px; float: left; z-index: 1;" id="scroll"></div> <!-- Character container -->
 			<div style="display: flex; flex-grow: 1; flex-direction: column; align-items: top; margin-left: 10px;">
-				<div style="display: flex; justify-content: center; height: 115px;"> <!-- Team container -->
-					<div id="teamCont1" class="teamcont">
-						<div tabindex="1" id="team1" class="teamcard">
-							<img class="teamimage" src="resources/plus.png"></img>
-							<p class="teamname">Lv. 0</p>
-							<img class="weapon"></img>
-						</div>
-					</div>
-
-					<div id="teamCont2" class="teamcont">
-						<div tabindex="1" id="team2" class="teamcard">
-							<img class="teamimage" src="resources/plus.png"></img>
-							<p class="teamname">Lv. 0</p>
-							<img class="weapon"></img>
-						</div>
-					</div>
-
-					<div id="teamCont3" class="teamcont">
-						<div tabindex="1" id="team3" class="teamcard">
-							<img class="teamimage" src="resources/plus.png"></img>
-							<p class="teamname">Lv. 0</p>
-							<img class="weapon"></img>
-						</div>
-					</div>
-
-					<div id="teamCont4" class="teamcont">
-						<div tabindex="1" id="team4" class="teamcard">
-							<img class="teamimage" src="resources/plus.png"></img>
-							<p class="teamname">Lv. 0</p>
-							<img class="weapon"></img>
-						</div>
-					</div>
-				</div>
+				<div style="display: flex; justify-content: center; height: 115px;" id="teamcontcont"></div> <!-- Team container -->
 			</div>
 
 			<div id="loader" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
 				<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Loading...</p>
-			</div>
+			</div> <!-- Loading screen -->
 
 			<div id="error" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
 				<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">JavaScript not enabled.</p>
 				<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Please enable JavaScript to use this tool.</p>
-			</div>
+			</div> <!-- JavaScript disabled message -->
 		</div>
 	</body>
 </html>

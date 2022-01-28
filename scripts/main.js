@@ -1,5 +1,5 @@
 let character = class {
-    constructor(weapon, enemy, local, gems, boss, element, alias){
+    constructor(weapon, enemy, local, gems, boss, element, alias) {
         this.weapon = weapon;
         this.enemy = enemy;
         this.local = local;
@@ -9,13 +9,13 @@ let character = class {
         this.alias = alias;
     }
 
-    getDrop = function(stage){
+    getDrop = function(stage) {
         let e_d = char_mat_amount[0][stage];
         let e_d_t = [this.enemy[e_d[0] - 1], e_d[1]];
         let l_d = [this.local, char_mat_amount[1][stage]];
         let g = char_mat_amount[2][stage];
         let g_t = [this.gems + " " + prefixes[g[0] - 1], g[1]];
-        if(this.boss != null){
+        if(this.boss != null) {
             let b_d = [this.boss, char_mat_amount[3][stage]];
             return [e_d_t, l_d, g_t, b_d];
         }
@@ -25,14 +25,14 @@ let character = class {
 }
 
 let weapon = class {
-    constructor(one, two, domain, stars){
+    constructor(one, two, domain, stars) {
         this.one = one;
         this.two = two;
         this.domain = domain;
         this.stars = stars;
     }
 
-    static getDrop = function(stage){
+    static getDrop = function(stage) {
         let table = weap_mat_amount[this.stars - 1];
         let o = table[0][stage];
         let o_t = [this.one[o[0] - 1], o[1]];
@@ -188,18 +188,18 @@ let team = 0,
 currentTeam = [null, null, null, null],
 currentLevel = [0, 0, 0, 0];
 
-window.onload = function(){
+window.onload = function() {
     document.getElementById("error").style.display = "none";
 
     let scroll_pane = document.getElementById("scroll");
 
-    for(const [el, val] of Object.entries(characters)){
+    for(const [el, val] of Object.entries(characters)) {
         let elem = document.createElement("div"); // Character namecard container
         elem.className = "namecard";
         elem.tabIndex = 1;
         elem.onclick = function() {
-            if(team != 0){
-                if(!currentTeam.includes(val)){
+            if(team != 0) {
+                if(!currentTeam.includes(val)) {
                     let doc = document.getElementById("team" + team);
                     let self = event.currentTarget.children[0];
 
@@ -210,7 +210,7 @@ window.onload = function(){
                     currentTeam[team - 1] = val;
                     currentLevel[team - 1] = 0;
 
-                    if(team < 4 && currentTeam[team] == null){
+                    if(team < 4 && currentTeam[team] == null) {
                         team++;
                         document.getElementById("team" + team).focus();
                     } else team = 0;
@@ -228,7 +228,7 @@ window.onload = function(){
         elem2.className = "name";
         elem2.innerHTML = el;
 
-        if(val.element != null){
+        if(val.element != null) {
             img.style.backgroundImage = "linear-gradient(0deg, #" + val.element[0] +", #" + val.element[1] + ")";
         }
 
@@ -238,7 +238,37 @@ window.onload = function(){
         scroll_pane.appendChild(elem);
     }
 
-    for(let i = 1; i < 5; i++){
+    let teamcontcont = document.getElementById("teamcontcont");
+
+    for(let i = 1; i < 5; i++) {
+        let teamcont = document.createElement("div");
+        teamcont.id = "teamcont" + i;
+        teamcont.className = "teamcont";
+
+        let teamcard = document.createElement("div");
+        teamcard.tabIndex = "1";
+        teamcard.id = "team" + i;
+        teamcard.className = "teamcard";
+
+        let im = document.createElement("img");
+        im.src = "resources/plus.png";
+        im.className = "teamimage";
+
+        let pt = document.createElement("p");
+        pt.className = "teamname";
+        pt.innerHTML = "Lv. 0";
+
+        let im2 = document.createElement("img");
+        im2.className = "weapon";
+
+        teamcard.appendChild(im);
+        teamcard.appendChild(pt);
+        teamcard.appendChild(im2);
+        teamcont.appendChild(teamcard);
+        teamcontcont.appendChild(teamcont);
+    }
+
+    for(let i = 1; i < 5; i++) {
         let teamCrd = document.getElementById("team" + i);
 
         let teamRmv = document.createElement("p");
@@ -257,7 +287,7 @@ window.onload = function(){
             teamCrd.children[2].src = "";
         }
 
-        document.getElementById("teamCont" + i).prepend(teamRmv);
+        document.getElementById("teamcont" + i).prepend(teamRmv);
     }
 
     document.getElementById("loader").style.display = "none";
