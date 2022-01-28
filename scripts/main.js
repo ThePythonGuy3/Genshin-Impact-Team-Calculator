@@ -263,9 +263,8 @@ window.onload = function(){
     document.getElementById("loader").style.display = "none";
 }
 
-window.addEventListener('focus', function(event) {
-    let name = document.activeElement.className;
-    if(name != "teamcard" && name != "namecard") {
+document.addEventListener('focusout', function(event) {
+    if(event.relatedTarget == null ||(event.relatedTarget.className != "namecard" && event.relatedTarget.className != "teamcard")){
         team = 0;
     }
 }, true);
