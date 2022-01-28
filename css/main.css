@@ -68,7 +68,7 @@ p {
 }
 
 .teamcard {
-    border-radius: 10px 3px 10px 10px;
+    border-radius: 10px;
     overflow: hidden;
 
     background: #E0E0E0;
@@ -82,7 +82,9 @@ p {
 
     user-select: none;
 
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .teamcard:hover {
@@ -112,6 +114,10 @@ p {
     visibility: visible;
 }
 
+.teamimage[src=""] {
+    visibility: hidden;
+}
+
 .teamname {
     position: absolute;
 
@@ -134,20 +140,40 @@ p {
     user-select: none;
 }
 
+.teamCont {
+    position: relative;
+
+    margin-right: 10px;
+
+    height: 115px;
+    width: 90px;
+
+    float: left;
+}
+
 .remove {
     position: absolute;
-    left: 70px;
-    top: -17px;
+    left: 0;
+    top: 80px;
 
     text-align: center;
 
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 90px;
 
-    border-radius: 0 0 0 5px;
+    border-radius: 0 0 10px 10px;
+    line-height: 32px;
+
+    margin-right: 10px;
 
     background: #F05050;
     color: #FEFEFE;
+
+    user-select: none;
+}
+
+.remove:last-child {
+    margin-right: 0;
 }
 
 .remove:hover {

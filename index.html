@@ -14,27 +14,34 @@
 	<body style="overflow: hidden;">
 		<div style="display: flex;">
 			<div style="overflow-y: auto; overflow-x: shown; margin-left: 10px; float: left;" id="scroll"></div> <!-- Character container -->
-			<div style="display: flex; margin-left: 10px; float: left; align-content: center; align-items:  center; flex-grow: 1; margin: 0 auto; justify-content: center; height: 115px;"> <!-- Team container -->
-				<div tabindex="1" id="team1" class="teamcard">
-					<img class="teamimage"></img>
-					<p class="teamname">Lv. 0</p>
-					<p class="remove">-</p>
+			<div style="display: flex; flex-grow: 1; flex-direction: column; align-items: top; margin-left: 10px;">
+				<div style="display: flex; justify-content: center; height: 115px;"> <!-- Team container -->
+					<div id="teamCont1" class="teamCont">
+						<div tabindex="1" id="team1" class="teamcard">
+							<img class="teamimage"></img>
+							<p class="teamname">Lv. 0</p>
+						</div>
+					</div>
+					<div id="teamCont2" class="teamCont">
+						<div tabindex="1" id="team2" class="teamcard">
+							<img class="teamimage"></img>
+							<p class="teamname">Lv. 0</p>
+						</div>
+					</div>
+					<div id="teamCont3" class="teamCont">
+						<div tabindex="1" id="team3" class="teamcard">
+							<img class="teamimage"></img>
+							<p class="teamname">Lv. 0</p>
+						</div>
+					</div>
+					<div id="teamCont4" class="teamCont">
+						<div tabindex="1" id="team4" class="teamcard">
+							<img class="teamimage"></img>
+							<p class="teamname">Lv. 0</p>
+						</div>
+					</div>
 				</div>
-				<div tabindex="1" id="team2" class="teamcard">
-					<img class="teamimage"></img>
-					<p class="teamname">Lv. 0</p>
-					<p class="remove">-</p>
-				</div>
-				<div tabindex="1" id="team3" class="teamcard">
-					<img class="teamimage"></img>
-					<p class="teamname">Lv. 0</p>
-					<p class="remove">-</p>
-				</div>
-				<div tabindex="1" id="team4" class="teamcard">
-					<img class="teamimage"></img>
-					<p class="teamname">Lv. 0</p>
-					<p class="remove">-</p>
-				</div>
+				<div style="display: flex; justify-content: center; height: 20px;" id="removeContainer"></div>
 			</div>
 		</div>
 	</body>

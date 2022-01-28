@@ -195,11 +195,21 @@ window.onload = function(){
         elem.tabIndex = 1;
         elem.onclick = function() {
             if(team != 0){
-                let doc = document.getElementById("team" + team).children[0];
-                let self = event.currentTarget.children[0];
-                doc.src = self.src;
-                currentTeam[team - 1] = val;
-                team = 0;
+                if(!currentTeam.includes(val)){
+                    let doc = document.getElementById("team" + team).children[0];
+                    let self = event.currentTarget.children[0];
+                    doc.src = self.src;
+                    currentTeam[team - 1] = val;
+                    if(team < 4 && currentTeam[team] == null){
+                        team++;
+                        document.getElementById("team" + team).focus();
+                    } else {
+                        team = 0;
+                    }
+                } else {
+                    let elem2 = document.getElementById("team" + team);
+                    elem2.focus();
+                }
             }
         }
 
@@ -227,11 +237,29 @@ window.onload = function(){
 
     for(let i = 1; i < 5; i++){
         let teamCrd = document.getElementById("team" + i);
+
+        let teamRmv = document.createElement("p");
+        teamRmv.tabIndex = "1";
+        teamRmv.className = "remove";
+        teamRmv.innerHTML = "-";
+
         teamCrd.onclick = event => {
             team = i;
-        };
-        teamCrd.onfocusout = event => {
-            team = 0;
         }
+
+        teamRmv.onclick = event => {
+            currentTeam[i - 1] = null;
+            teamCrd.children[0].src = "";
+        }
+
+        document.getElementById("teamCont" + i).prepend(teamRmv);
     }
 }
+
+document.addEventListener('focus', function(event) {
+    console.log(event);
+    let name = document.activeElement.className;
+    if(name != "teamcard" && name != "namecard") {
+        team = 0;
+    }
+}, true);
