@@ -1,3 +1,50 @@
+let character = class {
+    constructor(weapon, enemy, local, gems, boss, element, alias){
+        this.weapon = weapon;
+        this.enemy = enemy;
+        this.local = local;
+        this.gems = gems;
+        this.boss = boss;
+        this.element = element;
+        this.alias = alias;
+    }
+
+    getDrop = function(stage){
+        let e_d = char_mat_amount[0][stage];
+        let e_d_t = [this.enemy[e_d[0] - 1], e_d[1]];
+        let l_d = [this.local, char_mat_amount[1][stage]];
+        let g = char_mat_amount[2][stage];
+        let g_t = [this.gems + " " + prefixes[g[0] - 1], g[1]];
+        if(this.boss != null){
+            let b_d = [this.boss, char_mat_amount[3][stage]];
+            return [e_d_t, l_d, g_t, b_d];
+        }
+
+        return [e_d_t, l_d, g_t];
+    }
+}
+
+let weapon = class {
+    constructor(one, two, domain, stars){
+        this.one = one;
+        this.two = two;
+        this.domain = domain;
+        this.stars = stars;
+    }
+
+    static getDrop = function(stage){
+        let table = weap_mat_amount[this.stars - 1];
+        let o = table[0][stage];
+        let o_t = [this.one[o[0] - 1], o[1]];
+        let t = table[1][stage];
+        let t_t = [this.two[t[0] - 1], t[1]];
+        let d = table[2][stage]
+        let d_t = [this.domain[d[0] - 1], d[1]];
+
+        return [o_t, t_t, d_t];
+    }
+}
+
 let char_mat_amount = [
     [[1, 3], [1, 15], [2, 12], [2, 18], [3, 12], [3, 24]],    // Enemy Drops [tier, amount]
     [3,      10,      20,      30,      45,      60],         // Local Items
@@ -78,53 +125,6 @@ vajrada = "Vajrada Amethyst",
 varunada = "Varunada Lazurite",
 vayuda = "Vayuda Turquoise";
 
-let character = class {
-    constructor(weapon, enemy, local, gems, boss, element, alias){
-        this.weapon = weapon;
-        this.enemy = enemy;
-        this.local = local;
-        this.gems = gems;
-        this.boss = boss;
-        this.element = element;
-        this.alias = alias;
-    }
-
-    getDrop = function(stage){
-        let e_d = char_mat_amount[0][stage];
-        let e_d_t = [this.enemy[e_d[0] - 1], e_d[1]];
-        let l_d = [this.local, char_mat_amount[1][stage]];
-        let g = char_mat_amount[2][stage];
-        let g_t = [this.gems + " " + prefixes[g[0] - 1], g[1]];
-        if(this.boss != null){
-            let b_d = [this.boss, char_mat_amount[3][stage]];
-            return [e_d_t, l_d, g_t, b_d];
-        }
-
-        return [e_d_t, l_d, g_t];
-    }
-}
-
-let weapon = class {
-    constructor(one, two, domain, stars){
-        this.one = one;
-        this.two = two;
-        this.domain = domain;
-        this.stars = stars;
-    }
-
-    static getDrop = function(stage){
-        let table = weap_mat_amount[this.stars - 1];
-        let o = table[0][stage];
-        let o_t = [this.one[o[0] - 1], o[1]];
-        let t = table[1][stage];
-        let t_t = [this.two[t[0] - 1], t[1]];
-        let d = table[2][stage]
-        let d_t = [this.domain[d[0] - 1], d[1]];
-
-        return [o_t, t_t, d_t];
-    }
-}
-
 // Element colors
 let anemo = ["68F0BC", "09D2B8"],
 electro = ["BC5EFF", "8B0168"],
@@ -132,7 +132,7 @@ geo = ["FBE284", "FEA336"],
 pyro = ["FD8248", "FD0138"],
 hydro = ["7BD3E2", "0399D4"],
 cryo = ["95B9F3", "608CF1"];
-//let dendro = ["89FBB8", "79E2BB"]; // no need yet
+//dendro = ["89FBB8", "79E2BB"]; // no need yet
 
 // MiHoYo developers are drunk, and some character picture names are not the character names, like Amber - Ambor, so yeah.
 let characters = {
@@ -184,8 +184,9 @@ let characters = {
     "Zhongli": new character("polearm", slime, "Cor Lapis", prithiva, "Basalt Pillar", geo)
 }
 
-let team = 0;
-let currentTeam = [null, null, null, null];
+let team = 0,
+currentTeam = [null, null, null, null],
+currentLevel = [0, 0, 0, 0];
 
 window.onload = function(){
     document.getElementById("error").style.display = "none";
@@ -201,29 +202,27 @@ window.onload = function(){
                 if(!currentTeam.includes(val)){
                     let doc = document.getElementById("team" + team);
                     let self = event.currentTarget.children[0];
+
                     doc.children[0].src = self.src;
+                    doc.children[1].innerHTML = "Lv. 0";
                     doc.children[2].src = "resources/" + val.weapon + ".png";
+
                     currentTeam[team - 1] = val;
+                    currentLevel[team - 1] = 0;
+
                     if(team < 4 && currentTeam[team] == null){
                         team++;
                         document.getElementById("team" + team).focus();
-                    } else {
-                        team = 0;
-                    }
-                } else {
-                    let elem2 = document.getElementById("team" + team);
-                    elem2.focus();
-                }
+                    } else team = 0;
+                } else document.getElementById("team" + team).focus();
             }
         }
 
         let img = document.createElement("img"); // Face image
         img.className = "image";
-        if(val.alias == null){
-            img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
-        } else {
-            img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
-        }
+
+        if(val.alias == null) img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
+        else img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
 
         let elem2 = document.createElement("p"); // Name
         elem2.className = "name";
@@ -253,6 +252,7 @@ window.onload = function(){
 
         teamRmv.onclick = event => {
             currentTeam[i - 1] = null;
+
             teamCrd.children[0].src = "resources/plus.png";
             teamCrd.children[2].src = "";
         }
@@ -263,8 +263,6 @@ window.onload = function(){
     document.getElementById("loader").style.display = "none";
 }
 
-document.addEventListener('focusout', function(event) {
-    if(event.relatedTarget == null ||(event.relatedTarget.className != "namecard" && event.relatedTarget.className != "teamcard")){
-        team = 0;
-    }
+document.addEventListener('focusout', event => {
+    if(event.relatedTarget == null ||(event.relatedTarget.className != "namecard" && event.relatedTarget.className != "teamcard")) team = 0;
 }, true);

@@ -7,6 +7,11 @@ p {
     font-family: 'Genshin';
 }
 
+#scroll {
+    width: 315px;
+    height: 97vh;
+}
+
 #scroll::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -17,13 +22,15 @@ p {
 }
 
 #scroll::-webkit-scrollbar-track {
-    background: #F5F5F5;
     border-radius: 30px;
+
+    background: #F5F5F5;
 }
 
 #scroll::-webkit-scrollbar-thumb {
-    background: #C0C0C0;
     border-radius: 30px;
+
+    background: #C0C0C0;
 }
 
 #scroll::-webkit-scrollbar-thumb:hover {
@@ -34,29 +41,22 @@ p {
     background: #9F9F9F;
 }
 
-#scroll {
-    height: 97vh;
-    width: 315px;
-}
 
 .namecard {
     border-radius: 30px;
-    overflow: hidden;
-
-    background: #F0F0F0;
 
     margin-bottom: 10px;
 
-    height: 55px;
+    overflow: hidden;
+
     width: 300px;
+    height: 55px;
 
     vertical-align: center;
 
-    user-select: none;
-}
+    background: #F0F0F0;
 
-.namecard:last-child {
-    margin-bottom: 0px;
+    user-select: none;
 }
 
 .namecard:hover {
@@ -67,24 +67,59 @@ p {
     background: #D0D0D0;
 }
 
-.teamcard {
-    border-radius: 10px;
-    overflow: hidden;
+.namecard:last-child {
+    margin-bottom: 0;
+}
 
-    background: #E0E0E0;
+.image {
+    float:  left;
+
+    border-radius: 50%;
 
     margin-right: 10px;
 
-    height: 105px;
-    width: 90px;
-
-    float: left;
+    height: 55px;
+    width: 55px;
 
     user-select: none;
+}
 
+.name {
+    float: left;
+
+    margin-top: 18px;
+
+    user-select: none;
+}
+
+.teamcont {
+    position: relative;
+    float: left;
+
+    margin-right: 10px;
+
+    width: 90px;
+    height: 115px;
+}
+
+.teamcard {
     position: absolute;
     left: 0;
     top: 0;
+
+    border-radius: 10px;
+
+    margin-right: 10px;
+
+    overflow: hidden;
+
+    width: 90px;
+    height: 105px;
+
+    background: #E0E0E0;
+
+    user-select: none;
+
 }
 
 .teamcard:hover {
@@ -96,98 +131,7 @@ p {
 }
 
 .teamcard:last-child {
-    margin-right: 0px;
-}
-
-.teamimage {
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    height: 90px;
-    width: 90px;
-    visibility: hidden;
-}
-
-.teamimage[src] {
-    visibility: visible;
-}
-
-.teamimage[src="resources/plus.png"] {
-    left: 20px;
-    top: 20px;
-
-    height: 50px;
-    width: 50px;
-}
-
-.teamname {
-    position: absolute;
-
-    left: 0;
-    top: 70px;
-
-    text-align: center;
-
-    height: 20px; width: 90px;
-
-    background: #F0F0F0;
-}
-
-.image {
-    float:  left;
-    height: 55px;
-    width: 55px;
-    margin-right: 10px;
-    border-radius: 50%;
-    user-select: none;
-}
-
-.teamcont {
-    position: relative;
-
-    margin-right: 10px;
-
-    height: 115px;
-    width: 90px;
-
-    float: left;
-}
-
-.remove {
-    position: absolute;
-    left: 0;
-    top: 80px;
-
-    text-align: center;
-
-    height: 25px;
-    width: 90px;
-
-    border-radius: 0 0 10px 10px;
-    line-height: 32px;
-
-    margin-right: 10px;
-
-    background: #F05050;
-    color: #FEFEFE;
-
-    user-select: none;
-}
-
-.remove:last-child {
     margin-right: 0;
-}
-
-.remove:hover {
-    background: #E54040;
-}
-
-.name {
-    margin-top: 18px;
-    float: left;
-    user-select: none;
 }
 
 .weapon {
@@ -207,4 +151,69 @@ p {
 
 .weapon[src=""] {
     visibility: hidden;
+}
+
+.teamimage {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    height: 90px;
+    width: 90px;
+
+    visibility: hidden;
+}
+
+.teamimage[src] {
+    visibility: visible;
+}
+
+.teamimage[src="resources/plus.png"] {
+    left: 20px;
+    top: 20px;
+
+    height: 50px;
+    width: 50px;
+}
+
+.teamname {
+    position: absolute;
+    left: 0;
+    top: 70px;
+
+    text-align: center;
+
+    width: 90px;
+    height: 20px;
+
+    background: #F0F0F0;
+}
+
+.remove {
+    position: absolute;
+    left: 0;
+    top: 80px;
+
+    border-radius: 0 0 10px 10px;
+
+    margin-right: 10px;
+
+    text-align: center;
+    line-height: 32px;
+
+    width: 90px;
+    height: 25px;
+
+    color: #FEFEFE;
+    background: #F05050;
+
+    user-select: none;
+}
+
+.remove:hover {
+    background: #E54040;
+}
+
+.remove:last-child {
+    margin-right: 0;
 }
