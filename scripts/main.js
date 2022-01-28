@@ -273,8 +273,9 @@ window.onload = function() {
         teamremove.onclick = event => {
             currentTeam[i - 1] = null;
 
-            teamCrd.children[0].src = "resources/plus.png";
-            teamCrd.children[2].src = "";
+            im.src = "resources/plus.png";
+            pt.innerHTML = "Lv. 0"
+            im2.src = "";
         }
 
         teamcard.appendChild(im);
