@@ -191,6 +191,18 @@ currentLevel = [0, 0, 0, 0];
 window.onload = function() {
     document.getElementById("error").style.display = "none";
 
+    let trg = document.getElementById("targetinput");
+    trg.addEventListener("input", () => {
+        if(trg.value.length > 2) {
+            trg.value = trg.value.slice(0, 2);
+        }
+    });
+
+    trg.addEventListener("focusout", () => {
+        if(trg.value == "") trg.value = 0;
+        if(trg.value > 90) trg.value = 90;
+    });
+
     let scrollpane = document.getElementById("scroll");
 
     for(const [el, val] of Object.entries(characters)) {
@@ -204,7 +216,7 @@ window.onload = function() {
                     let self = event.currentTarget.children[0];
 
                     doc.children[0].src = self.src;
-                    doc.children[1].innerHTML = "Lv. 0";
+                    doc.children[1].children[0].value = 0;
                     doc.children[2].src = "resources/" + val.weapon + ".png";
 
                     currentTeam[team - 1] = val;
@@ -260,7 +272,29 @@ window.onload = function() {
 
         let pt = document.createElement("p");
         pt.className = "teamname";
-        pt.innerHTML = "Lv. 0";
+        pt.innerHTML = "Lv.";
+
+        let pti = document.createElement("input");
+        pti.className = "levelinput";
+        pti.id = "input" + i;
+        pti.type = "number";
+        pti.addEventListener("input", () => {
+            if(pti.value.length > 2) {
+                pti.value = pti.value.slice(0, 2);
+            }
+        });
+
+        pti.addEventListener("focus", () => {
+            team = 0;
+        });
+
+        pti.addEventListener("focusout", () => {
+            if(pti.value == "") pti.value = 0;
+            if(pti.value > 90) pti.value = 90;
+            team = 0;
+        });
+
+        pti.value = "0";
 
         let im2 = document.createElement("img");
         im2.className = "weapon";
@@ -274,10 +308,11 @@ window.onload = function() {
             currentTeam[i - 1] = null;
 
             im.src = "resources/plus.png";
-            pt.innerHTML = "Lv. 0"
+            pt.children[0].value = 0;
             im2.src = "";
         }
 
+        pt.appendChild(pti);
         teamcard.appendChild(im);
         teamcard.appendChild(pt);
         teamcard.appendChild(im2);
