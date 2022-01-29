@@ -321,6 +321,29 @@ window.onload = function() {
         teamcontcont.appendChild(teamcont);
     }
 
+    let calcBut = document.getElementById("calc");
+    let downBut = document.getElementById("down");
+    let matCont = document.getElementById("charmat");
+
+    calcBut.onclick = event => {
+        while (matCont.firstChild) {
+            matCont.removeChild(matCont.lastChild);
+        }
+
+        for(let i = 1; i < 5; i++){
+            if(currentTeam[i - 1] == null) continue;
+            let mat = currentTeam[i - 1].getDrop(3);
+
+            for(let j = 1; j < mat.length; j++){
+                let pp = document.createElement("p");
+                pp.className = "material";
+                pp.innerHTML = mat[j][0] + " x" + mat[j][1];
+
+                matCont.appendChild(pp);
+            }
+        }
+    };
+
     document.getElementById("loader").style.display = "none";
 }
 

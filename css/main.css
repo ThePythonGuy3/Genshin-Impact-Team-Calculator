@@ -29,32 +29,32 @@ input[type=number] {
     height: calc(97vh - 60px);
 }
 
-#scroll::-webkit-scrollbar {
+.specialScroll::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
 
-#scroll::-webkit-scrollbar-button {
+.specialScroll::-webkit-scrollbar-button {
     display: none;
 }
 
-#scroll::-webkit-scrollbar-track {
+.specialScroll::-webkit-scrollbar-track {
     border-radius: 30px;
 
     background: #F5F5F5;
 }
 
-#scroll::-webkit-scrollbar-thumb {
+.specialScroll::-webkit-scrollbar-thumb {
     border-radius: 30px;
 
     background: #C0C0C0;
 }
 
-#scroll::-webkit-scrollbar-thumb:hover {
+.specialScroll::-webkit-scrollbar-thumb:hover {
     background: #B0B0B0;
 }
 
-#scroll::-webkit-scrollbar-thumb:active {
+.specialScroll::-webkit-scrollbar-thumb:active {
     background: #9F9F9F;
 }
 
@@ -274,7 +274,7 @@ input[type=number] {
 }
 
 .material {
-    width: 368px;
+    width: calc(100vw - 390px);
 
     text-align: center;
 
@@ -284,7 +284,7 @@ input[type=number] {
 }
 
 .click {
-    background: #F0F0F0;
+    background: transparent;
 
     user-select: none;
 

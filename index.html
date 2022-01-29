@@ -19,20 +19,24 @@
 		</div>
 		<div style="position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -2; background: #FBFAFF; padding: 10px;">
 		<div style="display: flex; position: absolute; left: 0; top: 67px; ">
-			<div style="overflow-y: auto; overflow-x: shown; margin-left: 10px; float: left; z-index: 1;" id="scroll"></div> <!-- Character container -->
+			<div style="overflow-y: auto; overflow-x: shown; margin-left: 10px; float: left; z-index: 1;" id="scroll" class="specialScroll"></div> <!-- Character container -->
 			<div style="display: flex; flex-grow: 1; flex-direction: column; align-items: top; justify-content: center; margin-left: 30px">
 				<div style="display: flex; justify-content: center; height: 130px;" id="teamcontcont"></div> <!-- Team container -->
 				<p style="text-align: center; width: fill; font-size: 15px;">Team target level: <input type="number" color=#303030 value=0 maxlength=2 class="levelinput" id="targetinput"></p>
 				<div style="display: flex; flex-grow: 1; justify-content: center; align-items: center; flex-direction: column;">
-					<div style="display: flex; flex-grow: 1; align-content: center; flex-direction: column; justify-content: top; background: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: calc(100vw - 390px); position: relative; margin-right: 10px;">
-						<div style="position: absolute; left: 0; top: 0;">
+					<div style="display: flex; align-content: center; flex-direction: column; justify-content: top; background: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: calc(100vw - 390px); height: calc(100vh - 270px); position: relative; margin-right: 10px;">
+						<div class="specialScroll" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 270px);">
 							<p class="material" style="text-align: center; width: calc(100vw - 390px);">Character level-up materials:</p>
-							<p class="material" style="text-align: center; width: calc(100vw - 390px);">-</p>
+							<div id="charmat" style="width: calc(100vw - 390px);">
+								<p class="material">-</p>
+							</div>
 							<p class="material" style="text-align: center; width: calc(100vw - 390px);">Weapon level-up materials:</p>
-							<p class="material" style="text-align: center; width: calc(100vw - 390px);">-</p>
+							<div id="weapmat" style="width: calc(100vw - 390px);">
+								<p class="material">-</p>
+							</div>
 						</div>
-						<img title="Download as PDF" tabindex="1" style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; border: 2px solid #F0F0F0" class="click" src="resources/download.png">
-						<img title="Calculate" tabindex="1" style="position: absolute; right: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; border: 2px solid #F0F0F0" class="click" src="resources/calc.png">
+						<img title="Download as PDF" tabindex="1" style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/download.png" id="down">
+						<img title="Calculate" tabindex="1" style="position: absolute; right: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/calc.png" id="calc">
 					</div>
 				</div>
 			</div>
