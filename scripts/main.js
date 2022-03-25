@@ -45,6 +45,7 @@ let weapon = class {
     }
 }
 
+let sort_list = ["e", "l", "g", "b"];
 let char_mat_amount = [
     [[1, 3], [1, 15], [2, 12], [2, 18], [3, 12], [3, 24]],    // Enemy Drops [tier, amount]
     [3,      10,      20,      30,      45,      60],         // Local Items
@@ -364,9 +365,9 @@ window.onload = function() {
                 for(let j = 0; j < mat.length; j++){
                     if(parseInt(mat[j][1])==0) continue;
                     if(mat[j][0] in matDict){
-                        matDict[mat[j][0]] += parseInt(mat[j][1])
+                        matDict[sort_list[j] + "^" + mat[j][0]] += parseInt(mat[j][1])
                     } else {
-                        matDict[mat[j][0]] = parseInt(mat[j][1])
+                        matDict[sort_list[j] + "^" + mat[j][0]] = parseInt(mat[j][1])
                     }
 
                     done = true;
@@ -381,10 +382,25 @@ window.onload = function() {
 
             matCont.appendChild(pp);
         } else {
-            for (const [key, value] of Object.entries(matDict)) {
+            let newMatDict = {};
+
+            let items = Object.keys(matDict).map(function(key) {
+                return [key, matDict[key]];
+            });
+            items.sort(function(first, second) {
+                let ind1 = first[0].split("^")[0];
+                let ind2 = second[0].split("^")[0];
+                return sort_list.indexOf(ind1) - sort_list.indexOf(ind2);
+            });
+
+            for(let elem_l of items){
+                newMatDict[elem_l[0]] = elem_l[1];
+            }
+
+            for (const [key, value] of Object.entries(newMatDict)) {
                 let pp = document.createElement("p");
                 pp.className = "material";
-                pp.innerHTML = key + " x" + value;
+                pp.innerHTML = key.split("^")[1] + " x" + value;
 
                 matCont.appendChild(pp);
             }
