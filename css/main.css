@@ -273,14 +273,24 @@ input[type=number] {
     margin-right: 0;
 }
 
-.material {
+.materialTitle {
     width: calc(100vw - 390px);
 
     text-align: center;
 
     color: #303030;
 
-    font-size: 13px;
+    font-size: 14px;
+}
+
+.material {
+    width: calc(100vw - 390px);
+
+    text-align: center;
+
+    color: #454545;
+
+    font-size: 12px;
 }
 
 .click {

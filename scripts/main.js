@@ -155,6 +155,7 @@ let characters = {
     "Kaedehara Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, "Kazuha"),
     "Kaeya": new character("sword", insignia_hoarder, "Calla Lily", shivada, "Hoarfrost Core", cryo),
     "Kamisato Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, "Ayaka"),
+    //"Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, "Ayato"),
     "Keqing": new character("sword", nectar, "Cor Lapis", vajrada, "Lightning Prism", electro),
     "Klee": new character("catalyst", scroll, "Philanemo Mushroom", agnidus, "Everflame Seed", pyro),
     "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, "Sara"),
@@ -178,6 +179,7 @@ let characters = {
     "Xiao": new character("polearm", slime, "Qingxin", vayuda, "Juvenile Jade", anemo),
     "Xingqiu": new character("sword", mask_boko, "Silk Flower", varunada, "Cleansing Heart", hydro),
     "Xinyan": new character("claymore", insignia_hoarder, "Violetgrass", agnidus, "Everflame Seed", pyro),
+    "Yae Miko": new character("catalyst", handguard, "Sea Ganoderma", vajrada, "Dragonheir's False Fin", electro, "Yae"),
     "Yanfei": new character("catalyst", insignia_hoarder, "Noctilucous Jade", agnidus, "Juvenile Jade", pyro, "Feiyan"),
     "Yoimiya": new character("bow", scroll, "Naku Weed", agnidus, "Smoldering Pearl", pyro),
     "Yun Jin": new character("polearm", mask_boko, "Glaze Lily", prithiva, "Riftborn Regalia", geo, "Yunjin"),
@@ -187,6 +189,17 @@ let characters = {
 let team = 0,
 currentTeam = [null, null, null, null],
 currentLevel = [0, 0, 0, 0];
+targetLevel = 20;
+
+function getTier(target) {
+    if(target <= 40){
+        return Math.floor(target/20);
+    } else if(target < 90){
+        return Math.floor((target-40)/10)+2;
+    } else {
+        return 6;
+    }
+}
 
 window.onload = function() {
     document.getElementById("error").style.display = "none";
@@ -196,6 +209,7 @@ window.onload = function() {
         if(trg.value.length > 2) {
             trg.value = trg.value.slice(0, 2);
         }
+        targetLevel=trg.value;
     });
 
     trg.addEventListener("focusout", () => {
@@ -282,6 +296,7 @@ window.onload = function() {
             if(pti.value.length > 2) {
                 pti.value = pti.value.slice(0, 2);
             }
+            currentLevel[i - 1] = pti.value;
         });
 
         pti.addEventListener("focus", () => {
@@ -326,18 +341,50 @@ window.onload = function() {
     let matCont = document.getElementById("charmat");
 
     calcBut.onclick = event => {
+        let done = false;
+        let matDict = {};
+
         while (matCont.firstChild) {
             matCont.removeChild(matCont.lastChild);
         }
 
         for(let i = 1; i < 5; i++){
             if(currentTeam[i - 1] == null) continue;
-            let mat = currentTeam[i - 1].getDrop(3);
+            let maxTier = getTier(targetLevel);
+            let minTier = getTier(currentLevel[i - 1]);
 
-            for(let j = 1; j < mat.length; j++){
+            if(maxTier == NaN || maxTier == 0) continue;
+            if(minTier == NaN) continue;
+
+            for(let p = minTier + 1; p <= maxTier; p++){
+                if(p == 0) continue;
+
+                let mat = currentTeam[i - 1].getDrop(p - 1);
+
+                for(let j = 0; j < mat.length; j++){
+                    if(parseInt(mat[j][1])==0) continue;
+                    if(mat[j][0] in matDict){
+                        matDict[mat[j][0]] += parseInt(mat[j][1])
+                    } else {
+                        matDict[mat[j][0]] = parseInt(mat[j][1])
+                    }
+
+                    done = true;
+                }
+            }
+        }
+
+        if(!done){
+            let pp = document.createElement("p");
+            pp.className = "material";
+            pp.innerHTML = "-";
+
+            matCont.appendChild(pp);
+        } else {
+            for (const [key, value] of Object.entries(matDict)) {
                 let pp = document.createElement("p");
                 pp.className = "material";
-                pp.innerHTML = mat[j][0] + " x" + mat[j][1];
+                pp.innerHTML = key + " x" + value;
 
                 matCont.appendChild(pp);
             }
