@@ -3,6 +3,15 @@
   src: url('../font.ttf') format('truetype');
 }
 
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
 p {
     font-family: "Genshin";
 }
@@ -383,4 +392,10 @@ input[type=number] {
     background-color: #B0B0B0;
 
     transition: 50ms;
+}
+
+/* Due to certain CSS limitation it's very hard to make it fade out so i'll just use a fade in */
+#popup-cover {
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
 }
