@@ -13,16 +13,24 @@
 	</head>
 
 	<body style="overflow: hidden;">
-		<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; background-color: #020202; opacity: 10%; display: none;" id="popup-cover"></div>
+		<div style="display: flex; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center;display: none; align-items: center;" id="popup-cover">
+			<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"></div>
+			<div style="position: absolute; border-radius: 10px; background-color: #E0E0E0; height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 20px; padding: 20px; line-height: 0px;" id="download-popup">
+				<p>Download team materials</p>
+				<div style="display: flex; align-items: center;">
+					<input type="text" style="width: 100%; height: 32px;" class="nameinput" id="downinput">
+					<p style="line-height: 0px; color: #505050; margin-left: 5px;">.txt</p>
+				</div>
+				<div style="display: flex; align-items: center;">
+					<input type="submit" value="Cancel" style="width: 50%;" class="submBut" id="cancBut">
+					<input type="submit" value="Download" style="width: 50%;" class="submBut" id="downBut">
+				</div>
+			</div>
+		</div>
 
 		<div class="topbar" style="display: flex; position: absolute; left: -5px; top: -5px; width: 100vw; height: 47px; background: #FEFEFE; border: 2px solid #F0F0F0; padding-left: 15px; padding-top: 10px; align-items: top;">
 			<img src="https://avatars.githubusercontent.com/u/45978337" style="width: 40px; height: 40px; border-radius: 5px; user-select: none;">
 			<p style="margin-left: 10px; line-height: 10px; user-select: none; color: #303030;">Genshin Impact Team Resource Calculator by ThePythonGuy</p>
-			<div style="display:flex; flex-grow: 1;"></div>
-			<img title="Info" tabindex="1" style="width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/info.png" id="info">
-			<img title="Share" tabindex="1" style="width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/share.png" id="share">
-			<div style="width: 15px;"></div>
-			
 		</div>
 		<div style="position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -2; background: #FBFAFF; padding: 10px;">
 		<div style="display: flex; position: absolute; left: 0; top: 67px; ">

@@ -349,8 +349,12 @@ window.onload = function () {
         teamcontcont.appendChild(teamcont);
     }
 
+    let popup = document.getElementById("popup-cover");
     let calcBut = document.getElementById("calc");
     let downBut = document.getElementById("down");
+    let downBut2 = document.getElementById("downBut");
+    let downInp = document.getElementById("downinput");
+    let cancBut = document.getElementById("cancBut");
     let matCont = document.getElementById("charmat");
 
     calcBut.onclick = event => {
@@ -484,9 +488,23 @@ window.onload = function () {
 
     downBut.onclick = event => {
         if (text != "") {
-            let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-            saveAs(blob, "MyTeam.txt", { type: "text/plain;charset=utf-8" });
+            console.log(popup);
+            popup.style.display = "flex";
         }
+    }
+
+    cancBut.onclick = event => {
+        console.log(popup);
+        popup.style.display = "none";
+    }
+
+    downBut2.onclick = event => {
+        let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+
+        let name = "MyTeam.txt";
+        if (downInp.value != "") name = downInp.value + ".txt";
+
+        saveAs(blob, name, { type: "text/plain;charset=utf-8" });
     }
 
     document.getElementById("loader").style.display = "none";
