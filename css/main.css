@@ -10,6 +10,8 @@ p {
 input {
     border-radius: 2px;
 
+    outline: none;
+
     font-family: "Genshin";
 }
 
@@ -309,6 +311,26 @@ input[type=number] {
 
 .click:active {
     background: #C0C0C0;
+
+    transition: 50ms;
+}
+
+.click-out {
+    background-color: #E0E0E0;
+
+    user-select: none;
+
+    transition: background 300ms;
+}
+
+.click-out:hover {
+    background-color: #C0C0C0;
+
+    transition: 300ms;
+}
+
+.click-out:active {
+    background-color: #B0B0B0;
 
     transition: 50ms;
 }

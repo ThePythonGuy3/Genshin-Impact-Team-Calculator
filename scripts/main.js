@@ -9,13 +9,13 @@ let character = class {
         this.alias = alias;
     }
 
-    getDrop = function(stage) {
+    getDrop = function (stage) {
         let e_d = char_mat_amount[0][stage];
         let e_d_t = [this.enemy[e_d[0] - 1], e_d[1]];
         let l_d = [this.local, char_mat_amount[1][stage]];
         let g = char_mat_amount[2][stage];
         let g_t = [this.gems + " " + prefixes[g[0] - 1], g[1]];
-        if(this.boss != null) {
+        if (this.boss != null) {
             let b_d = [this.boss, char_mat_amount[3][stage]];
             return [e_d_t, l_d, g_t, b_d];
         }
@@ -32,7 +32,7 @@ let weapon = class {
         this.stars = stars;
     }
 
-    static getDrop = function(stage) {
+    static getDrop = function (stage) {
         let table = weap_mat_amount[this.stars - 1];
         let o = table[0][stage];
         let o_t = [this.one[o[0] - 1], o[1]];
@@ -45,12 +45,12 @@ let weapon = class {
     }
 }
 
-let sort_list = ["e", "l", "g", "b"];
+let sort_list = ["Enemy Drops", "Local Items", "Gems", "Boss Drops"];
 let char_mat_amount = [
     [[1, 3], [1, 15], [2, 12], [2, 18], [3, 12], [3, 24]],    // Enemy Drops [tier, amount]
-    [3,      10,      20,      30,      45,      60],         // Local Items
-    [[1, 1], [2, 3],  [2, 6],  [3, 3],  [3, 6],  [4, 6]],     // Gems [tier, amount]
-    [0,      2,       4,       8,       12,      20]          // Boss Drops
+    [3, 10, 20, 30, 45, 60],         // Local Items
+    [[1, 1], [2, 3], [2, 6], [3, 3], [3, 6], [4, 6]],     // Gems [tier, amount]
+    [0, 2, 4, 8, 12, 20]          // Boss Drops
 ]; // char_mat_amount[mat_type][ascension_level]
 
 let weap_mat_amount = [
@@ -70,14 +70,14 @@ let weap_mat_amount = [
         [[1, 2], [2, 2], [2, 4], [3, 2], [3, 4], [4, 3]]
     ],
     [ // 4 Stars
-        [[1, 2], [1, 8],  [2, 6], [2, 9],  [3, 6], [3, 12]],
+        [[1, 2], [1, 8], [2, 6], [2, 9], [3, 6], [3, 12]],
         [[1, 3], [1, 12], [2, 6], [2, 12], [3, 9], [3, 18]],
-        [[1, 3], [2, 3],  [2, 6], [3, 3],  [3, 6], [4, 4]]
+        [[1, 3], [2, 3], [2, 6], [3, 3], [3, 6], [4, 4]]
     ],
     [ // 5 Stars
-        [[1, 3], [1, 12], [2, 9], [2, 14], [3, 9],  [3, 18]],
+        [[1, 3], [1, 12], [2, 9], [2, 14], [3, 9], [3, 18]],
         [[1, 5], [1, 18], [2, 9], [2, 18], [3, 14], [3, 27]],
-        [[1, 5], [2, 5],  [2, 9], [3, 5],  [3, 9],  [4, 6]]
+        [[1, 5], [2, 5], [2, 9], [3, 5], [3, 9], [4, 6]]
     ]
 ]; // weap_mat_amount[weap_stars][mat_type][ascension_level]
 
@@ -87,55 +87,56 @@ let crystals_exp = [400, 2000, 10000];
 
 // Enemy Drops:
 let knife = ["Hunter's Sacrificial Knife", "Agent's Sacrificial Knife", "Inspector's Sacrificial Knife"],
-horn = ["Heavy Horn", "Black Bronze Horn", "Black Crystal Horn"],
-chaos_axis = ["Chaos Gear", "Chaos Axis", "Chaos Oculus"],
-chaos_circuit = ["Chaos Device", "Chaos Circuit", "Chaos Core"],
-concealed = ["Concealed Claw", "Concealed Unguis", "Concealed Talon"],
-prism = ["Dismal Prism", "Crystal Prism", "Polarizing Prism"],
-mask_boko = ["Damaged Mask", "Stained Mask", "Ominous Mask"],
-ley_line = ["Dead Ley Line Branch", "Dead Ley Line Leaves", "Ley Line Sprout"],
-bone = ["Fragile Bone Shard", "Sturdy Bone Shard", "Fossilized Bone Shard"],
-handguard = ["Old Handguard", "Kageuchi Handguard", "Famed Handguard"],
-mist = ["Mist Grass Pollen", "Mist Grass", "Mist Grass Wick"],
-insignia_fatui = ["Recruit's Insignia", "Sergeant's Insignia", "Lieutenant's Insignia"],
-scroll = ["Divining Scroll", "Sealed Scroll", "Forbidden Curse Scroll"],
-nectar = ["Whopperflower Nectar", "Shimmering Nectar", "Energy Nectar"],
-arrowhead = ["Firm Arrowhead", "Sharp Arrowhead", "Weathered Arrowhead"],
-insignia_hoarder = ["Treasure Hoarder Insignia", "Silver Raven Insignia", "Golden Raven Insignia"],
-slime = ["Slime Condensate", "Slime Secretions", "Slime Concentrate"],
-spectral = ["Spectral Husk", "Spectral Heart", "Spectral Nucleus"];
+    horn = ["Heavy Horn", "Black Bronze Horn", "Black Crystal Horn"],
+    chaos_axis = ["Chaos Gear", "Chaos Axis", "Chaos Oculus"],
+    chaos_circuit = ["Chaos Device", "Chaos Circuit", "Chaos Core"],
+    concealed = ["Concealed Claw", "Concealed Unguis", "Concealed Talon"],
+    prism = ["Dismal Prism", "Crystal Prism", "Polarizing Prism"],
+    mask_boko = ["Damaged Mask", "Stained Mask", "Ominous Mask"],
+    ley_line = ["Dead Ley Line Branch", "Dead Ley Line Leaves", "Ley Line Sprout"],
+    bone = ["Fragile Bone Shard", "Sturdy Bone Shard", "Fossilized Bone Shard"],
+    handguard = ["Old Handguard", "Kageuchi Handguard", "Famed Handguard"],
+    mist = ["Mist Grass Pollen", "Mist Grass", "Mist Grass Wick"],
+    insignia_fatui = ["Recruit's Insignia", "Sergeant's Insignia", "Lieutenant's Insignia"],
+    scroll = ["Divining Scroll", "Sealed Scroll", "Forbidden Curse Scroll"],
+    nectar = ["Whopperflower Nectar", "Shimmering Nectar", "Energy Nectar"],
+    arrowhead = ["Firm Arrowhead", "Sharp Arrowhead", "Weathered Arrowhead"],
+    insignia_hoarder = ["Treasure Hoarder Insignia", "Silver Raven Insignia", "Golden Raven Insignia"],
+    slime = ["Slime Condensate", "Slime Secretions", "Slime Concentrate"],
+    spectral = ["Spectral Husk", "Spectral Heart", "Spectral Nucleus"];
 
 // Domain Materials:
 let aerosiderite = ["Grain of Aerosiderite", "Piece of Aerosiderite", "Bit of Aerosiderite", "Chunk of Aerosiderite"],
-wolf = ["Boreal Wolf's Milk Tooth", "Boreal Wolf's Cracked Tooth", "Boreal Wolf's Broken Fang", "Boreal Wolf's Nostalgia"],
-dandelion = ["Fetters of the Dandelion Gladiator", "Chains of the Dandelion Gladiator", "Shackles of the Dandelion Gladiator", "Dream of the Dandelion Gladiator"],
-coral = ["Coral Branch of a Distant Sea", "Jeweled Branch of a Distant Sea", "Jade Branch of a Distant Sea", "Golden Branch of a Distant Sea"],
-decarabian = ["Tile of Decarabian's Tower", "Debris of Decarabian's City", "Fragment of Decarabian's Epic", "Scattered Piece of Decarabian's Dream"],
-guyun = ["Luminous Sands from Guyun", "Lustrous Stone from Guyun", "Relic from Guyun", "Divine Body from Guyun"],
-mask = ["Mask of the Wicked Lieutenant", "Mask of the Tiger's Bite", "Mask of the One-Horned", "Mask of the Kijin"],
-mist_veiled = ["Mist Veiled Lead Elixir", "Mist Veiled Mercury Elixir", "Mist Veiled Gold Elixir", "Mist Veiled Primo Elixir"],
-narukami = ["Narukami's Wisdom", "Narukami's Joy", "Narukami's Affection", "Narukami's Valor"];
+    wolf = ["Boreal Wolf's Milk Tooth", "Boreal Wolf's Cracked Tooth", "Boreal Wolf's Broken Fang", "Boreal Wolf's Nostalgia"],
+    dandelion = ["Fetters of the Dandelion Gladiator", "Chains of the Dandelion Gladiator", "Shackles of the Dandelion Gladiator", "Dream of the Dandelion Gladiator"],
+    coral = ["Coral Branch of a Distant Sea", "Jeweled Branch of a Distant Sea", "Jade Branch of a Distant Sea", "Golden Branch of a Distant Sea"],
+    decarabian = ["Tile of Decarabian's Tower", "Debris of Decarabian's City", "Fragment of Decarabian's Epic", "Scattered Piece of Decarabian's Dream"],
+    guyun = ["Luminous Sands from Guyun", "Lustrous Stone from Guyun", "Relic from Guyun", "Divine Body from Guyun"],
+    mask = ["Mask of the Wicked Lieutenant", "Mask of the Tiger's Bite", "Mask of the One-Horned", "Mask of the Kijin"],
+    mist_veiled = ["Mist Veiled Lead Elixir", "Mist Veiled Mercury Elixir", "Mist Veiled Gold Elixir", "Mist Veiled Primo Elixir"],
+    narukami = ["Narukami's Wisdom", "Narukami's Joy", "Narukami's Affection", "Narukami's Valor"];
 
 // Gems:
 let prefixes = ["Sliver", "Fragment", "Chunk", "Gemstone"];
 let agnidus = "Agnidus Agate",
-brilliant = "Brilliant Diamond",
-prithiva = "Prithiva Topaz",
-shivada = "Shivada Jade",
-vajrada = "Vajrada Amethyst",
-varunada = "Varunada Lazurite",
-vayuda = "Vayuda Turquoise";
+    brilliant = "Brilliant Diamond",
+    prithiva = "Prithiva Topaz",
+    shivada = "Shivada Jade",
+    vajrada = "Vajrada Amethyst",
+    varunada = "Varunada Lazurite",
+    vayuda = "Vayuda Turquoise";
 
 // Element colors
 let anemo = ["68F0BC", "09D2B8"],
-electro = ["BC5EFF", "8B0168"],
-geo = ["FBE284", "FEA336"],
-pyro = ["FD8248", "FD0138"],
-hydro = ["7BD3E2", "0399D4"],
-cryo = ["95B9F3", "608CF1"];
+    electro = ["BC5EFF", "8B0168"],
+    geo = ["FBE284", "FEA336"],
+    pyro = ["FD8248", "FD0138"],
+    hydro = ["7BD3E2", "0399D4"],
+    cryo = ["95B9F3", "608CF1"];
 //dendro = ["89FBB8", "79E2BB"]; // no need yet
 
-// MiHoYo developers are drunk, and some character picture names are not the character names, like Amber - Ambor, so yeah.
+let level_exp = [1000, 1325, 1700, 2150, 2625, 3150, 3725, 4350, 5000, 5700, 6450, 7225, 8050, 8925, 9825, 10750, 11725, 12725, 13775, 14875, 16800, 18000, 19250, 20550, 21875, 23250, 24650, 26100, 27575, 29100, 30650, 32250, 33875, 35550, 37250, 38975, 40750, 42575, 44425, 46300, 50625, 52700, 54775, 56900, 59075, 61275, 63525, 65800, 68125, 70475, 76500, 79050, 81650, 84275, 86950, 89650, 92400, 95175, 98000, 100875, 108950, 112050, 115175, 118325, 121525, 124775, 128075, 131400, 134775, 138175, 148700, 152375, 156075, 159825, 163600, 167425, 171300, 175225, 179175, 183175, 216225, 243025, 273100, 306800, 344600, 386950, 434425, 487625, 547200]
+
 let characters = {
     "Albedo": new character("sword", scroll, "Cecilia", prithiva, "Basalt Pillar", geo),
     "Aloy": new character("bow", spectral, "Crystal Marrow", shivada, "Crystalline Bloom", cryo),
@@ -188,56 +189,66 @@ let characters = {
 }
 
 let team = 0,
-currentTeam = [null, null, null, null],
-currentLevel = [0, 0, 0, 0];
-targetLevel = 20;
+    currentTeam = [null, null, null, null],
+    currentLevel = [0, 0, 0, 0],
+    targetLevel = 20,
+    text = "";
 
 function getTier(target) {
-    if(target <= 40){
-        return Math.floor(target/20);
-    } else if(target < 90){
-        return Math.floor((target-40)/10)+2;
+    if (target <= 40) {
+        return Math.floor(target / 20);
+    } else if (target < 90) {
+        return Math.floor((target - 40) / 10) + 2;
     } else {
         return 6;
     }
 }
 
-window.onload = function() {
+function addMaterialElement(parent, data) {
+    let pp = document.createElement("p");
+    pp.className = "material";
+    pp.innerHTML = data;
+
+    parent.appendChild(pp);
+}
+
+window.onload = function () {
     document.getElementById("error").style.display = "none";
 
     let trg = document.getElementById("targetinput");
     trg.addEventListener("input", () => {
-        if(trg.value.length > 2) {
+        if (trg.value.length > 2) {
             trg.value = trg.value.slice(0, 2);
         }
-        targetLevel=trg.value;
+        targetLevel = trg.value;
     });
 
     trg.addEventListener("focusout", () => {
-        if(trg.value == "") trg.value = 0;
-        if(trg.value > 90) trg.value = 90;
+        if (trg.value == "" || trg.value == 0) trg.value = 1;
+        if (trg.value > 90) trg.value = 90;
+        targetLevel = trg.value;
     });
 
     let scrollpane = document.getElementById("scroll");
 
-    for(const [el, val] of Object.entries(characters)) {
+    for (const [el, val] of Object.entries(characters)) {
         let elem = document.createElement("div"); // Character namecard container
         elem.className = "namecard";
         elem.tabIndex = 1;
-        elem.onclick = function() {
-            if(team != 0) {
-                if(!currentTeam.includes(val)) {
+        elem.onclick = function () {
+            if (team != 0) {
+                if (!currentTeam.includes(val)) {
                     let doc = document.getElementById("team" + team);
                     let self = event.currentTarget.children[0];
 
                     doc.children[0].src = self.src;
-                    doc.children[1].children[0].value = 0;
+                    doc.children[1].children[0].value = 1;
                     doc.children[2].src = "resources/" + val.weapon + ".png";
 
                     currentTeam[team - 1] = val;
-                    currentLevel[team - 1] = 0;
+                    currentLevel[team - 1] = 1;
 
-                    if(team < 4 && currentTeam[team] == null) {
+                    if (team < 4 && currentTeam[team] == null) {
                         team++;
                         document.getElementById("team" + team).focus();
                     } else team = 0;
@@ -248,15 +259,15 @@ window.onload = function() {
         let img = document.createElement("img"); // Face image
         img.className = "image";
 
-        if(val.alias == null) img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
+        if (val.alias == null) img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
         else img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
 
         let elem2 = document.createElement("p"); // Name
         elem2.className = "name";
         elem2.innerHTML = el;
 
-        if(val.element != null) {
-            img.style.backgroundImage = "linear-gradient(0deg, #" + val.element[0] +", #" + val.element[1] + ")";
+        if (val.element != null) {
+            img.style.backgroundImage = "linear-gradient(0deg, #" + val.element[0] + ", #" + val.element[1] + ")";
         }
 
         elem.appendChild(img);
@@ -267,7 +278,7 @@ window.onload = function() {
 
     let teamcontcont = document.getElementById("teamcontcont");
 
-    for(let i = 1; i < 5; i++) {
+    for (let i = 1; i < 5; i++) {
         let teamcont = document.createElement("div");
         teamcont.id = "teamcont" + i;
         teamcont.className = "teamcont";
@@ -294,7 +305,7 @@ window.onload = function() {
         pti.id = "input" + i;
         pti.type = "number";
         pti.addEventListener("input", () => {
-            if(pti.value.length > 2) {
+            if (pti.value.length > 2) {
                 pti.value = pti.value.slice(0, 2);
             }
             currentLevel[i - 1] = pti.value;
@@ -305,8 +316,9 @@ window.onload = function() {
         });
 
         pti.addEventListener("focusout", () => {
-            if(pti.value == "") pti.value = 0;
-            if(pti.value > 90) pti.value = 90;
+            if (pti.value == "" || pti.value == 0) pti.value = 1;
+            if (pti.value > 90) pti.value = 90;
+            currentLevel[i - 1] = pti.value;
             team = 0;
         });
 
@@ -349,25 +361,33 @@ window.onload = function() {
             matCont.removeChild(matCont.lastChild);
         }
 
-        for(let i = 1; i < 5; i++){
-            if(currentTeam[i - 1] == null) continue;
+        let exp_need = 0;
+        for (let i = 1; i < 5; i++) {
+            if (currentTeam[i - 1] == null) continue;
             let maxTier = getTier(targetLevel);
             let minTier = getTier(currentLevel[i - 1]);
 
-            if(maxTier == NaN || maxTier == 0) continue;
-            if(minTier == NaN) continue;
+            if (maxTier == NaN) continue;
+            if (minTier == NaN) continue;
 
-            for(let p = minTier + 1; p <= maxTier; p++){
-                if(p == 0) continue;
+            for (let e = currentLevel[i - 1]; e < targetLevel; e++) {
+                exp_need += level_exp[e - 1];
+            }
+
+            if (maxTier == 0) continue;
+
+            for (let p = minTier + 1; p <= maxTier; p++) {
+                if (p == 0) continue;
 
                 let mat = currentTeam[i - 1].getDrop(p - 1);
 
-                for(let j = 0; j < mat.length; j++){
-                    if(parseInt(mat[j][1])==0) continue;
-                    if(mat[j][0] in matDict){
-                        matDict[sort_list[j] + "^" + mat[j][0]] += parseInt(mat[j][1])
+                for (let j = 0; j < mat.length; j++) {
+                    if (parseInt(mat[j][1]) == 0) continue;
+                    let vv = sort_list[j] + "^" + mat[j][0];
+                    if (vv in matDict) {
+                        matDict[vv] += parseInt(mat[j][1])
                     } else {
-                        matDict[sort_list[j] + "^" + mat[j][0]] = parseInt(mat[j][1])
+                        matDict[vv] = parseInt(mat[j][1])
                     }
 
                     done = true;
@@ -375,7 +395,42 @@ window.onload = function() {
             }
         }
 
-        if(!done){
+        text = "";
+
+        if (exp_need != 0) {
+            let big = Math.floor(exp_need / books_exp[2]);
+            let medium = Math.floor((exp_need - (big * books_exp[2])) / books_exp[1]);
+            let small = Math.ceil((exp_need - (big * books_exp[2]) - (medium * books_exp[1])) / books_exp[0]);
+
+            text = "---EXP Books---\n";
+            addMaterialElement(matCont, "---EXP Books---");
+
+            if (big != 0) {
+                let v = "Hero's Wit x" + big.toString();
+                text += v + "\n";
+
+                addMaterialElement(matCont, v);
+            }
+
+            if (medium != 0) {
+                let v = "Adventurer's Experience x" + medium.toString();
+                text += v + "\n";
+
+                addMaterialElement(matCont, v);
+            }
+
+            if (small != 0) {
+                let v = "Wanderer's Advice x" + small.toString();
+                text += v + "\n";
+
+                addMaterialElement(matCont, v);
+            }
+
+            text += "\n";
+            addMaterialElement(matCont, "­");
+        }
+
+        if (!done) {
             let pp = document.createElement("p");
             pp.className = "material";
             pp.innerHTML = "-";
@@ -384,32 +439,59 @@ window.onload = function() {
         } else {
             let newMatDict = {};
 
-            let items = Object.keys(matDict).map(function(key) {
+            let items = Object.keys(matDict).map(function (key) {
                 return [key, matDict[key]];
             });
-            items.sort(function(first, second) {
+            items.sort(function (first, second) {
                 let ind1 = first[0].split("^")[0];
                 let ind2 = second[0].split("^")[0];
                 return sort_list.indexOf(ind1) - sort_list.indexOf(ind2);
             });
 
-            for(let elem_l of items){
+            for (let elem_l of items) {
                 newMatDict[elem_l[0]] = elem_l[1];
             }
 
+            let preV = null;
             for (const [key, value] of Object.entries(newMatDict)) {
                 let pp = document.createElement("p");
+                let vv = key.split("^");
                 pp.className = "material";
-                pp.innerHTML = key.split("^")[1] + " x" + value;
+                let txt = vv[1] + " x" + value;
+                pp.innerHTML = txt;
 
+
+                if (preV != vv[0]) {
+                    let pp2 = document.createElement("p");
+                    pp2.className = "material";
+
+                    let iD = "---";
+                    if (preV != null) iD = "­<br>---";
+
+                    let txt = iD + vv[0] + "---"
+                    pp2.innerHTML = txt;
+
+                    text += txt.replace("<br>", "\n").replace("­", "") + "\n";
+                    matCont.appendChild(pp2);
+                }
+
+                text += txt + "\n";
                 matCont.appendChild(pp);
+                preV = vv[0];
             }
         }
     };
+
+    downBut.onclick = event => {
+        if (text != "") {
+            let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, "MyTeam.txt", { type: "text/plain;charset=utf-8" });
+        }
+    }
 
     document.getElementById("loader").style.display = "none";
 }
 
 document.addEventListener('focusout', event => {
-    if(event.relatedTarget == null ||(event.relatedTarget.className != "namecard" && event.relatedTarget.className != "teamcard")) team = 0;
+    if (event.relatedTarget == null || (event.relatedTarget.className != "namecard" && event.relatedTarget.className != "teamcard")) team = 0;
 }, true);
