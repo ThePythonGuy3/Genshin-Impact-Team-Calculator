@@ -157,7 +157,7 @@ let characters = {
     "Kaedehara Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, "Kazuha"),
     "Kaeya": new character("sword", insignia_hoarder, "Calla Lily", shivada, "Hoarfrost Core", cryo),
     "Kamisato Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, "Ayaka"),
-    //"Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, "Ayato"),
+    "Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, "Ayato"),
     "Keqing": new character("sword", nectar, "Cor Lapis", vajrada, "Lightning Prism", electro),
     "Klee": new character("catalyst", scroll, "Philanemo Mushroom", agnidus, "Everflame Seed", pyro),
     "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, "Sara"),
