@@ -159,10 +159,10 @@ let characters = {
     "Gorou": new character("bow", spectral, "Sango Pearl", prithiva, "Perpetual Heart", geo, 4),
     "Hu Tao": new character("polearm", nectar, "Silk Flower", agnidus, "Juvenile Jade", pyro, 5, "Hutao"),
     "Jean": new character("sword", mask_boko, "Dandelion Seed", vayuda, "Hurricane Seed", anemo, 5, "Qin"),
-    "Kaedehara Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, 5, "Kazuha"),
+    "Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, 5, "Kazuha"),
     "Kaeya": new character("sword", insignia_hoarder, "Calla Lily", shivada, "Hoarfrost Core", cryo, 4),
-    "Kamisato Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, 5, "Ayaka"),
-    "Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, 5, "Ayato"),
+    "Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, 5, "Ayaka"),
+    "Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, 5, "Ayato"),
     "Keqing": new character("sword", nectar, "Cor Lapis", vajrada, "Lightning Prism", electro, 5),
     "Klee": new character("catalyst", scroll, "Philanemo Mushroom", agnidus, "Everflame Seed", pyro, 5),
     "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, 4, "Sara"),
@@ -174,7 +174,7 @@ let characters = {
     "Raiden Shogun": new character("polearm", handguard, "Amakumo Fruit", vajrada, "Storm Beads", electro, 5, "Shougun"),
     "Razor": new character("claymore", mask_boko, "Wolfhook", vajrada, "Lightning Prism", electro, 4),
     "Rosaria": new character("polearm", insignia_fatui, "Valberry", shivada, "Hoarfrost Core", cryo, 4),
-    "Sangonomiya Kokomi": new character("catalyst", spectral, "Sango Pearl", varunada, "Dew of Repudiation", hydro, 5, "Kokomi"),
+    "Kokomi": new character("catalyst", spectral, "Sango Pearl", varunada, "Dew of Repudiation", hydro, 5, "Kokomi"),
     "Sayu": new character("claymore", nectar, "Crystal Marrow", vayuda, "Marionette Core", anemo, 4),
     "Shenhe": new character("polearm", nectar, "Qingxin", shivada, "Dragonheir's False Fin", cryo, 5),
     "Sucrose": new character("catalyst", nectar, "Windwheel Aster", vayuda, "Hurricane Seed", anemo, 4),
@@ -419,6 +419,19 @@ window.onload = function () {
 
         elem.appendChild(img);
         elem.appendChild(elem2);
+
+        let contDiv = document.createElement("div");
+        contDiv.style.float = "right";
+        contDiv.style.marginRight = "10px";
+
+        for(let s = 0; s < val.stars; s++){
+            let elem2 = document.createElement("img");
+            elem2.className = "star";
+            elem2.src = "./resources/star.png"
+            contDiv.appendChild(elem2);
+        }
+
+        elem.appendChild(contDiv);
 
         scrollpane.appendChild(elem);
     }
