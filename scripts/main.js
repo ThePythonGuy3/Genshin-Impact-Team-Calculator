@@ -137,8 +137,13 @@ let anemo = ["68F0BC", "09D2B8"],
     cryo = ["95B9F3", "608CF1"];
 //dendro = ["89FBB8", "79E2BB"]; // no need yet
 
-let st4 = ["CC8EFF", "AB51B8"],
-st5 = ["FFF2A4", "FFF856"];
+let st = [
+    ["888f98", "717b85"],
+    ["758f84", "578067"],
+    ["7797ac", "4f869e"],
+    ["a18cb8", "9774b2"],
+    ["ba9b75", "b98c50"]
+];
 
 let level_exp = [1000, 1325, 1700, 2150, 2625, 3150, 3725, 4350, 5000, 5700, 6450, 7225, 8050, 8925, 9825, 10750, 11725, 12725, 13775, 14875, 16800, 18000, 19250, 20550, 21875, 23250, 24650, 26100, 27575, 29100, 30650, 32250, 33875, 35550, 37250, 38975, 40750, 42575, 44425, 46300, 50625, 52700, 54775, 56900, 59075, 61275, 63525, 65800, 68125, 70475, 76500, 79050, 81650, 84275, 86950, 89650, 92400, 95175, 98000, 100875, 108950, 112050, 115175, 118325, 121525, 124775, 128075, 131400, 134775, 138175, 148700, 152375, 156075, 159825, 163600, 167425, 171300, 175225, 179175, 183175, 216225, 243025, 273100, 306800, 344600, 386950, 434425, 487625, 547200]
 
@@ -351,6 +356,27 @@ function addMaterialElement(parent, data) {
     parent.appendChild(pp);
 }
 
+function rgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16)
+    ] : null;
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function hex(r, g, b) {
+    if(r > 255) r = 255;
+    if(g > 255) g = 255;
+    if(b > 255) b = 255;
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
 window.onload = function () {
     document.getElementById("error").style.display = "none";
 
@@ -372,10 +398,10 @@ window.onload = function () {
 
     for (const [el, val] of Object.entries(characters)) {
         let elem = document.createElement("div"); // Character namecard container
-        cc = "#" + st4[0] + ", #" + st4[1]
-        if(val.stars == 5){
-            cc ="#" + st5[0] + ", #" + st5[1]
-        }
+        let c = rgb(st[val.stars-1][0]);
+        console.log(c, hex(c[0] + 50, c[1] + 50, c[2] + 50));
+        let c2 = rgb(st[val.stars-1][1]);
+        cc = hex(c[0] + 50, c[1] + 50, c[2] + 50) + ", " + hex(c2[0] + 50, c2[1] + 50, c2[2] + 50);
 
         elem.style.backgroundImage = "linear-gradient(90deg, #F0F0F0 80%, " + cc + ")";
         elem.className = "namecard";
