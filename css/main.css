@@ -399,3 +399,7 @@ input[type=number] {
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 }
+
+#charmat {
+    transition: all 0.2s ease;
+}
