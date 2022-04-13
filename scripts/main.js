@@ -1,11 +1,12 @@
 let character = class {
-    constructor(weapon, enemy, local, gems, boss, element, alias) {
+    constructor(weapon, enemy, local, gems, boss, element, stars, alias) {
         this.weapon = weapon;
         this.enemy = enemy;
         this.local = local;
         this.gems = gems;
         this.boss = boss;
         this.element = element;
+        this.stars = stars;
         this.alias = alias;
     }
 
@@ -136,57 +137,60 @@ let anemo = ["68F0BC", "09D2B8"],
     cryo = ["95B9F3", "608CF1"];
 //dendro = ["89FBB8", "79E2BB"]; // no need yet
 
+let st4 = ["CC8EFF", "AB51B8"],
+st5 = ["FFF2A4", "FFF856"];
+
 let level_exp = [1000, 1325, 1700, 2150, 2625, 3150, 3725, 4350, 5000, 5700, 6450, 7225, 8050, 8925, 9825, 10750, 11725, 12725, 13775, 14875, 16800, 18000, 19250, 20550, 21875, 23250, 24650, 26100, 27575, 29100, 30650, 32250, 33875, 35550, 37250, 38975, 40750, 42575, 44425, 46300, 50625, 52700, 54775, 56900, 59075, 61275, 63525, 65800, 68125, 70475, 76500, 79050, 81650, 84275, 86950, 89650, 92400, 95175, 98000, 100875, 108950, 112050, 115175, 118325, 121525, 124775, 128075, 131400, 134775, 138175, 148700, 152375, 156075, 159825, 163600, 167425, 171300, 175225, 179175, 183175, 216225, 243025, 273100, 306800, 344600, 386950, 434425, 487625, 547200]
 
 let characters = {
-    "Albedo": new character("sword", scroll, "Cecilia", prithiva, "Basalt Pillar", geo),
-    "Aloy": new character("bow", spectral, "Crystal Marrow", shivada, "Crystalline Bloom", cryo),
-    "Amber": new character("bow", arrowhead, "Small Lamp Grass", agnidus, "Everflame Seed", pyro, "Ambor"),
-    "Arataki Itto": new character("claymore", slime, "Onikabuto", prithiva, "Riftborn Regalia", geo, "Itto"),
-    "Barbara": new character("catalyst", scroll, "Philanemo Mushroom", varunada, "Cleansing Heart", hydro),
-    "Beidou": new character("claymore", insignia_hoarder, "Noctilucous Jade", vajrada, "Lightning Prism", electro),
-    "Bennett": new character("sword", insignia_hoarder, "Windwheel Aster", agnidus, "Everflame Seed", pyro),
-    "Chongyun": new character("claymore", mask_boko, "Cor Lapis", shivada, "Hoarfrost Core", cryo),
-    "Diluc": new character("claymore", insignia_fatui, "Small Lamp Grass", agnidus, "Everflame Seed", pyro),
-    "Diona": new character("catalyst", arrowhead, "Calla Lily", shivada, "Hoarfrost Core", cryo),
-    "Eula": new character("claymore", mask_boko, "Dandelion Seed", shivada, "Crystalline Bloom", cryo),
-    "Fischl": new character("bow", arrowhead, "Small Lamp Grass", vajrada, "Lightning Prism", electro),
-    "Ganyu": new character("bow", nectar, "Qingxin", shivada, "Hoarfrost Core", cryo),
-    "Gorou": new character("bow", spectral, "Sango Pearl", prithiva, "Perpetual Heart", geo),
-    "Hu Tao": new character("polearm", nectar, "Silk Flower", agnidus, "Juvenile Jade", pyro, "Hutao"),
-    "Jean": new character("sword", mask_boko, "Dandelion Seed", vayuda, "Hurricane Seed", anemo, "Qin"),
-    "Kaedehara Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, "Kazuha"),
-    "Kaeya": new character("sword", insignia_hoarder, "Calla Lily", shivada, "Hoarfrost Core", cryo),
-    "Kamisato Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, "Ayaka"),
-    "Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, "Ayato"),
-    "Keqing": new character("sword", nectar, "Cor Lapis", vajrada, "Lightning Prism", electro),
-    "Klee": new character("catalyst", scroll, "Philanemo Mushroom", agnidus, "Everflame Seed", pyro),
-    "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, "Sara"),
-    "Lisa": new character("catalyst", slime, "Valberry", vajrada, "Lightning Prism", electro),
-    "Mona": new character("catalyst", nectar, "Philanemo Mushroom", varunada, "Cleansing Heart", hydro),
-    "Ningguang": new character("catalyst", insignia_fatui, "Glaze Lily", prithiva, "Basalt Pillar", geo),
-    "Noelle": new character("claymore", mask_boko, "Valberry", prithiva, "Basalt Pillar", geo, "Noel"),
-    "Qiqi": new character("sword", scroll, "Violetgrass", shivada, "Hoarfrost", cryo),
-    "Raiden Shogun": new character("polearm", handguard, "Amakumo Fruit", vajrada, "Storm Beads", electro, "Shougun"),
-    "Razor": new character("claymore", mask_boko, "Wolfhook", vajrada, "Lightning Prism", electro),
-    "Rosaria": new character("polearm", insignia_fatui, "Valberry", shivada, "Hoarfrost Core", cryo),
-    "Sangonomiya Kokomi": new character("catalyst", spectral, "Sango Pearl", varunada, "Dew of Repudiation", hydro, "Kokomi"),
-    "Sayu": new character("claymore", nectar, "Crystal Marrow", vayuda, "Marionette Core", anemo),
-    "Shenhe": new character("polearm", nectar, "Qingxin", shivada, "Dragonheir's False Fin", cryo),
-    "Sucrose": new character("catalyst", nectar, "Windwheel Aster", vayuda, "Hurricane Seed", anemo),
-    "Tartaglia": new character("bow", insignia_fatui, "Starconch", varunada, "Cleansing Heart", hydro),
-    "Thoma": new character("polearm", insignia_hoarder, "Fluorescent Fungus", agnidus, "Smoldering Pearl", pyro, "Tohma"),
-    "Traveler": new character("sword", mask_boko, "Windwheel Aster", brilliant, null, null, "PlayerBoy"),
-    "Venti": new character("bow", slime, "Cecilia", vayuda, "Hurricane Seed", anemo),
-    "Xiangling": new character("polearm", slime, "Jueyun Chili", agnidus, "Everflame Seed", pyro),
-    "Xiao": new character("polearm", slime, "Qingxin", vayuda, "Juvenile Jade", anemo),
-    "Xingqiu": new character("sword", mask_boko, "Silk Flower", varunada, "Cleansing Heart", hydro),
-    "Xinyan": new character("claymore", insignia_hoarder, "Violetgrass", agnidus, "Everflame Seed", pyro),
-    "Yae Miko": new character("catalyst", handguard, "Sea Ganoderma", vajrada, "Dragonheir's False Fin", electro, "Yae"),
-    "Yanfei": new character("catalyst", insignia_hoarder, "Noctilucous Jade", agnidus, "Juvenile Jade", pyro, "Feiyan"),
-    "Yoimiya": new character("bow", scroll, "Naku Weed", agnidus, "Smoldering Pearl", pyro),
-    "Yun Jin": new character("polearm", mask_boko, "Glaze Lily", prithiva, "Riftborn Regalia", geo, "Yunjin"),
-    "Zhongli": new character("polearm", slime, "Cor Lapis", prithiva, "Basalt Pillar", geo)
+    "Albedo": new character("sword", scroll, "Cecilia", prithiva, "Basalt Pillar", geo, 5),
+    "Aloy": new character("bow", spectral, "Crystal Marrow", shivada, "Crystalline Bloom", cryo, 5),
+    "Amber": new character("bow", arrowhead, "Small Lamp Grass", agnidus, "Everflame Seed", pyro, 4, "Ambor"),
+    "Arataki Itto": new character("claymore", slime, "Onikabuto", prithiva, "Riftborn Regalia", geo, 5, "Itto"),
+    "Barbara": new character("catalyst", scroll, "Philanemo Mushroom", varunada, "Cleansing Heart", hydro, 4),
+    "Beidou": new character("claymore", insignia_hoarder, "Noctilucous Jade", vajrada, "Lightning Prism", electro, 4),
+    "Bennett": new character("sword", insignia_hoarder, "Windwheel Aster", agnidus, "Everflame Seed", pyro, 4),
+    "Chongyun": new character("claymore", mask_boko, "Cor Lapis", shivada, "Hoarfrost Core", cryo, 4),
+    "Diluc": new character("claymore", insignia_fatui, "Small Lamp Grass", agnidus, "Everflame Seed", pyro, 5),
+    "Diona": new character("catalyst", arrowhead, "Calla Lily", shivada, "Hoarfrost Core", cryo, 4),
+    "Eula": new character("claymore", mask_boko, "Dandelion Seed", shivada, "Crystalline Bloom", cryo, 5),
+    "Fischl": new character("bow", arrowhead, "Small Lamp Grass", vajrada, "Lightning Prism", electro, 4),
+    "Ganyu": new character("bow", nectar, "Qingxin", shivada, "Hoarfrost Core", cryo, 5),
+    "Gorou": new character("bow", spectral, "Sango Pearl", prithiva, "Perpetual Heart", geo, 4),
+    "Hu Tao": new character("polearm", nectar, "Silk Flower", agnidus, "Juvenile Jade", pyro, 5, "Hutao"),
+    "Jean": new character("sword", mask_boko, "Dandelion Seed", vayuda, "Hurricane Seed", anemo, 5, "Qin"),
+    "Kaedehara Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, 5, "Kazuha"),
+    "Kaeya": new character("sword", insignia_hoarder, "Calla Lily", shivada, "Hoarfrost Core", cryo, 4),
+    "Kamisato Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, 5, "Ayaka"),
+    "Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, 5, "Ayato"),
+    "Keqing": new character("sword", nectar, "Cor Lapis", vajrada, "Lightning Prism", electro, 5),
+    "Klee": new character("catalyst", scroll, "Philanemo Mushroom", agnidus, "Everflame Seed", pyro, 5),
+    "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, 4, "Sara"),
+    "Lisa": new character("catalyst", slime, "Valberry", vajrada, "Lightning Prism", electro, 4),
+    "Mona": new character("catalyst", nectar, "Philanemo Mushroom", varunada, "Cleansing Heart", hydro, 5),
+    "Ningguang": new character("catalyst", insignia_fatui, "Glaze Lily", prithiva, "Basalt Pillar", geo, 4),
+    "Noelle": new character("claymore", mask_boko, "Valberry", prithiva, "Basalt Pillar", geo, 4, "Noel"),
+    "Qiqi": new character("sword", scroll, "Violetgrass", shivada, "Hoarfrost", cryo, 5),
+    "Raiden Shogun": new character("polearm", handguard, "Amakumo Fruit", vajrada, "Storm Beads", electro, 5, "Shougun"),
+    "Razor": new character("claymore", mask_boko, "Wolfhook", vajrada, "Lightning Prism", electro, 4),
+    "Rosaria": new character("polearm", insignia_fatui, "Valberry", shivada, "Hoarfrost Core", cryo, 4),
+    "Sangonomiya Kokomi": new character("catalyst", spectral, "Sango Pearl", varunada, "Dew of Repudiation", hydro, 5, "Kokomi"),
+    "Sayu": new character("claymore", nectar, "Crystal Marrow", vayuda, "Marionette Core", anemo, 4),
+    "Shenhe": new character("polearm", nectar, "Qingxin", shivada, "Dragonheir's False Fin", cryo, 5),
+    "Sucrose": new character("catalyst", nectar, "Windwheel Aster", vayuda, "Hurricane Seed", anemo, 4),
+    "Tartaglia": new character("bow", insignia_fatui, "Starconch", varunada, "Cleansing Heart", hydro, 5),
+    "Thoma": new character("polearm", insignia_hoarder, "Fluorescent Fungus", agnidus, "Smoldering Pearl", pyro, 4, "Tohma"),
+    "Traveler": new character("sword", mask_boko, "Windwheel Aster", brilliant, null, null, 5, "PlayerBoy"),
+    "Venti": new character("bow", slime, "Cecilia", vayuda, "Hurricane Seed", anemo, 5),
+    "Xiangling": new character("polearm", slime, "Jueyun Chili", agnidus, "Everflame Seed", pyro, 4),
+    "Xiao": new character("polearm", slime, "Qingxin", vayuda, "Juvenile Jade", anemo, 5),
+    "Xingqiu": new character("sword", mask_boko, "Silk Flower", varunada, "Cleansing Heart", hydro, 4),
+    "Xinyan": new character("claymore", insignia_hoarder, "Violetgrass", agnidus, "Everflame Seed", pyro, 4),
+    "Yae Miko": new character("catalyst", handguard, "Sea Ganoderma", vajrada, "Dragonheir's False Fin", electro, 5, "Yae"),
+    "Yanfei": new character("catalyst", insignia_hoarder, "Noctilucous Jade", agnidus, "Juvenile Jade", pyro, 4, "Feiyan"),
+    "Yoimiya": new character("bow", scroll, "Naku Weed", agnidus, "Smoldering Pearl", pyro, 5),
+    "Yun Jin": new character("polearm", mask_boko, "Glaze Lily", prithiva, "Riftborn Regalia", geo, 4, "Yunjin"),
+    "Zhongli": new character("polearm", slime, "Cor Lapis", prithiva, "Basalt Pillar", geo, 5)
 }
 
 let weapons = {
@@ -368,6 +372,12 @@ window.onload = function () {
 
     for (const [el, val] of Object.entries(characters)) {
         let elem = document.createElement("div"); // Character namecard container
+        cc = "#" + st4[0] + ", #" + st4[1]
+        if(val.stars == 5){
+            cc ="#" + st5[0] + ", #" + st5[1]
+        }
+
+        elem.style.backgroundImage = "linear-gradient(90deg, #F0F0F0 80%, " + cc + ")";
         elem.className = "namecard";
         elem.tabIndex = 1;
         elem.onclick = function () {
