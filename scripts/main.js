@@ -400,11 +400,27 @@ window.onload = function () {
     document.getElementById("error").style.display = "none";
 
     let asc = document.getElementById("teamAscension");
+    let scrollpane = document.getElementById("scroll");
+    let weapScrollpane = document.getElementById("weapScroll");
+    let charFind = document.getElementById("charFind");
+    let weapFind = document.getElementById("weapFind");
+    let trg = document.getElementById("targetinput");
+    let popup = document.getElementById("popup-cover");
+    let calcBut = document.getElementById("calc");
+    let downBut = document.getElementById("down");
+    let downBut2 = document.getElementById("downBut");
+    let downInp = document.getElementById("downinput");
+    let cancBut = document.getElementById("cancBut");
+    let matCont = document.getElementById("charmat");
+    let weapExit = document.getElementById("weapExit");
+    let weapAccept = document.getElementById("weapAccept");
+    let teamcontcont = document.getElementById("teamcontcont");
+    let weapCont = document.getElementById("weapcont");
+
     asc.addEventListener('change', (event) => {
         ascensionTeam = event.currentTarget.checked;
     });
 
-    let trg = document.getElementById("targetinput");
     trg.addEventListener("input", () => {
         asc.disabled = true;
         asc.checked = false;
@@ -422,11 +438,6 @@ window.onload = function () {
         if (trg.value > 90) trg.value = 90;
         targetLevel = trg.value;
     });
-
-    let scrollpane = document.getElementById("scroll");
-    let weapScrollpane = document.getElementById("weapScroll");
-    let charFind = document.getElementById("charFind");
-    let weapFind = document.getElementById("weapFind");
 
     for (const [el, val] of Object.entries(characters)) {
         let elem = document.createElement("div"); // Character namecard container
@@ -586,9 +597,6 @@ window.onload = function () {
         weapScrollpane.appendChild(elem);
     }
 
-    let teamcontcont = document.getElementById("teamcontcont");
-    let weapCont = document.getElementById("weapcont");
-
     for (let i = 1; i < 5; i++) {
         let teamcont = document.createElement("div");
         teamcont.id = "teamcont" + i;
@@ -680,7 +688,7 @@ window.onload = function () {
 
         let imW = document.createElement("img");
         imW.title = "Select Weapon";
-        imW.src = "./resources/weapons/dull_blade.png";
+        imW.src = "./resources/weapons/Dull_Blade.png";
         imW.className = "weapImg";
 
         imW.onclick = () => {
@@ -689,14 +697,6 @@ window.onload = function () {
 
         weapCont.appendChild(imW);
     }
-
-    let popup = document.getElementById("popup-cover");
-    let calcBut = document.getElementById("calc");
-    let downBut = document.getElementById("down");
-    let downBut2 = document.getElementById("downBut");
-    let downInp = document.getElementById("downinput");
-    let cancBut = document.getElementById("cancBut");
-    let matCont = document.getElementById("charmat");
 
     calcBut.onclick = event => {
         /*let o_h = matCont.style.height;
