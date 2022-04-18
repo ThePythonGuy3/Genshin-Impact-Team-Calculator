@@ -40,12 +40,12 @@
 					</div>
 					<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; margin-right: 5px; margin-left: 5px;">
 						<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center;">
-							<img src="./resources/weapons/dull_blade.png" class="weapImg2" id="weapSelect">
+							<img alt="Selected weapon" src="./resources/weapons/dull_blade.png" class="weapImg2" id="weapSelect">
 							<p style="text-align: center; word-break: break-word; padding: 5px; padding-top: 0px; font-size: 13px;" id="weapName">Dull Blade</p>
-							<p style="text-align: center; font-size: 15px;">Level: <input type="number" color=#303030 value=1 class="levelinput" id="weapInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscension"></p>
-							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" color=#303030 value=20 class="levelinput" id="weapTarInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscensionTar"></p>
+							<p style="text-align: center; font-size: 15px;">Level: <input type="number" value=1 class="levelinput" id="weapInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscension"></p>
+							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" value=20 class="levelinput" id="weapTarInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscensionTar"></p>
 						</div>
-						<div style="flex-grow: 1; user-select: none;">&nbsp</div>
+						<div style="flex-grow: 1; user-select: none;">&nbsp;</div>
 						<div>
 							<input type="button" value="Exit" class="acdecButton" id="weapExit">
 							<input type="button" value="Accept" class="acdecButton" id="weapAccept">
@@ -63,7 +63,7 @@
 			<div style="display: flex; position: absolute; left: 0; top: 67px;">
 				<div style="width: 330px;">
 					<input type="text" id="charFind" placeholder="Find character by name">
-					<div style="overflow-y: auto; overflow-x: show; margin-left: 10px; float: left; z-index: 1;" id="scroll" class="specialScroll"></div> <!-- Character container -->
+					<div style="overflow-y: auto; overflow-x: hidden; margin-left: 10px; float: left; z-index: 1;" id="scroll" class="specialScroll"></div> <!-- Character container -->
 				</div>
 				<div style="display: flex; flex-grow: 1; flex-direction: column; justify-content: center; margin-left: 25px;">
 					<div style="display: flex; justify-content: center; height: 130px; align-items: center;" id="teamcontcont">
@@ -72,11 +72,11 @@
 					</div> <!-- Weapon container -->
 
 					<div style="display: flex; justify-content: center;">
-						<p style="text-align: center; font-size: 15px;">Team target level: <input type="number" value=20 class="levelinput" id="targetinput" style="color: #303030;"><input type="checkbox" style="position: relative; top: 2px;" id="teamAscension"></p>
+						<p style="text-align: center; font-size: 15px;">Team target level: <input type="number" value=20 class="levelinput" id="targetinput"><input type="checkbox" style="position: relative; top: 2px;" id="teamAscension"></p>
 						<p title="Calculate" tabindex="1" style="border-radius: 10px; margin: 2px; width: 90px; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; margin-left: 10px; margin-top: 10px;" class="click-out" id="calc">Calculate</p>
 					</div>
 					<div style="display: flex; flex-grow: 1; justify-content: center; align-items: center; flex-direction: column;">
-						<div style="display: flex; align-content: center; flex-direction: column; justify-content: top; background-color: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: fill; height: calc(100vh - 330px); position: relative; margin-right: 10px;">
+						<div style="display: flex; align-content: center; flex-direction: column; background-color: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: fill; height: calc(100vh - 330px); position: relative; margin-right: 10px;">
 							<div class="specialScroll" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 270px);">
 								<p class="materialTitle" style="text-align: center; width: fill;">Character level-up materials:</p>
 								<div id="charmat" style="width: calc(100vw - 390px);">
