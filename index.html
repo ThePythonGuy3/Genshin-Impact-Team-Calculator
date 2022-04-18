@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<title>Genshin Impact Team Calculator</title>
 		<link rel="icon" href="icon.png">
@@ -8,12 +8,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" type="text/css" href="./css/main.css">
-		<script type="text/javascript" src="./scripts/main.js"></script>
-		<script type="text/javascript" src="./scripts/FileSaver.js"></script>
+		<script src="./scripts/main.js"></script>
+		<script src="./scripts/FileSaver.js"></script>
 	</head>
 
 	<body style="overflow: hidden;">
-		<div style="display: flex; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center;display: none; align-items: center;" id="popup-cover">
+		<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;" id="popup-cover">
 			<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"></div>
 			<div style="position: absolute; border-radius: 10px; background-color: #E0E0E0; height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 20px; padding: 20px; line-height: 0px;" id="download-popup">
 				<p>Download team materials</p>
@@ -28,45 +28,79 @@
 			</div>
 		</div>
 
-		<div class="topbar" style="display: flex; position: absolute; left: -5px; top: -5px; width: 100vw; height: 47px; background: #FEFEFE; border: 2px solid #F0F0F0; padding-left: 15px; padding-top: 10px; align-items: top;">
-			<img src="https://avatars.githubusercontent.com/u/45978337" style="width: 40px; height: 40px; border-radius: 5px; user-select: none;">
-			<p style="margin-left: 10px; line-height: 10px; user-select: none; color: #303030;">Genshin Impact Team Resource Calculator by ThePythonGuy</p>
-		</div>
-		<div style="position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -2; background: #FBFAFF; padding: 10px;">
-		<div style="display: flex; position: absolute; left: 0; top: 67px; ">
-			<div style="overflow-y: auto; overflow-x: shown; margin-left: 10px; float: left; z-index: 1;" id="scroll" class="specialScroll"></div> <!-- Character container -->
-			<div style="display: flex; flex-grow: 1; flex-direction: column; align-items: top; justify-content: center; margin-left: 30px">
-				<div style="display: flex; justify-content: center; height: 130px;" id="teamcontcont"></div> <!-- Team container -->
-				<div style="display: flex; justify-content: center;">
-					<p style="text-align: center; font-size: 15px;">Team target level: <input type="number" color=#303030 value=20 maxlength=2 class="levelinput" id="targetinput"></p>
-					<p title="Calculate" tabindex="1" style="border-radius: 10px; margin: 2px; width: 90px; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; margin-left: 10px; margin-top: 10px;" class="click-out" id="calc">Calculate</p>
-				</div>
-				<div style="display: flex; flex-grow: 1; justify-content: center; align-items: center; flex-direction: column;">
-					<div style="display: flex; align-content: center; flex-direction: column; justify-content: top; background: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: calc(100vw - 390px); height: calc(100vh - 270px); position: relative; margin-right: 10px;">
-						<div class="specialScroll" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 270px);">
-							<p class="materialTitle" style="text-align: center; width: calc(100vw - 390px);">Character level-up materials:</p>
-							<div id="charmat" style="width: calc(100vw - 390px);">
-								<p class="material">-</p>
-							</div>
-							<p class="materialTitle" style="text-align: center; width: calc(100vw - 390px); color: #A6A6A6;">Weapon level-up materials:</p>
-							<div id="weapmat" style="width: calc(100vw - 390px);">
-								<p class="material" style="color: #A6A6A6;">Not supported yet.</p>
-							</div>
+		<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;" id="weap-popup-cover">
+			<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"></div>
+			<div style="position: absolute; border-radius: 10px; background-color: #E0E0E0; height: 350px; width: 515px; right: calc(50vw - 225px); margin-right: auto; padding-bottom: 20px; padding-left: 10px;" id="weapon-popup">
+				<p style="margin-left: 10px;">Weapon selection</p>
+
+				<div style="display: flex; flex-direction: row;">
+					<div style="width: 345px;">
+						<input type="text" id="weapFind" placeholder="Find weapon by name">
+						<div style="height: 280px; width: 345px; overflow-y: auto; overflow-x: hidden; float: left; z-index: 1; flex-shrink: 0;" id="weapScroll" class="specialScroll"></div>
+					</div>
+					<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; margin-right: 5px; margin-left: 5px;">
+						<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center;">
+							<img src="./resources/weapons/dull_blade.png" class="weapImg2" id="weapSelect">
+							<p style="text-align: center; word-break: break-word; padding: 5px; padding-top: 0px; font-size: 13px;" id="weapName">Dull Blade</p>
+							<p style="text-align: center; font-size: 15px;">Level: <input type="number" color=#303030 value=1 class="levelinput" id="weapInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscension"></p>
+							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" color=#303030 value=20 class="levelinput" id="weapTarInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscensionTar"></p>
 						</div>
-						<img title="Download as PDF" tabindex="1" style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/download.png" id="down">
-						<!--<img title="Calculate" tabindex="1" style="position: absolute; right: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/calc.png" id="calc">-->
+						<div style="flex-grow: 1; user-select: none;">&nbsp</div>
+						<div>
+							<input type="button" value="Exit" class="acdecButton" id="weapExit">
+							<input type="button" value="Accept" class="acdecButton" id="weapAccept">
+						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div id="loader" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
-				<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Loading...</p>
-			</div> <!-- Loading screen -->
+		<div class="topbar" style="display: flex; position: absolute; left: -5px; top: -5px; width: 100vw; height: 47px; background: #FEFEFE; border: 2px solid #F0F0F0; padding-left: 15px; padding-top: 10px;">
+			<a href="https://github.com/ThePythonGuy3" target="_blank"><img alt="Tool creator" src="https://avatars.githubusercontent.com/u/45978337" style="width: 40px; height: 40px; border-radius: 5px; user-select: none;"></a>
+			<p style="margin-left: 10px; line-height: 10px; user-select: none; color: #303030;">Genshin Impact Team Resource Calculator by ThePythonGuy</p>
+		</div>
+		<div style="position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -2; background: #FBFAFF; padding: 10px;">
+			<div style="display: flex; position: absolute; left: 0; top: 67px;">
+				<div style="width: 330px;">
+					<input type="text" id="charFind" placeholder="Find character by name">
+					<div style="overflow-y: auto; overflow-x: show; margin-left: 10px; float: left; z-index: 1;" id="scroll" class="specialScroll"></div> <!-- Character container -->
+				</div>
+				<div style="display: flex; flex-grow: 1; flex-direction: column; justify-content: center; margin-left: 25px;">
+					<div style="display: flex; justify-content: center; height: 130px; align-items: center;" id="teamcontcont">
+					</div> <!-- Team container -->
+					<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;" id="weapcont">
+					</div> <!-- Weapon container -->
 
-			<div id="error" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
-				<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">JavaScript not enabled.</p>
-				<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Please enable JavaScript to use this tool.</p>
-			</div> <!-- JavaScript disabled message -->
+					<div style="display: flex; justify-content: center;">
+						<p style="text-align: center; font-size: 15px;">Team target level: <input type="number" value=20 class="levelinput" id="targetinput" style="color: #303030;"><input type="checkbox" style="position: relative; top: 2px;" id="teamAscension"></p>
+						<p title="Calculate" tabindex="1" style="border-radius: 10px; margin: 2px; width: 90px; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; margin-left: 10px; margin-top: 10px;" class="click-out" id="calc">Calculate</p>
+					</div>
+					<div style="display: flex; flex-grow: 1; justify-content: center; align-items: center; flex-direction: column;">
+						<div style="display: flex; align-content: center; flex-direction: column; justify-content: top; background-color: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: fill; height: calc(100vh - 330px); position: relative; margin-right: 10px;">
+							<div class="specialScroll" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 270px);">
+								<p class="materialTitle" style="text-align: center; width: fill;">Character level-up materials:</p>
+								<div id="charmat" style="width: calc(100vw - 390px);">
+									<p class="material">-</p>
+								</div>
+								<p class="materialTitle" style="text-align: center; width: fill; color: #A6A6A6;">Weapon level-up materials:</p>
+								<div id="weapmat" style="width: calc(100vw - 390px);">
+									<p class="material" style="color: #A6A6A6;">Not supported yet.</p>
+								</div>
+							</div>
+							<img title="Download as PDF" tabindex="1" style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/download.png" id="down">
+						</div>
+					</div>
+				</div>
+
+				<div id="loader" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
+					<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Loading...</p>
+				</div> <!-- Loading screen -->
+
+				<div id="error" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
+					<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">JavaScript not enabled.</p>
+					<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Please enable JavaScript to use this tool.</p>
+				</div> <!-- JavaScript disabled message -->
+			</div>
 		</div>
 	</body>
 </html>

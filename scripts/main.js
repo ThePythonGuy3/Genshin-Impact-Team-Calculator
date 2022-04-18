@@ -164,10 +164,10 @@ let characters = {
     "Gorou": new character("bow", spectral, "Sango Pearl", prithiva, "Perpetual Heart", geo, 4),
     "Hu Tao": new character("polearm", nectar, "Silk Flower", agnidus, "Juvenile Jade", pyro, 5, "Hutao"),
     "Jean": new character("sword", mask_boko, "Dandelion Seed", vayuda, "Hurricane Seed", anemo, 5, "Qin"),
-    "Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, 5, "Kazuha"),
+    "Kaedehara Kazuha": new character("sword", insignia_hoarder, "Sea Ganoderma", vayuda, "Marionette Core", anemo, 5, "Kazuha"),
     "Kaeya": new character("sword", insignia_hoarder, "Calla Lily", shivada, "Hoarfrost Core", cryo, 4),
-    "Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, 5, "Ayaka"),
-    "Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, 5, "Ayato"),
+    "Kamisato Ayaka": new character("sword", handguard, "Sakura Bloom", shivada, "Perpetual Heart", cryo, 5, "Ayaka"),
+    "Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, 5, "Ayato"),
     "Keqing": new character("sword", nectar, "Cor Lapis", vajrada, "Lightning Prism", electro, 5),
     "Klee": new character("catalyst", scroll, "Philanemo Mushroom", agnidus, "Everflame Seed", pyro, 5),
     "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, 4, "Sara"),
@@ -179,7 +179,7 @@ let characters = {
     "Raiden Shogun": new character("polearm", handguard, "Amakumo Fruit", vajrada, "Storm Beads", electro, 5, "Shougun"),
     "Razor": new character("claymore", mask_boko, "Wolfhook", vajrada, "Lightning Prism", electro, 4),
     "Rosaria": new character("polearm", insignia_fatui, "Valberry", shivada, "Hoarfrost Core", cryo, 4),
-    "Kokomi": new character("catalyst", spectral, "Sango Pearl", varunada, "Dew of Repudiation", hydro, 5, "Kokomi"),
+    "Sangonomiya Kokomi": new character("catalyst", spectral, "Sango Pearl", varunada, "Dew of Repudiation", hydro, 5, "Kokomi"),
     "Sayu": new character("claymore", nectar, "Crystal Marrow", vayuda, "Marionette Core", anemo, 4),
     "Shenhe": new character("polearm", nectar, "Qingxin", shivada, "Dragonheir's False Fin", cryo, 5),
     "Sucrose": new character("catalyst", nectar, "Windwheel Aster", vayuda, "Hurricane Seed", anemo, 4),
@@ -334,7 +334,12 @@ let weapons = {
 
 let team = 0,
     currentTeam = [null, null, null, null],
-    currentLevel = [0, 0, 0, 0],
+    currentWeapons = [null, null, null, null],
+    currentLevel = [1, 1, 1, 1],
+    currentWeaponLevel = [1, 1, 1, 1],
+    ascensions = [false, false, false, false],
+    weaponAscensions = [false, false, false, false],
+    ascensionTeam = false,
     targetLevel = 20,
     text = "";
 
@@ -377,14 +382,38 @@ function hex(r, g, b) {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
+function textWidth(text, fontProp) {
+    var tag = document.createElement('div')
+    tag.style.position = 'absolute'
+    tag.style.left = '-99in'
+    tag.style.whiteSpace = 'nowrap'
+    tag.style.font = fontProp
+    tag.innerHTML = text
+
+    document.body.appendChild(tag)
+    var result = tag.clientWidth
+    document.body.removeChild(tag)
+    return result;
+}
+
 window.onload = function () {
     document.getElementById("error").style.display = "none";
 
+    let asc = document.getElementById("teamAscension");
+    asc.addEventListener('change', (event) => {
+        ascensionTeam = event.currentTarget.checked;
+    });
+
     let trg = document.getElementById("targetinput");
     trg.addEventListener("input", () => {
+        asc.disabled = true;
+        asc.checked = false;
         if (trg.value.length > 2) {
             trg.value = trg.value.slice(0, 2);
         }
+
+        if(trg.value == 20 || trg.value == 40 || trg.value == 50 || trg.value == 60 || trg.value == 70 || trg.value == 80) asc.disabled = false;
+
         targetLevel = trg.value;
     });
 
@@ -395,15 +424,17 @@ window.onload = function () {
     });
 
     let scrollpane = document.getElementById("scroll");
+    let weapScrollpane = document.getElementById("weapScroll");
+    let charFind = document.getElementById("charFind");
+    let weapFind = document.getElementById("weapFind");
 
     for (const [el, val] of Object.entries(characters)) {
         let elem = document.createElement("div"); // Character namecard container
         let c = rgb(st[val.stars-1][0]);
-        console.log(c, hex(c[0] + 50, c[1] + 50, c[2] + 50));
         let c2 = rgb(st[val.stars-1][1]);
         cc = hex(c[0] + 50, c[1] + 50, c[2] + 50) + ", " + hex(c2[0] + 50, c2[1] + 50, c2[2] + 50);
 
-        elem.style.backgroundImage = "linear-gradient(90deg, #F0F0F0 80%, " + cc + ")";
+        elem.style.backgroundImage = "linear-gradient(90deg, rgba(0,0,0,0) 80%, " + cc + ")";
         elem.className = "namecard";
         elem.tabIndex = 1;
         elem.onclick = function () {
@@ -414,7 +445,7 @@ window.onload = function () {
 
                     doc.children[0].src = self.src;
                     doc.children[1].children[0].value = 1;
-                    doc.children[2].src = "resources/" + val.weapon + ".png";
+                    doc.children[3].src = "resources/" + val.weapon + ".png";
 
                     currentTeam[team - 1] = val;
                     currentLevel[team - 1] = 1;
@@ -431,12 +462,17 @@ window.onload = function () {
         img.className = "image";
 
         if (val.alias == null) img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
+        else if (el=="Traveler") img.src = "./resources/traveler.png";
         else img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
 
         // Weapon URL Base: https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_*.png
 
         let elem2 = document.createElement("p"); // Name
         elem2.className = "name";
+        elem2.style.width = "100px";
+        if(textWidth(el, "16px Genshin") > 100){
+            elem2.style.marginTop = "8px";
+        }
         elem2.innerHTML = el;
 
         if (val.element != null) {
@@ -462,7 +498,96 @@ window.onload = function () {
         scrollpane.appendChild(elem);
     }
 
+    charFind.addEventListener("input", () => {
+        let i = 0;
+        for (const [el, val] of Object.entries(characters)) {
+            if(el.toLowerCase().includes(charFind.value.toLowerCase())){
+                scrollpane.children[i].style.display = "block";
+            } else {
+                scrollpane.children[i].style.display = "none";
+            }
+            i++;
+        }
+    });
+
+    weapFind.addEventListener("input", () => {
+        let i = 0;
+        for (const [el, val] of Object.entries(weapons)) {
+            if(el.toLowerCase().includes(weapFind.value.toLowerCase())){
+                weapScrollpane.children[i].style.display = "block";
+            } else {
+                weapScrollpane.children[i].style.display = "none";
+            }
+            i++;
+        }
+    });
+
+    for (const [el, val] of Object.entries(weapons)) {
+        let elem = document.createElement("div"); // Character namecard container
+        let c = rgb(st[val.stars-1][0]);
+        let c2 = rgb(st[val.stars-1][1]);
+        cc = hex(c[0] + 50, c[1] + 50, c[2] + 50) + ", " + hex(c2[0] + 50, c2[1] + 50, c2[2] + 50);
+
+        elem.style.backgroundImage = "linear-gradient(90deg, rgba(0,0,0,0) 80%, " + cc + ")";
+        elem.className = "namecard";
+        elem.style.width = "330px";
+        elem.tabIndex = 1;
+        /*elem.onclick = function () {
+            if (team != 0) {
+                if (!currentTeam.includes(val)) {
+                    let doc = document.getElementById("team" + team);
+                    let self = event.currentTarget.children[0];
+
+                    doc.children[0].src = self.src;
+                    doc.children[1].children[0].value = 1;
+                    doc.children[3].src = "resources/" + val.weapon + ".png";
+
+                    currentTeam[team - 1] = val;
+                    currentLevel[team - 1] = 1;
+
+                    if (team < 4 && currentTeam[team] == null) {
+                        team++;
+                        document.getElementById("team" + team).focus();
+                    } else team = 0;
+                } else document.getElementById("team" + team).focus();
+            }
+        }*/
+
+        let img = document.createElement("img"); // Weapon image
+        img.className = "image";
+
+        img.src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+
+        let elem2 = document.createElement("p"); // Name
+        elem2.className = "name";
+        elem2.style.width = "160px";
+        elem2.style.marginTop = "14spx";
+        if(textWidth(el, "16px Genshin") > 160){
+            elem2.style.marginTop = "7px";
+        }
+        elem2.innerHTML = el;
+
+        elem.appendChild(img);
+        elem.appendChild(elem2);
+
+        let contDiv = document.createElement("div");
+        contDiv.style.float = "right";
+        contDiv.style.marginRight = "10px";
+
+        for(let s = 0; s < val.stars; s++){
+            let elem2 = document.createElement("img");
+            elem2.className = "star";
+            elem2.src = "./resources/star.png"
+            contDiv.appendChild(elem2);
+        }
+
+        elem.appendChild(contDiv);
+
+        weapScrollpane.appendChild(elem);
+    }
+
     let teamcontcont = document.getElementById("teamcontcont");
+    let weapCont = document.getElementById("weapcont");
 
     for (let i = 1; i < 5; i++) {
         let teamcont = document.createElement("div");
@@ -486,14 +611,28 @@ window.onload = function () {
         pt.className = "teamname";
         pt.innerHTML = "Lv.";
 
+        let sel = document.createElement("input");
+        sel.disabled = true;
+
+        sel.addEventListener('change', (event) => {
+            ascensions[i - 1] = event.currentTarget.checked;
+        });
+
         let pti = document.createElement("input");
         pti.className = "levelinput";
         pti.id = "input" + i;
         pti.type = "number";
         pti.addEventListener("input", () => {
+            sel.checked = false;
+            sel.disabled = true;
+            ascensions[i - 1] = false;
+
             if (pti.value.length > 2) {
                 pti.value = pti.value.slice(0, 2);
             }
+
+            if(pti.value == 20 || pti.value == 40 || pti.value == 50 || pti.value == 60 || pti.value == 70 || pti.value == 80) sel.disabled = false;
+
             currentLevel[i - 1] = pti.value;
         });
 
@@ -509,6 +648,10 @@ window.onload = function () {
         });
 
         pti.value = "0";
+
+        sel.id = "sel" + i;
+        sel.type = "checkbox";
+        sel.className = "check";
 
         let im2 = document.createElement("img");
         im2.className = "weapon";
@@ -529,10 +672,22 @@ window.onload = function () {
         pt.appendChild(pti);
         teamcard.appendChild(im);
         teamcard.appendChild(pt);
+        teamcard.appendChild(sel);
         teamcard.appendChild(im2);
         teamcont.appendChild(teamremove);
         teamcont.appendChild(teamcard);
         teamcontcont.appendChild(teamcont);
+
+        let imW = document.createElement("img");
+        imW.title = "Select Weapon";
+        imW.src = "./resources/weapons/dull_blade.png";
+        imW.className = "weapImg";
+
+        imW.onclick = () => {
+            document.getElementById("weap-popup-cover").style.display = "flex";
+        }
+
+        weapCont.appendChild(imW);
     }
 
     let popup = document.getElementById("popup-cover");
@@ -558,8 +713,8 @@ window.onload = function () {
         let exp_need = 0;
         for (let i = 1; i < 5; i++) {
             if (currentTeam[i - 1] == null) continue;
-            let maxTier = getTier(targetLevel);
-            let minTier = getTier(currentLevel[i - 1]);
+            let maxTier = getTier(targetLevel)-(1-ascensionTeam);
+            let minTier = getTier(currentLevel[i - 1])-(1-ascensions[i - 1]);
 
             if (maxTier == NaN) continue;
             if (minTier == NaN) continue;
@@ -683,13 +838,11 @@ window.onload = function () {
 
     downBut.onclick = event => {
         if (text != "") {
-            console.log(popup);
             popup.style.display = "flex";
         }
     }
 
     cancBut.onclick = event => {
-        console.log(popup);
         popup.style.display = "none";
     }
 

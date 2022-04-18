@@ -13,6 +13,8 @@
 }
 
 p {
+    user-select: none;
+
     font-family: "Genshin";
 }
 
@@ -35,9 +37,13 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+#optImg{
+    image-rendering: -webkit-optimize-contrast;
+}
+
 #scroll {
     width: 315px;
-    height: calc(97vh - 60px);
+    height: calc(97vh - 85px);
 }
 
 .specialScroll::-webkit-scrollbar {
@@ -85,7 +91,7 @@ input[type=number] {
 
     user-select: none;
 
-    transition: background 300ms;
+    transition: 300ms;
 }
 
 .namecard:hover {
@@ -123,7 +129,7 @@ input[type=number] {
     border-radius: 50%;
 
     margin-right: -2px;
-    margin-top: 16px;
+    margin-top: 17px;
 
     height: 20px;
     width: 20px;
@@ -207,6 +213,8 @@ input[type=number] {
 }
 
 .teamimage {
+    image-rendering: -webkit-optimize-contrast;
+
     position: absolute;
     left: 0;
     top: 0;
@@ -232,12 +240,12 @@ input[type=number] {
 .teamname {
     position: absolute;
     left: 0;
-    top: 70px;
+    top: 69px;
 
     text-align: center;
 
     width: 90px;
-    height: 20px;
+    height: 21px;
 
     color: #303030;
     background: #F0F0F0;
@@ -262,6 +270,40 @@ input[type=number] {
 
     text-align: center;
     background: #FEFEFE;
+}
+
+#charFind {
+    border: none;
+
+    border-radius: 5px;
+
+    text-align: left;
+    background: #FEFEFE;
+
+    width: 285px;
+    height: 25px;
+
+    padding-left: 10px;
+
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+#weapFind {
+    border: none;
+
+    border-radius: 5px;
+
+    text-align: left;
+    background: #FEFEFE;
+
+    width: 320px;
+    height: 25px;
+
+    padding-left: 10px;
+
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 #targetinput {
@@ -379,6 +421,10 @@ input[type=number] {
     #scroll {
         width: 95px;
     }
+
+    #charFind {
+        width: 80px;
+    }
 }
 
 .submBut {
@@ -414,6 +460,83 @@ input[type=number] {
     animation: fadeIn 0.3s;
 }
 
+#weap-popup-cover {
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
+}
+
 #charmat {
     transition: all 0.2s ease;
+}
+
+.weapImg {
+    width: 60px;
+    height: 60px;
+
+    background-color: #DEDEDE;
+
+    margin-right: 40px;
+
+    border-radius: 30%;
+
+    transition: 300ms;
+}
+
+.weapImg:hover {
+    background-color: #CECECE;
+}
+
+.weapImg:active {
+    background-color: #BEBEBE;
+    transition: 50ms;
+}
+
+.weapImg:last-child {
+    margin-right: 0;
+}
+
+.weapImg2 {
+    width: 80px;
+    height: 80px;
+
+    border: 3px solid #AEAEAE;
+
+    background-color: #CECECE;
+
+    border-radius: 30%;
+}
+
+
+.check {
+    position: absolute;
+    left: 70px;
+    top: 88px;
+
+    margin: 0;
+    padding: 0;
+
+    height: 13px;
+}
+
+.acdecButton {
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: #CECECE;
+
+    height: 30px;
+    width: 75px;
+
+    transition: 300ms;
+}
+
+.acdecButton:hover {
+    background-color: #BEBEBE;
+}
+
+.acdecButton:active {
+    background-color: #AEAEAE;
+
+    transition: 50ms;
 }
