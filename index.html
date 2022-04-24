@@ -34,21 +34,20 @@
 				<p style="margin-left: 10px;">Weapon selection</p>
 
 				<div style="display: flex; flex-direction: row;">
-					<div style="width: 345px;">
+					<div style="display: flex; flex-direction:  column; width: 345px; height: 300px;">
 						<input type="text" id="weapFind" placeholder="Find weapon by name">
-						<div style="height: 280px; width: 345px; overflow-y: auto; overflow-x: hidden; float: left; z-index: 1; flex-shrink: 0;" id="weapScroll" class="specialScroll"></div>
+						<div style="overflow-y: auto; overflow-x: hidden; float: left;" id="weapScroll" class="specialScroll"></div>
 					</div>
 					<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; margin-right: 5px; margin-left: 5px;">
 						<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center;">
-							<img alt="Selected weapon" src="./resources/weapons/dull_blade.png" class="weapImg2" id="weapSelect">
+							<img alt="Selected weapon" src="./resources/weapons/Dull_Blade.png" class="weapImg2" id="weapSelect">
 							<p style="text-align: center; word-break: break-word; padding: 5px; padding-top: 0px; font-size: 13px;" id="weapName">Dull Blade</p>
-							<p style="text-align: center; font-size: 15px;">Level: <input type="number" value=1 class="levelinput" id="weapInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscension"></p>
-							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" value=20 class="levelinput" id="weapTarInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscensionTar"></p>
+							<p style="text-align: center; font-size: 15px;">Level: <input type="number" value=1 class="levelinput" id="weapInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscension" value=1 disabled></p>
+							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" value=20 class="levelinput" id="weapTarInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapTarAscension" value=1 disabled></p>
 						</div>
 						<div style="flex-grow: 1; user-select: none;">&nbsp;</div>
 						<div>
-							<input type="button" value="Exit" class="acdecButton" id="weapExit">
-							<input type="button" value="Accept" class="acdecButton" id="weapAccept">
+							<input type="button" value="Close" class="acdecButton" id="weapAccept">
 						</div>
 					</div>
 				</div>
@@ -82,9 +81,9 @@
 								<div id="charmat" style="width: calc(100vw - 390px);">
 									<p class="material">-</p>
 								</div>
-								<p class="materialTitle" style="text-align: center; width: fill; color: #A6A6A6;">Weapon level-up materials:</p>
+								<p class="materialTitle" style="text-align: center; width: fill;">Weapon level-up materials:</p>
 								<div id="weapmat" style="width: calc(100vw - 390px);">
-									<p class="material" style="color: #A6A6A6;">Not supported yet.</p>
+									<p class="material">-</p>
 								</div>
 							</div>
 							<img title="Download as PDF" tabindex="1" style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/download.png" id="down">

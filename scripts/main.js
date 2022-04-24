@@ -334,13 +334,18 @@ let weapons = {
 
 let team = 0,
     currentTeam = [null, null, null, null],
-    currentWeapons = [null, null, null, null],
     currentLevel = [1, 1, 1, 1],
-    currentWeaponLevel = [1, 1, 1, 1],
     ascensions = [false, false, false, false],
-    weaponAscensions = [false, false, false, false],
     ascensionTeam = false,
     targetLevel = 20,
+
+    weaponChoice = 0,
+    currentWeapons = [null, null, null, null],
+    currentWeaponLevel = [1, 1, 1, 1],
+    currentWeaponTargetLevel = [1, 1, 1, 1],
+    currentWeaponAscensions = [false, false, false, false],
+    currentWeaponTargetAscensions = [false, false, false, false],
+
     text = "";
 
 function getTier(target) {
@@ -396,6 +401,11 @@ function textWidth(text, fontProp) {
     return result;
 }
 
+
+function isAscension(level) {
+    return level == 20 || level == 40 || level == 50 || level == 60 || level == 70 || level == 80;
+}
+
 window.onload = function () {
     document.getElementById("error").style.display = "none";
 
@@ -412,10 +422,16 @@ window.onload = function () {
     let downInp = document.getElementById("downinput");
     let cancBut = document.getElementById("cancBut");
     let matCont = document.getElementById("charmat");
-    let weapExit = document.getElementById("weapExit");
-    let weapAccept = document.getElementById("weapAccept");
     let teamcontcont = document.getElementById("teamcontcont");
+    let weapAccept = document.getElementById("weapAccept");
     let weapCont = document.getElementById("weapcont");
+    let weapPopup = document.getElementById("weap-popup-cover");
+    let weapSelect = document.getElementById("weapSelect");
+    let weapName = document.getElementById("weapName");
+    let weapInput = document.getElementById("weapInput");
+    let weapAscension = document.getElementById("weapAscension");
+    let weapTarInput = document.getElementById("weapTarInput");
+    let weapTarAscension = document.getElementById("weapTarAscension");
 
     asc.addEventListener('change', (event) => {
         ascensionTeam = event.currentTarget.checked;
@@ -428,7 +444,7 @@ window.onload = function () {
             trg.value = trg.value.slice(0, 2);
         }
 
-        if(trg.value == 20 || trg.value == 40 || trg.value == 50 || trg.value == 60 || trg.value == 70 || trg.value == 80) asc.disabled = false;
+        if(isAscension(trg.value)) asc.disabled = false;
 
         targetLevel = trg.value;
     });
@@ -453,6 +469,10 @@ window.onload = function () {
                 if (!currentTeam.includes(val)) {
                     let doc = document.getElementById("team" + team);
                     let self = event.currentTarget.children[0];
+
+                    let selB = document.getElementById("sel" + team);
+                    selB.disabled = true;
+                    selB.checked = false;
 
                     doc.children[0].src = self.src;
                     doc.children[1].children[0].value = 1;
@@ -543,26 +563,14 @@ window.onload = function () {
         elem.className = "namecard";
         elem.style.width = "330px";
         elem.tabIndex = 1;
-        /*elem.onclick = function () {
-            if (team != 0) {
-                if (!currentTeam.includes(val)) {
-                    let doc = document.getElementById("team" + team);
-                    let self = event.currentTarget.children[0];
+        elem.onclick = function () {
+            if (weaponChoice != 0) {
+                currentWeapons[weaponChoice - 1] = val;
 
-                    doc.children[0].src = self.src;
-                    doc.children[1].children[0].value = 1;
-                    doc.children[3].src = "resources/" + val.weapon + ".png";
-
-                    currentTeam[team - 1] = val;
-                    currentLevel[team - 1] = 1;
-
-                    if (team < 4 && currentTeam[team] == null) {
-                        team++;
-                        document.getElementById("team" + team).focus();
-                    } else team = 0;
-                } else document.getElementById("team" + team).focus();
+                document.getElementById("weapImg" + weaponChoice).src = weapSelect.src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+                weapName.innerHTML = el;
             }
-        }*/
+        }
 
         let img = document.createElement("img"); // Weapon image
         img.className = "image";
@@ -639,7 +647,7 @@ window.onload = function () {
                 pti.value = pti.value.slice(0, 2);
             }
 
-            if(pti.value == 20 || pti.value == 40 || pti.value == 50 || pti.value == 60 || pti.value == 70 || pti.value == 80) sel.disabled = false;
+            if(isAscension(pti.value)) sel.disabled = false;
 
             currentLevel[i - 1] = pti.value;
         });
@@ -690,19 +698,64 @@ window.onload = function () {
         imW.title = "Select Weapon";
         imW.src = "./resources/weapons/Dull_Blade.png";
         imW.className = "weapImg";
+        imW.id = "weapImg" + i;
 
-        imW.onclick = () => {
-            document.getElementById("weap-popup-cover").style.display = "flex";
+        imW.onclick = event => {
+            weaponChoice = i;
+
+            weapAscension.disabled = !currentWeaponAscensions[i - 1];
+            weapTarAscension.disabled = !currentWeaponTargetAscensions[i - 1];
+            weapSelect.src = imW.src;
+            weapName.innerHTML = imW.src.split("/").slice(-1).toString().replaceAll("_", " ").replaceAll(".png", "");
+            weapInput.value = currentWeaponLevel[i - 1];
+            weapTarInput.value = currentWeaponTargetLevel[i - 1];
+            weapAscension.checked = currentWeaponAscensions[i - 1];
+            weapTarAscension.checked = currentWeaponTargetAscensions[i - 1];
+            if(weapName.innerHTML == "The Catch") weapName.innerHTML = '"The Catch"';
+            weapPopup.style.display = "flex";
+            weapScrollpane.scrollTo(0, 0);
         }
 
         weapCont.appendChild(imW);
     }
 
-    calcBut.onclick = event => {
-        /*let o_h = matCont.style.height;
-        matCont.style.height = "0";
-        matCont.style.transform = "translate(0, -50%) scale(1, 0)";*/
+    weapInput.addEventListener('input', (event) => {
+        weapAscension.checked = false;
+        weapAscension.disabled = true;
+        currentWeaponAscensions[weaponChoice - 1] = false;
 
+        if (weapInput.value.length > 2) {
+            weapInput.value = weapInput.value.slice(0, 2);
+        }
+
+        if(isAscension(weapInput.value)) weapAscension.disabled = false;
+
+        currentWeaponLevel[weaponChoice - 1] = weapInput.value;
+    });
+
+    weapTarInput.addEventListener('input', (event) => {
+        weapTarAscension.checked = false;
+        weapTarAscension.disabled = true;
+        currentWeaponTargetAscensions[weaponChoice - 1] = false;
+
+        if (weapTarInput.value.length > 2) {
+            weapTarInput.value = weapTarInput.value.slice(0, 2);
+        }
+
+        if(isAscension(weapTarInput.value)) weapTarAscension.disabled = false;
+
+        currentWeaponTargetLevel[weaponChoice - 1] = weapTarInput.value;
+    });
+
+    weapAscension.addEventListener('change', (event) => {
+        currentWeaponAscensions[weaponChoice - 1] = weapAscension.checked;
+    });
+
+    weapTarAscension.addEventListener('change', (event) => {
+        currentWeaponTargetAscensions[weaponChoice - 1] = weapTarAscension.checked;
+    });
+
+    calcBut.onclick = event => {
         let done = false;
         let matDict = {};
 
@@ -713,8 +766,9 @@ window.onload = function () {
         let exp_need = 0;
         for (let i = 1; i < 5; i++) {
             if (currentTeam[i - 1] == null) continue;
-            let maxTier = getTier(targetLevel)-(1-ascensionTeam);
-            let minTier = getTier(currentLevel[i - 1])-(1-ascensions[i - 1]);
+
+            let maxTier = getTier(targetLevel)-((1-ascensionTeam)*isAscension(targetLevel));
+            let minTier = getTier(currentLevel[i - 1])-((1-ascensions[i - 1])*isAscension(currentLevel[i - 1]));
 
             if (maxTier == NaN) continue;
             if (minTier == NaN) continue;
@@ -779,7 +833,7 @@ window.onload = function () {
             addMaterialElement(matCont, "­");
         }
 
-        if (!done) {
+        if (exp_need == 0 && !done) {
             let pp = document.createElement("p");
             pp.className = "material";
             pp.innerHTML = "-";
@@ -829,11 +883,6 @@ window.onload = function () {
                 preV = vv[0];
             }
         }
-
-        /*setTimeout(() => {
-            matCont.style.height = o_h;
-            matCont.style.transform = "translate(0%, 0%) scale(1, 1)";
-        }, 150);*/
     };
 
     downBut.onclick = event => {
@@ -844,6 +893,11 @@ window.onload = function () {
 
     cancBut.onclick = event => {
         popup.style.display = "none";
+    }
+
+    weapAccept.onclick = event => {
+        weaponChoice = 0;
+        weapPopup.style.display = "none";
     }
 
     downBut2.onclick = event => {

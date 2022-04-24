@@ -300,6 +300,8 @@ input[type=number] {
     width: 320px;
     height: 25px;
 
+    flex-shrink: 0;
+
     padding-left: 10px;
 
     margin-left: 5px;
@@ -466,7 +468,8 @@ input[type=number] {
 }
 
 #charmat {
-    transition: all 0.2s ease;
+    max-height: 120vh;
+    transition: max-height 2s ease;
 }
 
 .weapImg {
@@ -526,7 +529,7 @@ input[type=number] {
     background-color: #CECECE;
 
     height: 30px;
-    width: 75px;
+    width: 90px;
 
     transition: 300ms;
 }
