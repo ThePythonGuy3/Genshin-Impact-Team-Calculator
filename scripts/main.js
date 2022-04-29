@@ -33,7 +33,7 @@ let weapon = class {
         this.stars = stars;
     }
 
-    static getDrop = function (stage) {
+    getDrop = function (stage) {
         let table = weap_mat_amount[this.stars - 1];
         let o = table[0][stage];
         let o_t = [this.one[o[0] - 1], o[1]];
@@ -47,6 +47,7 @@ let weapon = class {
 }
 
 let sort_list = ["Enemy Drops", "Local Items", "Gems", "Boss Drops"];
+let weap_sort_list = ["Domain Materials", "Elite Enemy Drops", "Enemy Drops"];
 let char_mat_amount = [
     [[1, 3], [1, 15], [2, 12], [2, 18], [3, 12], [3, 24]],    // Enemy Drops [tier, amount]
     [3, 10, 20, 30, 45, 60],         // Local Items
@@ -56,35 +57,34 @@ let char_mat_amount = [
 
 let weap_mat_amount = [
     [ // 1 Star
-        [[1, 1], [1, 2], [2, 2], [2, 3]],                     // Material 1 [tier, amount]
+        [[1, 1], [2, 1], [2, 2], [3, 1]],                      // Domain Material [tier, amount]
         [[1, 1], [1, 4], [2, 2], [2, 4]],                     // Material 2 [tier, amount]
-        [[1, 1], [2, 1], [2, 2], [3, 1]]                      // Domain Material [tier, amount]
+        [[1, 1], [1, 2], [2, 2], [2, 3]]                     // Material 1 [tier, amount]
     ],
     [ // 2 Stars
-        [[1, 1], [1, 4], [2, 3], [2, 4]],
+        [[1, 1], [2, 1], [2, 3], [3, 1]],
         [[1, 1], [1, 5], [2, 3], [2, 5]],
-        [[1, 1], [2, 1], [2, 3], [3, 1]]
+        [[1, 1], [1, 4], [2, 3], [2, 4]]
     ],
     [ // 3 Stars
-        [[1, 1], [1, 5], [2, 4], [2, 6], [3, 4], [3, 8]],
+        [[1, 2], [2, 2], [2, 4], [3, 2], [3, 4], [4, 3]],
         [[1, 2], [1, 8], [2, 4], [2, 8], [3, 6], [3, 12]],
-        [[1, 2], [2, 2], [2, 4], [3, 2], [3, 4], [4, 3]]
+        [[1, 1], [1, 5], [2, 4], [2, 6], [3, 4], [3, 8]]
     ],
     [ // 4 Stars
-        [[1, 2], [1, 8], [2, 6], [2, 9], [3, 6], [3, 12]],
+        [[1, 3], [2, 3], [2, 6], [3, 3], [3, 6], [4, 4]],
         [[1, 3], [1, 12], [2, 6], [2, 12], [3, 9], [3, 18]],
-        [[1, 3], [2, 3], [2, 6], [3, 3], [3, 6], [4, 4]]
+        [[1, 2], [1, 8], [2, 6], [2, 9], [3, 6], [3, 12]]
     ],
     [ // 5 Stars
-        [[1, 3], [1, 12], [2, 9], [2, 14], [3, 9], [3, 18]],
+        [[1, 5], [2, 5], [2, 9], [3, 5], [3, 9], [4, 6]],
         [[1, 5], [1, 18], [2, 9], [2, 18], [3, 14], [3, 27]],
-        [[1, 5], [2, 5], [2, 9], [3, 5], [3, 9], [4, 6]]
+        [[1, 3], [1, 12], [2, 9], [2, 14], [3, 9], [3, 18]]
     ]
 ]; // weap_mat_amount[weap_stars][mat_type][ascension_level]
 
 // Exp amount per book/crystal
 let books_exp = [1000, 5000, 20000];
-let crystals_exp = [400, 2000, 10000];
 
 // Enemy Drops:
 let knife = ["Hunter's Sacrificial Knife", "Agent's Sacrificial Knife", "Inspector's Sacrificial Knife"],
@@ -340,7 +340,7 @@ let team = 0,
     targetLevel = 20,
 
     weaponChoice = 0,
-    currentWeapons = [null, null, null, null],
+    currentWeapons = [weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"]],
     currentWeaponLevel = [1, 1, 1, 1],
     currentWeaponTargetLevel = [1, 1, 1, 1],
     currentWeaponAscensions = [false, false, false, false],
@@ -422,6 +422,7 @@ window.onload = function () {
     let downInp = document.getElementById("downinput");
     let cancBut = document.getElementById("cancBut");
     let matCont = document.getElementById("charmat");
+    let weapMatCont = document.getElementById("weapmat");
     let teamcontcont = document.getElementById("teamcontcont");
     let weapAccept = document.getElementById("weapAccept");
     let weapCont = document.getElementById("weapcont");
@@ -703,8 +704,10 @@ window.onload = function () {
         imW.onclick = event => {
             weaponChoice = i;
 
-            weapAscension.disabled = !currentWeaponAscensions[i - 1];
-            weapTarAscension.disabled = !currentWeaponTargetAscensions[i - 1];
+            weapAscension.checked = !currentWeaponAscensions[i - 1];
+            weapTarAscension.checked = !currentWeaponTargetAscensions[i - 1];
+            weapAscension.disabled = !isAscension(currentWeaponLevel[i - 1]);
+            weapTarAscension.disabled = !isAscension(currentWeaponTargetLevel[i - 1]);
             weapSelect.src = imW.src;
             weapName.innerHTML = imW.src.split("/").slice(-1).toString().replaceAll("_", " ").replaceAll(".png", "");
             weapInput.value = currentWeaponLevel[i - 1];
@@ -756,8 +759,11 @@ window.onload = function () {
     });
 
     calcBut.onclick = event => {
+        // Characters
+
         let done = false;
         let matDict = {};
+        text = "--{Character level-up Materials}--\n\n";
 
         while (matCont.firstChild) {
             matCont.removeChild(matCont.lastChild);
@@ -798,14 +804,12 @@ window.onload = function () {
             }
         }
 
-        text = "";
-
         if (exp_need != 0) {
             let big = Math.floor(exp_need / books_exp[2]);
             let medium = Math.floor((exp_need - (big * books_exp[2])) / books_exp[1]);
             let small = Math.ceil((exp_need - (big * books_exp[2]) - (medium * books_exp[1])) / books_exp[0]);
 
-            text = "---EXP Books---\n";
+            text += "---EXP Books---\n";
             addMaterialElement(matCont, "---EXP Books---");
 
             if (big != 0) {
@@ -883,9 +887,101 @@ window.onload = function () {
                 preV = vv[0];
             }
         }
-    };
+
+        // Weapons
+        done = false;
+        matDict = {};
+
+        text += "\n\n--{Weapon level-up Materials}--\n\n";
+
+        while (weapMatCont.firstChild) {
+            weapMatCont.removeChild(weapMatCont.lastChild);
+        }
+
+        for (let i = 1; i < 5; i++) {
+            if (currentWeapons[i - 1] == null) continue;
+
+            let maxTier = getTier(currentWeaponTargetLevel[i - 1])-((1-currentWeaponTargetAscensions[i - 1])*isAscension(currentWeaponTargetLevel[i - 1]));
+            let minTier = getTier(currentWeaponLevel[i - 1])-((1- currentWeaponAscensions[i - 1])*isAscension(currentWeaponLevel[i - 1]));
+
+            if (maxTier == NaN) continue;
+            if (minTier == NaN) continue;
+
+            if (maxTier == 0) continue;
+
+            for (let p = minTier + 1; p <= maxTier; p++) {
+                if (p == 0) continue;
+
+                let mat = currentWeapons[i - 1].getDrop(p - 1);
+
+                for (let j = 0; j < mat.length; j++) {
+                    if (parseInt(mat[j][1]) == 0) continue;
+                    let vv = weap_sort_list[j] + "^" + mat[j][0];
+                    if (vv in matDict) {
+                        matDict[vv] += parseInt(mat[j][1])
+                    } else {
+                        matDict[vv] = parseInt(mat[j][1])
+                    }
+
+                    done = true;
+                }
+            }
+        }
+
+        if (!done) {
+            let pp = document.createElement("p");
+            pp.className = "material";
+            pp.innerHTML = "-";
+
+            weapMatCont.appendChild(pp);
+        } else {
+            let newMatDict = {};
+
+            let items = Object.keys(matDict).map(function (key) {
+                return [key, matDict[key]];
+            });
+            items.sort(function (first, second) {
+                let ind1 = first[0].split("^")[0];
+                let ind2 = second[0].split("^")[0];
+                return weap_sort_list.indexOf(ind1) - weap_sort_list.indexOf(ind2);
+            });
+
+            for (let elem_l of items) {
+                newMatDict[elem_l[0]] = elem_l[1];
+            }
+
+            let preV = null;
+            for (const [key, value] of Object.entries(newMatDict)) {
+                let pp = document.createElement("p");
+                let vv = key.split("^");
+                pp.className = "material";
+                let txt = vv[1] + " x" + value;
+                pp.innerHTML = txt;
+
+
+                if (preV != vv[0]) {
+                    let pp2 = document.createElement("p");
+                    pp2.className = "material";
+
+                    let iD = "---";
+                    if (preV != null) iD = "­<br>---";
+
+                    let txt = iD + vv[0] + "---"
+                    pp2.innerHTML = txt;
+
+                    text += txt.replace("<br>", "\n").replace("­", "") + "\n";
+                    weapMatCont.appendChild(pp2);
+                }
+
+                text += txt + "\n";
+                weapMatCont.appendChild(pp);
+                preV = vv[0];
+            }
+        }
+    }
 
     downBut.onclick = event => {
+        console.log(text);
         if (text != "") {
             popup.style.display = "flex";
         }
