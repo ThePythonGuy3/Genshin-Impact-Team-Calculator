@@ -981,7 +981,6 @@ window.onload = function () {
     }
 
     downBut.onclick = event => {
-        console.log(text);
         if (text != "") {
             popup.style.display = "flex";
         }

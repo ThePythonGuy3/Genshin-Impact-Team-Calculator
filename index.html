@@ -60,11 +60,11 @@
 		</div>
 		<div style="position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -2; background: #FBFAFF; padding: 10px;">
 			<div style="display: flex; position: absolute; left: 0; top: 67px;">
-				<div style="width: 330px;">
+				<div style="width: 310px;" id="shrink">
 					<input type="text" id="charFind" placeholder="Find character by name">
 					<div style="overflow-y: auto; overflow-x: hidden; margin-left: 10px; float: left; z-index: 1;" id="scroll" class="specialScroll"></div> <!-- Character container -->
 				</div>
-				<div style="display: flex; flex-grow: 1; flex-direction: column; justify-content: center; margin-left: 25px;">
+				<div style="display: flex; flex-grow: 1; flex-direction: column; justify-content: center; margin-left: 25px; width: calc(100vw - 360px); flex-shrink: 0; padding-left: 10px; padding-right: 10px;" id="grow">
 					<div style="display: flex; justify-content: center; height: 130px; align-items: center;" id="teamcontcont">
 					</div> <!-- Team container -->
 					<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;" id="weapcont">
@@ -75,14 +75,14 @@
 						<p title="Calculate" tabindex="1" style="border-radius: 10px; margin: 2px; width: 90px; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; margin-left: 10px; margin-top: 10px;" class="click-out" id="calc">Calculate</p>
 					</div>
 					<div style="display: flex; flex-grow: 1; justify-content: center; align-items: center; flex-direction: column;">
-						<div style="display: flex; align-content: center; flex-direction: column; background-color: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: fill; height: calc(100vh - 330px); position: relative; margin-right: 10px;">
+						<div style="display: flex; align-content: center; flex-direction: column; background-color: #F0F0F0; border-radius: 10px; border: 2px solid #E0E0E0; width: calc(100vw - 390px); height: calc(100vh - 330px); position: relative;" id="matContainer">
 							<div class="specialScroll" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 270px);">
-								<p class="materialTitle" style="text-align: center; width: fill;">Character level-up materials:</p>
-								<div id="charmat" style="width: calc(100vw - 390px);">
+								<p class="materialTitle" style="text-align: center; width: 100%;">Character level-up materials:</p>
+								<div id="charmat" style="width: 100%">
 									<p class="material">-</p>
 								</div>
-								<p class="materialTitle" style="text-align: center; width: fill;">Weapon level-up materials:</p>
-								<div id="weapmat" style="width: calc(100vw - 390px);">
+								<p class="materialTitle" style="text-align: center; width: 100%;">Weapon level-up materials:</p>
+								<div id="weapmat" style="width: 100%">
 									<p class="material">-</p>
 								</div>
 							</div>
@@ -96,9 +96,12 @@
 				</div> <!-- Loading screen -->
 
 				<div id="error" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
-					<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">JavaScript not enabled.</p>
-					<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Please enable JavaScript to use this tool.</p>
+					<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">JavaScript not enabled.<br><br>Please enable JavaScript to use this tool.</p>
 				</div> <!-- JavaScript disabled message -->
+
+				<div id="unusable" style="display: none; width: 100vw; height: 100vh; z-index: 10000; position: absolute; left: 0; top: 0; background: #FEFEFE;">
+					<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">The width of your display is too small,<br>this tool does not work properly at this viewport size.<br><br>Please rotate your device or use another one.<br>Sorry for any trouble this might cause.<br><br>(Keep in mind it is not optimized for mobile devices)</p>
+				</div> <!-- Width too small message -->
 			</div>
 		</div>
 	</body>

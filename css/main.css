@@ -352,7 +352,7 @@ input[type=number] {
 }
 
 .materialTitle {
-    width: calc(100vw - 390px);
+    width: 100%;
 
     text-align: center;
 
@@ -362,7 +362,7 @@ input[type=number] {
 }
 
 .material {
-    width: calc(100vw - 390px);
+    width: 100%;
 
     text-align: center;
 
@@ -411,23 +411,6 @@ input[type=number] {
     transition: 50ms;
 }
 
-@media (max-width: 750px) {
-    .name {
-        display: none;
-    }
-
-    .namecard {
-        width: 80px;
-    }
-
-    #scroll {
-        width: 95px;
-    }
-
-    #charFind {
-        width: 80px;
-    }
-}
 
 .submBut {
     background-color: #D0D0D0;
@@ -542,4 +525,42 @@ input[type=number] {
     background-color: #AEAEAE;
 
     transition: 50ms;
+}
+
+
+@media (max-width: 770px) {
+    .name {
+        display: none;
+    }
+
+    .namecard {
+        width: 80px;
+    }
+
+    #scroll {
+        width: 95px;
+    }
+
+    #shrink {
+        width: 110px !important;
+    }
+
+    #grow {
+        width: calc(100vw - 160px) !important;
+    }
+
+    #charFind {
+        width: 85px;
+    }
+
+    #matContainer {
+        width: 400px !important;
+    }
+}
+
+
+@media (max-width: 580px) {
+    #unusable {
+        display: block !important;
+    }
 }
