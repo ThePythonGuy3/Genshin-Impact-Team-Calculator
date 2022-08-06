@@ -1,3 +1,5 @@
+//import { saveAs } from 'file-saver';
+
 let character = class {
     constructor(weapon, enemy, local, gems, boss, element, stars, alias) {
         this.weapon = weapon;
@@ -26,7 +28,8 @@ let character = class {
 }
 
 let weapon = class {
-    constructor(one, two, domain, stars) {
+    constructor(typ, one, two, domain, stars) {
+        this.typ = typ
         this.one = one;
         this.two = two;
         this.domain = domain;
@@ -170,6 +173,7 @@ let characters = {
     "Kamisato Ayato": new character("sword", handguard, "Sakura Bloom", varunada, "Dew of Repudiation", hydro, 5, "Ayato"),
     "Keqing": new character("sword", nectar, "Cor Lapis", vajrada, "Lightning Prism", electro, 5),
     "Klee": new character("catalyst", scroll, "Philanemo Mushroom", agnidus, "Everflame Seed", pyro, 5),
+    "Kuki Shinobu": new character("sword", spectral, "Naku Weed", vajrada, "Runic Fang", electro, 4, "Shinobu"),
     "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, 4, "Sara"),
     "Lisa": new character("catalyst", slime, "Valberry", vajrada, "Lightning Prism", electro, 4),
     "Mona": new character("catalyst", nectar, "Philanemo Mushroom", varunada, "Cleansing Heart", hydro, 5),
@@ -182,6 +186,7 @@ let characters = {
     "Sangonomiya Kokomi": new character("catalyst", spectral, "Sango Pearl", varunada, "Dew of Repudiation", hydro, 5, "Kokomi"),
     "Sayu": new character("claymore", nectar, "Crystal Marrow", vayuda, "Marionette Core", anemo, 4),
     "Shenhe": new character("polearm", nectar, "Qingxin", shivada, "Dragonheir's False Fin", cryo, 5),
+    "Shikanoin Heizou": new character("catalyst", insignia_hoarder, "Onikabuto", vayuda, "Runic Fang", anemo, 4, "Heizo"),
     "Sucrose": new character("catalyst", nectar, "Windwheel Aster", vayuda, "Hurricane Seed", anemo, 4),
     "Tartaglia": new character("bow", insignia_fatui, "Starconch", varunada, "Cleansing Heart", hydro, 5),
     "Thoma": new character("polearm", insignia_hoarder, "Fluorescent Fungus", agnidus, "Smoldering Pearl", pyro, 4, "Tohma"),
@@ -193,143 +198,147 @@ let characters = {
     "Xinyan": new character("claymore", insignia_hoarder, "Violetgrass", agnidus, "Everflame Seed", pyro, 4),
     "Yae Miko": new character("catalyst", handguard, "Sea Ganoderma", vajrada, "Dragonheir's False Fin", electro, 5, "Yae"),
     "Yanfei": new character("catalyst", insignia_hoarder, "Noctilucous Jade", agnidus, "Juvenile Jade", pyro, 4, "Feiyan"),
+    "Yelan": new character("bow", insignia_fatui, "Starconch", varunada, "Runic Fang", hydro, 5),
     "Yoimiya": new character("bow", scroll, "Naku Weed", agnidus, "Smoldering Pearl", pyro, 5),
     "Yun Jin": new character("polearm", mask_boko, "Glaze Lily", prithiva, "Riftborn Regalia", geo, 4, "Yunjin"),
     "Zhongli": new character("polearm", slime, "Cor Lapis", prithiva, "Basalt Pillar", geo, 5)
 }
 
 let weapons = {
-    "\"The Catch\"": new weapon(mask, chaos_axis, spectral, 4),
-    "Akuoumaru": new weapon(coral, concealed, handguard, 4),
-    "Alley Hunter": new weapon(dandelion, chaos_circuit, slime, 4),
-    "Amenoma Kageuchi": new weapon(coral, chaos_axis, handguard, 4),
-    "Amos' Bow": new weapon(dandelion, chaos_circuit, slime, 5),
-    "Apprentice's Notes": new weapon(decarabian, horn, mask_boko, 1),
-    "Aquila Favonia": new weapon(decarabian, horn, arrowhead, 5),
-    "Beginner's Protector": new weapon(dandelion, chaos_circuit, scroll, 1),
-    "Black Tassel": new weapon(aerosiderite, bone, arrowhead, 3),
-    "Blackcliff Agate": new weapon(guyun, knife, scroll, 4),
-    "Blackcliff Longsword": new weapon(guyun, knife, arrowhead, 4),
-    "Blackcliff Pole": new weapon(mist_veiled, mist, insignia_fatui, 4),
-    "Blackcliff Slasher": new weapon(mist_veiled, mist, insignia_fatui, 4),
-    "Blackcliff Warbow": new weapon(guyun, knife, nectar, 4),
-    "Bloodtainted Greatsword": new weapon(wolf, ley_line, arrowhead, 3),
-    "Calamity Queller": new weapon(mist_veiled, mist, nectar, 5),
-    "Cinnabar Spindle": new weapon(decarabian, chaos_circuit, mask_boko, 4),
-    "Compound Bow": new weapon(aerosiderite, bone, insignia_fatui, 4),
-    "Cool Steel": new weapon(decarabian, horn, arrowhead, 3),
-    "Crescent Pike": new weapon(guyun, knife, insignia_hoarder, 4),
-    "Dark Iron Sword": new weapon(guyun, knife, mask_boko, 3),
-    "Deathmatch": new weapon(wolf, ley_line, nectar, 4),
-    "Debate Club": new weapon(mist_veiled, mist, mask_boko, 3),
-    "Dodoco Tales": new weapon(wolf, ley_line, mask_boko, 4),
-    "Dragon's Bane": new weapon(mist_veiled, mist, scroll, 4),
-    "Dragonspine Spear": new weapon(wolf, mist, insignia_fatui, 4),
-    "Dull Blade": new weapon(decarabian, horn, arrowhead, 1),
-    "Elegy for the End": new weapon(wolf, horn, insignia_fatui, 5),
-    "Emerald Orb": new weapon(guyun, knife, insignia_hoarder, 3),
-    "Engulfing Lightning": new weapon(mask, chaos_axis, handguard, 5),
-    "Everlasting Moonglow": new weapon(coral, prism, spectral, 5),
-    "Eye of Perception": new weapon(mist_veiled, mist, mask_boko, 4),
-    "Favonius Codex": new weapon(decarabian, horn, scroll, 4),
-    "Favonius Greatsword": new weapon(dandelion, chaos_circuit, insignia_fatui, 4),
-    "Favonius Lance": new weapon(dandelion, chaos_circuit, slime, 4),
-    "Favonius Sword": new weapon(decarabian, horn, arrowhead, 4),
-    "Favonius Warbow": new weapon(dandelion, chaos_circuit, nectar, 4),
-    "Ferrous Shadow": new weapon(decarabian, horn, nectar, 3),
-    "Festering Desire": new weapon(dandelion, horn, insignia_fatui, 4),
-    "Fillet Blade": new weapon(mist_veiled, mist, insignia_hoarder, 3),
-    "Freedom-Sworn": new weapon(dandelion, chaos_circuit, scroll, 5),
-    "Frostbearer": new weapon(dandelion, chaos_circuit, nectar, 4),
-    "Hakushin Ring": new weapon(coral, prism, scroll, 4),
-    "Halberd": new weapon(mist_veiled, mist, nectar, 3),
-    "Hamayumi": new weapon(narukami, prism, arrowhead, 4),
-    "Haran Geppaku Futsu": new weapon(narukami, statuette, handguard, 5),
-    "Harbinger of Dawn": new weapon(wolf, ley_line, slime, 3),
-    "Hunter's Bow": new weapon(wolf, ley_line, insignia_hoarder, 1),
-    "Iron Point": new weapon(dandelion, chaos_circuit, scroll, 2),
-    "Iron Sting": new weapon(aerosiderite, bone, nectar, 4),
-    "Kagura's Verity": new weapon(mask, concealed, spectral, 5),
-    "Katsuragikiri Nagamasa": new weapon(narukami, chaos_axis, handguard, 4),
-    "Kitain Cross Spear": new weapon(mask, chaos_axis, insignia_hoarder, 4),
-    "Lion's Roar": new weapon(guyun, knife, insignia_hoarder, 4),
-    "Lithic Blade": new weapon(guyun, knife, arrowhead, 4),
-    "Lithic Spear": new weapon(aerosiderite, bone, arrowhead, 4),
-    "Lost Prayer to the Sacred Winds": new weapon(dandelion, chaos_circuit, slime, 5),
-    "Luxurious Sea-Lord": new weapon(aerosiderite, bone, slime, 4),
-    "Magic Guide": new weapon(decarabian, horn, slime, 3),
-    "Mappa Mare": new weapon(aerosiderite, bone, slime, 4),
-    "Memory of Dust": new weapon(aerosiderite, bone, mask_boko, 5),
-    "Messenger": new weapon(mist_veiled, mist, insignia_hoarder, 3),
-    "Mistsplitter Reforged": new weapon(coral, chaos_axis, handguard, 5),
-    "Mitternachts Waltz": new weapon(decarabian, horn, insignia_hoarder, 4),
-    "Mouun's Moon": new weapon(narukami, prism, spectral, 4),
-    "Oathsworn Eye": new weapon(coral, concealed, spectral, 4),
-    "Old Merc's Pal": new weapon(wolf, ley_line, slime, 2),
-    "Otherworldly Story": new weapon(dandelion, chaos_circuit, mask_boko, 3),
-    "Pocket Grimoire": new weapon(decarabian, horn, mask_boko, 2),
-    "Polar Star": new weapon(mask, concealed, spectral, 5),
-    "Predator": new weapon(narukami, prism, arrowhead, 4),
-    "Primordial Jade Cutter": new weapon(mist_veiled, mist, insignia_hoarder, 5),
-    "Primordial Jade Winged-Spear": new weapon(guyun, knife, insignia_fatui, 5),
-    "Prototype Amber": new weapon(mist_veiled, mist, arrowhead, 4),
-    "Prototype Archaic": new weapon(aerosiderite, bone, mask_boko, 4),
-    "Prototype Crescent": new weapon(mist_veiled, mist, insignia_hoarder, 4),
-    "Prototype Rancour": new weapon(mist_veiled, mist, insignia_fatui, 4),
-    "Prototype Starglitter": new weapon(aerosiderite, bone, mask_boko, 4),
-    "Rainslasher": new weapon(mist_veiled, mist, scroll, 4),
-    "Raven Bow": new weapon(decarabian, horn, arrowhead, 3),
-    "Recurve Bow": new weapon(dandelion, chaos_circuit, scroll, 3),
-    "Redhorn Stonethresher": new weapon(narukami, concealed, handguard, 5),
-    "Royal Bow": new weapon(dandelion, chaos_circuit, slime, 4),
-    "Royal Greatsword": new weapon(dandelion, chaos_circuit, slime, 4),
-    "Royal Grimoire": new weapon(decarabian, horn, insignia_fatui, 4),
-    "Royal Longsword": new weapon(decarabian, horn, arrowhead, 4),
-    "Royal Spear": new weapon(mist_veiled, mist, insignia_fatui, 4),
-    "Rust": new weapon(guyun, knife, mask_boko, 4),
-    "Sacrificial Bow": new weapon(wolf, ley_line, slime, 4),
-    "Sacrificial Fragments": new weapon(dandelion, chaos_circuit, insignia_hoarder, 4),
-    "Sacrificial Greatsword": new weapon(wolf, ley_line, arrowhead, 4),
-    "Sacrificial Sword": new weapon(dandelion, chaos_circuit, scroll, 4),
-    "Seasoned Hunter's Bow": new weapon(wolf, ley_line, insignia_hoarder, 2),
-    "Serpent Spine": new weapon(aerosiderite, bone, nectar, 4),
-    "Sharpshooter's Oath": new weapon(wolf, ley_line, slime, 3),
-    "Silver Sword": new weapon(decarabian, horn, arrowhead, 2),
-    "Skyrider Greatsword": new weapon(aerosiderite, bone, insignia_hoarder, 3),
-    "Skyrider Sword": new weapon(aerosiderite, bone, insignia_fatui, 3),
-    "Skyward Atlas": new weapon(wolf, ley_line, arrowhead, 5),
-    "Skyward Blade": new weapon(wolf, ley_line, slime, 5),
-    "Skyward Harp": new weapon(wolf, ley_line, arrowhead, 5),
-    "Skyward Pride": new weapon(wolf, ley_line, slime, 5),
-    "Skyward Spine": new weapon(dandelion, chaos_circuit, scroll, 5),
-    "Slingshot": new weapon(guyun, knife, mask_boko, 3),
-    "Snow-Tombed Starsilver": new weapon(decarabian, horn, slime, 4),
-    "Solar Pearl": new weapon(guyun, knife, nectar, 4),
-    "Song of Broken Pines": new weapon(decarabian, horn, mask_boko, 5),
-    "Staff of Homa": new weapon(aerosiderite, ley_line, slime, 5),
-    "Summit Shaper": new weapon(guyun, knife, mask_boko, 5),
-    "Sword of Descension": new weapon(wolf, ley_line, insignia_hoarder, 4),
-    "The Alley Flash": new weapon(decarabian, horn, scroll, 4),
-    "The Bell": new weapon(decarabian, horn, nectar, 4),
-    "The Black Sword": new weapon(wolf, ley_line, slime, 4),
-    "The Flute": new weapon(wolf, ley_line, slime, 4),
-    "The Stringless": new weapon(decarabian, horn, arrowhead, 4),
-    "The Unforged": new weapon(mist_veiled, mist, insignia_hoarder, 5),
-    "The Viridescent Hunt": new weapon(decarabian, horn, arrowhead, 4),
-    "The Widsith": new weapon(wolf, ley_line, mask_boko, 4),
-    "Thrilling Tales of Dragon Slayers": new weapon(wolf, ley_line, scroll, 3),
-    "Thundering Pulse": new weapon(narukami, prism, arrowhead, 5),
-    "Traveler's Handy Sword": new weapon(dandelion, chaos_circuit, scroll, 3),
-    "Twin Nephrite": new weapon(mist_veiled, mist, insignia_fatui, 3),
-    "Vortex Vanquisher": new weapon(aerosiderite, bone, insignia_hoarder, 5),
-    "Waster Greatsword": new weapon(wolf, ley_line, slime, 1),
-    "Wavebreaker's Fin": new weapon(mask, concealed, handguard, 4),
-    "White Iron Greatsword": new weapon(dandelion, chaos_circuit, slime, 3),
-    "White Tassel": new weapon(guyun, knife, insignia_fatui, 3),
-    "Whiteblind": new weapon(guyun, knife, insignia_hoarder, 4),
-    "Windblume Ode": new weapon(dandelion, ley_line, nectar, 4),
-    "Wine and Song": new weapon(wolf, ley_line, scroll, 4),
-    "Wolf's Gravestone": new weapon(dandelion, chaos_circuit, scroll, 5)
+    "\"The Catch\"": new weapon("polearm", mask, chaos_axis, spectral, 4),
+    "Akuoumaru": new weapon("claymore", coral, concealed, handguard, 4),
+    "Alley Hunter": new weapon("bow", dandelion, chaos_circuit, slime, 4),
+    "Amenoma Kageuchi": new weapon("sword", coral, chaos_axis, handguard, 4),
+    "Amos' Bow": new weapon("bow", dandelion, chaos_circuit, slime, 5),
+    "Apprentice's Notes": new weapon("catalyst", decarabian, horn, mask_boko, 1),
+    "Aqua Simulacra": new weapon("bow", guyun, statuette, spectral, 5),
+    "Aquila Favonia": new weapon("sword", decarabian, horn, arrowhead, 5),
+    "Beginner's Protector": new weapon("polearm", dandelion, chaos_circuit, scroll, 1),
+    "Black Tassel": new weapon("polearm", aerosiderite, bone, arrowhead, 3),
+    "Blackcliff Agate": new weapon("catalyst", guyun, knife, scroll, 4),
+    "Blackcliff Longsword": new weapon("sword", guyun, knife, arrowhead, 4),
+    "Blackcliff Pole": new weapon("polearm", mist_veiled, mist, insignia_fatui, 4),
+    "Blackcliff Slasher": new weapon("claymore", mist_veiled, mist, insignia_fatui, 4),
+    "Blackcliff Warbow": new weapon("bow", guyun, knife, nectar, 4),
+    "Bloodtainted Greatsword": new weapon("claymore", wolf, ley_line, arrowhead, 3),
+    "Calamity Queller": new weapon("polearm", mist_veiled, mist, nectar, 5),
+    "Cinnabar Spindle": new weapon("sword", decarabian, chaos_circuit, mask_boko, 4),
+    "Compound Bow": new weapon("bow", aerosiderite, bone, insignia_fatui, 4),
+    "Cool Steel": new weapon("sword", decarabian, horn, arrowhead, 3),
+    "Crescent Pike": new weapon("polearm", guyun, knife, insignia_hoarder, 4),
+    "Dark Iron Sword": new weapon("sword", guyun, knife, mask_boko, 3),
+    "Deathmatch": new weapon("polearm", wolf, ley_line, nectar, 4),
+    "Debate Club": new weapon("claymore", mist_veiled, mist, mask_boko, 3),
+    "Dodoco Tales": new weapon("catalyst", wolf, ley_line, mask_boko, 4),
+    "Dragon's Bane": new weapon("polearm", mist_veiled, mist, scroll, 4),
+    "Dragonspine Spear": new weapon("polearm", wolf, mist, insignia_fatui, 4),
+    "Dull Blade": new weapon("sword", decarabian, horn, arrowhead, 1),
+    "Elegy for the End": new weapon("bow", wolf, horn, insignia_fatui, 5),
+    "Emerald Orb": new weapon("catalyst", guyun, knife, insignia_hoarder, 3),
+    "Engulfing Lightning": new weapon("polearm", mask, chaos_axis, handguard, 5),
+    "Everlasting Moonglow": new weapon("catalyst", coral, prism, spectral, 5),
+    "Eye of Perception": new weapon("catalyst", mist_veiled, mist, mask_boko, 4),
+    "Fading Twilight": new weapon("bow", aerosiderite, knife, scroll, 4),
+    "Favonius Codex": new weapon("catalyst", decarabian, horn, scroll, 4),
+    "Favonius Greatsword": new weapon("claymore", dandelion, chaos_circuit, insignia_fatui, 4),
+    "Favonius Lance": new weapon("polearm", dandelion, chaos_circuit, slime, 4),
+    "Favonius Sword": new weapon("sword", decarabian, horn, arrowhead, 4),
+    "Favonius Warbow": new weapon("bow", dandelion, chaos_circuit, nectar, 4),
+    "Ferrous Shadow": new weapon("claymore", decarabian, horn, nectar, 3),
+    "Festering Desire": new weapon("sword", dandelion, horn, insignia_fatui, 4),
+    "Fillet Blade": new weapon("sword", mist_veiled, mist, insignia_hoarder, 3),
+    "Freedom-Sworn": new weapon("sword", dandelion, chaos_circuit, scroll, 5),
+    "Frostbearer": new weapon("catalyst", dandelion, chaos_circuit, nectar, 4),
+    "Hakushin Ring": new weapon("catalyst", coral, prism, scroll, 4),
+    "Halberd": new weapon("polearm", mist_veiled, mist, nectar, 3),
+    "Hamayumi": new weapon("bow", narukami, prism, arrowhead, 4),
+    "Haran Geppaku Futsu": new weapon("sword", narukami, statuette, handguard, 5),
+    "Harbinger of Dawn": new weapon("sword", wolf, ley_line, slime, 3),
+    "Hunter's Bow": new weapon("bow", wolf, ley_line, insignia_hoarder, 1),
+    "Iron Point": new weapon("polearm", dandelion, chaos_circuit, scroll, 2),
+    "Iron Sting": new weapon("sword", aerosiderite, bone, nectar, 4),
+    "Kagotsurube Isshin": new weapon("sword", mask, statuette, spectral, 4),
+    "Kagura's Verity": new weapon("catalyst", mask, concealed, spectral, 5),
+    "Katsuragikiri Nagamasa": new weapon("claymore", narukami, chaos_axis, handguard, 4),
+    "Kitain Cross Spear": new weapon("polearm", mask, chaos_axis, insignia_hoarder, 4),
+    "Lion's Roar": new weapon("sword", guyun, knife, insignia_hoarder, 4),
+    "Lithic Blade": new weapon("claymore", guyun, knife, arrowhead, 4),
+    "Lithic Spear": new weapon("polearm", aerosiderite, bone, arrowhead, 4),
+    "Lost Prayer to the Sacred Winds": new weapon("catalyst", dandelion, chaos_circuit, slime, 5),
+    "Luxurious Sea-Lord": new weapon("claymore", aerosiderite, bone, slime, 4),
+    "Magic Guide": new weapon("catalyst", decarabian, horn, slime, 3),
+    "Mappa Mare": new weapon("catalyst", aerosiderite, bone, slime, 4),
+    "Memory of Dust": new weapon("catalyst", aerosiderite, bone, mask_boko, 5),
+    "Messenger": new weapon("bow", mist_veiled, mist, insignia_hoarder, 3),
+    "Mistsplitter Reforged": new weapon("sword", coral, chaos_axis, handguard, 5),
+    "Mitternachts Waltz": new weapon("bow", decarabian, horn, insignia_hoarder, 4),
+    "Mouun's Moon": new weapon("bow", narukami, prism, spectral, 4),
+    "Oathsworn Eye": new weapon("catalyst", coral, concealed, spectral, 4),
+    "Old Merc's Pal": new weapon("claymore", wolf, ley_line, slime, 2),
+    "Otherworldly Story": new weapon("catalyst", dandelion, chaos_circuit, mask_boko, 3),
+    "Pocket Grimoire": new weapon("catalyst", decarabian, horn, mask_boko, 2),
+    "Polar Star": new weapon("bow", mask, concealed, spectral, 5),
+    "Predator": new weapon("bow", narukami, prism, arrowhead, 4),
+    "Primordial Jade Cutter": new weapon("sword", mist_veiled, mist, insignia_hoarder, 5),
+    "Primordial Jade Winged-Spear": new weapon("polearm", guyun, knife, insignia_fatui, 5),
+    "Prototype Amber": new weapon("catalyst", mist_veiled, mist, arrowhead, 4),
+    "Prototype Archaic": new weapon("claymore", aerosiderite, bone, mask_boko, 4),
+    "Prototype Crescent": new weapon("bow", mist_veiled, mist, insignia_hoarder, 4),
+    "Prototype Rancour": new weapon("sword", mist_veiled, mist, insignia_fatui, 4),
+    "Prototype Starglitter": new weapon("polearm", aerosiderite, bone, mask_boko, 4),
+    "Rainslasher": new weapon("claymore", mist_veiled, mist, scroll, 4),
+    "Raven Bow": new weapon("bow", decarabian, horn, arrowhead, 3),
+    "Recurve Bow": new weapon("bow", dandelion, chaos_circuit, scroll, 3),
+    "Redhorn Stonethresher": new weapon("claymore", narukami, concealed, handguard, 5),
+    "Royal Bow": new weapon("bow", dandelion, chaos_circuit, scroll, 4),
+    "Royal Greatsword": new weapon("claymore", dandelion, chaos_circuit, slime, 4),
+    "Royal Grimoire": new weapon("catalyst", decarabian, horn, insignia_fatui, 4),
+    "Royal Longsword": new weapon("sword", decarabian, horn, arrowhead, 4),
+    "Royal Spear": new weapon("polearm", mist_veiled, mist, insignia_fatui, 4),
+    "Rust": new weapon("bow", guyun, knife, mask_boko, 4),
+    "Sacrificial Bow": new weapon("bow", wolf, ley_line, slime, 4),
+    "Sacrificial Fragments": new weapon("catalyst", dandelion, chaos_circuit, insignia_hoarder, 4),
+    "Sacrificial Greatsword": new weapon("claymore", wolf, ley_line, arrowhead, 4),
+    "Sacrificial Sword": new weapon("sword", dandelion, chaos_circuit, scroll, 4),
+    "Seasoned Hunter's Bow": new weapon("bow", wolf, ley_line, insignia_hoarder, 2),
+    "Serpent Spine": new weapon("claymore", aerosiderite, bone, nectar, 4),
+    "Sharpshooter's Oath": new weapon("bow", wolf, ley_line, slime, 3),
+    "Silver Sword": new weapon("sword", decarabian, horn, arrowhead, 2),
+    "Skyrider Greatsword": new weapon("claymore", aerosiderite, bone, insignia_hoarder, 3),
+    "Skyrider Sword": new weapon("sword", aerosiderite, bone, insignia_fatui, 3),
+    "Skyward Atlas": new weapon("catalyst", wolf, ley_line, arrowhead, 5),
+    "Skyward Blade": new weapon("sword", wolf, ley_line, slime, 5),
+    "Skyward Harp": new weapon("bow", wolf, ley_line, arrowhead, 5),
+    "Skyward Pride": new weapon("claymore", wolf, ley_line, slime, 5),
+    "Skyward Spine": new weapon("polearm", dandelion, chaos_circuit, scroll, 5),
+    "Slingshot": new weapon("bow", guyun, knife, mask_boko, 3),
+    "Snow-Tombed Starsilver": new weapon("claymore", decarabian, horn, slime, 4),
+    "Solar Pearl": new weapon("catalyst", guyun, knife, nectar, 4),
+    "Song of Broken Pines": new weapon("claymore", decarabian, horn, mask_boko, 5),
+    "Staff of Homa": new weapon("polearm", aerosiderite, ley_line, slime, 5),
+    "Summit Shaper": new weapon("sword", guyun, knife, mask_boko, 5),
+    "Sword of Descension": new weapon("sword", wolf, ley_line, insignia_hoarder, 4),
+    "The Alley Flash": new weapon("sword", decarabian, horn, scroll, 4),
+    "The Bell": new weapon("claymore", decarabian, horn, nectar, 4),
+    "The Black Sword": new weapon("sword", wolf, ley_line, slime, 4),
+    "The Flute": new weapon("sword", wolf, ley_line, slime, 4),
+    "The Stringless": new weapon("bow", decarabian, horn, arrowhead, 4),
+    "The Unforged": new weapon("claymore", mist_veiled, mist, insignia_hoarder, 5),
+    "The Viridescent Hunt": new weapon("bow", decarabian, horn, arrowhead, 4),
+    "The Widsith": new weapon("catalyst", wolf, ley_line, mask_boko, 4),
+    "Thrilling Tales of Dragon Slayers": new weapon("catalyst", wolf, ley_line, scroll, 3),
+    "Thundering Pulse": new weapon("bow", narukami, prism, arrowhead, 5),
+    "Traveler's Handy Sword": new weapon("sword", dandelion, chaos_circuit, scroll, 3),
+    "Twin Nephrite": new weapon("catalyst", mist_veiled, mist, insignia_fatui, 3),
+    "Vortex Vanquisher": new weapon("polearm", aerosiderite, bone, insignia_hoarder, 5),
+    "Waster Greatsword": new weapon("claymore", wolf, ley_line, slime, 1),
+    "Wavebreaker's Fin": new weapon("polearm", mask, concealed, handguard, 4),
+    "White Iron Greatsword": new weapon("claymore", dandelion, chaos_circuit, slime, 3),
+    "White Tassel": new weapon("polearm", guyun, knife, insignia_fatui, 3),
+    "Whiteblind": new weapon("claymore", guyun, knife, insignia_hoarder, 4),
+    "Windblume Ode": new weapon("bow", dandelion, ley_line, nectar, 4),
+    "Wine and Song": new weapon("catalyst", wolf, ley_line, insignia_hoarder, 4),
+    "Wolf's Gravestone": new weapon("claymore", dandelion, chaos_circuit, scroll, 5)
 }
 
 let team = 0,
@@ -497,8 +506,6 @@ window.onload = function () {
         else if (el=="Traveler") img.src = "./resources/traveler.png";
         else img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
 
-        // Weapon URL Base: https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_*.png
-
         let elem2 = document.createElement("p"); // Name
         elem2.className = "name";
         elem2.style.width = "100px";
@@ -545,7 +552,8 @@ window.onload = function () {
     weapFind.addEventListener("input", () => {
         let i = 0;
         for (const [el, val] of Object.entries(weapons)) {
-            if(el.toLowerCase().includes(weapFind.value.toLowerCase())){
+            let pla = currentTeam[weaponChoice - 1];
+            if(!(pla != null && val.typ != pla.weapon) && el.toLowerCase().includes(weapFind.value.toLowerCase())){
                 weapScrollpane.children[i].style.display = "block";
             } else {
                 weapScrollpane.children[i].style.display = "none";
@@ -579,7 +587,7 @@ window.onload = function () {
         img.src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
 
         let elem2 = document.createElement("p"); // Name
-        elem2.className = "name";
+        elem2.className = "weapname";
         elem2.style.width = "160px";
         elem2.style.marginTop = "14spx";
         if(textWidth(el, "16px Genshin") > 160){
@@ -715,6 +723,18 @@ window.onload = function () {
             weapAscension.checked = currentWeaponAscensions[i - 1];
             weapTarAscension.checked = currentWeaponTargetAscensions[i - 1];
             if(weapName.innerHTML == "The Catch") weapName.innerHTML = '"The Catch"';
+
+            let i2 = 0;
+            for (const [el, val] of Object.entries(weapons)) {
+                let pla = currentTeam[i - 1];
+                if(pla != null && val.typ != pla.weapon){
+                    weapScrollpane.children[i2].style.display = "none";
+                } else {
+                    weapScrollpane.children[i2].style.display = "block";
+                }
+                i2++;
+            }
+
             weapPopup.style.display = "flex";
             weapScrollpane.scrollTo(0, 0);
         }
@@ -763,7 +783,7 @@ window.onload = function () {
 
         let done = false;
         let matDict = {};
-        text = "--{Character level-up Materials}--\n\n";
+        text = "# Character level-up Materials\n\n";
 
         while (matCont.firstChild) {
             matCont.removeChild(matCont.lastChild);
@@ -809,25 +829,25 @@ window.onload = function () {
             let medium = Math.floor((exp_need - (big * books_exp[2])) / books_exp[1]);
             let small = Math.ceil((exp_need - (big * books_exp[2]) - (medium * books_exp[1])) / books_exp[0]);
 
-            text += "---EXP Books---\n";
-            addMaterialElement(matCont, "---EXP Books---");
+            text += "## EXP Books\n";
+            addMaterialElement(matCont, "——EXP Books——\n");
 
             if (big != 0) {
-                let v = "Hero's Wit x" + big.toString();
+                let v = "- Hero's Wit x" + big.toString();
                 text += v + "\n";
 
                 addMaterialElement(matCont, v);
             }
 
             if (medium != 0) {
-                let v = "Adventurer's Experience x" + medium.toString();
+                let v = "- Adventurer's Experience x" + medium.toString();
                 text += v + "\n";
 
                 addMaterialElement(matCont, v);
             }
 
             if (small != 0) {
-                let v = "Wanderer's Advice x" + small.toString();
+                let v = "- Wanderer's Advice x" + small.toString();
                 text += v + "\n";
 
                 addMaterialElement(matCont, v);
@@ -864,7 +884,7 @@ window.onload = function () {
                 let pp = document.createElement("p");
                 let vv = key.split("^");
                 pp.className = "material";
-                let txt = vv[1] + " x" + value;
+                let txt = "- " + vv[1] + " x" + value;
                 pp.innerHTML = txt;
 
 
@@ -872,11 +892,11 @@ window.onload = function () {
                     let pp2 = document.createElement("p");
                     pp2.className = "material";
 
-                    let iD = "---";
-                    if (preV != null) iD = "­<br>---";
+                    let iD = "## ";
+                    if (preV != null) iD = "­<br>## ";
 
-                    let txt = iD + vv[0] + "---"
-                    pp2.innerHTML = txt;
+                    let txt = iD + vv[0]
+                    pp2.innerHTML = txt.replace("## ", "——") + "——";
 
                     text += txt.replace("<br>", "\n").replace("­", "") + "\n";
                     matCont.appendChild(pp2);
@@ -892,7 +912,7 @@ window.onload = function () {
         done = false;
         matDict = {};
 
-        text += "\n\n--{Weapon level-up Materials}--\n\n";
+        text += "\n\n# Weapon level-up Materials\n\n";
 
         while (weapMatCont.firstChild) {
             weapMatCont.removeChild(weapMatCont.lastChild);
@@ -955,7 +975,7 @@ window.onload = function () {
                 let pp = document.createElement("p");
                 let vv = key.split("^");
                 pp.className = "material";
-                let txt = vv[1] + " x" + value;
+                let txt = "- " + vv[1] + " x" + value;
                 pp.innerHTML = txt;
 
 
@@ -963,11 +983,11 @@ window.onload = function () {
                     let pp2 = document.createElement("p");
                     pp2.className = "material";
 
-                    let iD = "---";
-                    if (preV != null) iD = "­<br>---";
+                    let iD = "## ";
+                    if (preV != null) iD = "­<br>## ";
 
-                    let txt = iD + vv[0] + "---"
-                    pp2.innerHTML = txt;
+                    let txt = iD + vv[0]
+                    pp2.innerHTML = txt.replace("## ", "——") + "——";
 
                     text += txt.replace("<br>", "\n").replace("­", "") + "\n";
                     weapMatCont.appendChild(pp2);
@@ -978,6 +998,8 @@ window.onload = function () {
                 preV = vv[0];
             }
         }
+
+        text += "\n#### NOTE: This file can be stylized with a MARKDOWN viewer."
     }
 
     downBut.onclick = event => {

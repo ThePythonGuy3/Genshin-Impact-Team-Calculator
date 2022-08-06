@@ -12,6 +12,10 @@
       to { opacity: 1; }
 }
 
+:root {
+    --char-width: 390px;
+}
+
 p {
     user-select: none;
 
@@ -138,6 +142,16 @@ input[type=number] {
 }
 
 .name {
+    float: left;
+
+    color: #303030;
+
+    margin-top: 18px;
+
+    user-select: none;
+}
+
+.weapname {
     float: left;
 
     color: #303030;
@@ -450,11 +464,6 @@ input[type=number] {
     animation: fadeIn 0.3s;
 }
 
-#charmat {
-    max-height: 120vh;
-    transition: max-height 2s ease;
-}
-
 .weapImg {
     width: 60px;
     height: 60px;
@@ -527,6 +536,11 @@ input[type=number] {
     transition: 50ms;
 }
 
+#matContainer {
+    width: calc(100vw - var(--char-width)); 
+    min-width: 400px;
+}
+
 
 @media (max-width: 770px) {
     .name {
@@ -553,9 +567,13 @@ input[type=number] {
         width: 85px;
     }
 
-    #matContainer {
-        width: 400px !important;
+    :root {
+        --char-width: 160px;
     }
+
+    /*#matContainer {
+        width: 400px !important;
+    }*/
 }
 
 
