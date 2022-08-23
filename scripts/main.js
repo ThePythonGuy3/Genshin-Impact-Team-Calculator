@@ -60,14 +60,14 @@ let char_mat_amount = [
 
 let weap_mat_amount = [
     [ // 1 Star
-        [[1, 1], [2, 1], [2, 2], [3, 1]],                      // Domain Material [tier, amount]
-        [[1, 1], [1, 4], [2, 2], [2, 4]],                     // Material 2 [tier, amount]
-        [[1, 1], [1, 2], [2, 2], [2, 3]]                     // Material 1 [tier, amount]
+        [[1, 1], [2, 1], [2, 2], [3, 1], [1, 0], [1, 0]],                      // Domain Material [tier, amount]
+        [[1, 1], [1, 4], [2, 2], [2, 4], [1, 0], [1, 0]],                     // Material 2 [tier, amount]
+        [[1, 1], [1, 2], [2, 2], [2, 3], [1, 0], [1, 0]]                     // Material 1 [tier, amount]
     ],
     [ // 2 Stars
-        [[1, 1], [2, 1], [2, 3], [3, 1]],
-        [[1, 1], [1, 5], [2, 3], [2, 5]],
-        [[1, 1], [1, 4], [2, 3], [2, 4]]
+        [[1, 1], [2, 1], [2, 3], [3, 1], [1, 0], [1, 0]],
+        [[1, 1], [1, 5], [2, 3], [2, 5], [1, 0], [1, 0]],
+        [[1, 1], [1, 4], [2, 3], [2, 4], [1, 0], [1, 0]]
     ],
     [ // 3 Stars
         [[1, 2], [2, 2], [2, 4], [3, 2], [3, 4], [4, 3]],
@@ -341,6 +341,20 @@ let weapons = {
     "Wolf's Gravestone": new weapon("claymore", dandelion, chaos_circuit, scroll, 5)
 }
 
+let defNames = {
+    "sword": "Dull Blade",
+    "claymore": "Waster Greatsword",
+    "bow": "Hunter's Bow",
+    "catalyst": "Apprentice's Notes",
+    "polearm": "Beginner's Protector"
+}
+
+let defWeapons = {};
+
+for(const [el, val] of Object.entries(defNames)) {
+    defWeapons[el] = weapons[val];
+}
+
 let team = 0,
     currentTeam = [null, null, null, null],
     currentLevel = [1, 1, 1, 1],
@@ -356,6 +370,42 @@ let team = 0,
     currentWeaponTargetAscensions = [false, false, false, false],
 
     text = "";
+
+function swapMode(root, nightCheck) {
+    root.style.setProperty("--lighterGray", !nightCheck.checked ? "#F0F0F0" : "#0F0F0F");
+    root.style.setProperty("--lightGray", !nightCheck.checked ? "#E0E0E0" : "#1F1F1F");
+    root.style.setProperty("--gray", !nightCheck.checked ? "#E0E0E0" : "#2F2F2F");
+    root.style.setProperty("--darkGray", !nightCheck.checked ? "#C0C0C0" : "#3F3F3F");
+    root.style.setProperty("--darkerGray", !nightCheck.checked ? "#B0B0B0" : "#4F4F4F");
+
+    root.style.setProperty("--lvInput", !nightCheck.checked ? "#FEFEFE" : "#1F1F1F");
+    root.style.setProperty("--weapLvInput", !nightCheck.checked ? "#FEFEFE" : "#3F3F3F");
+    root.style.setProperty("--wpInput", !nightCheck.checked ? "#FEFEFE" : "#0F0F0F");
+
+    root.style.setProperty("--ae", !nightCheck.checked ? "#AEAEAE" : "#515151");
+    root.style.setProperty("--be", !nightCheck.checked ? "#BEBEBE" : "#414141");
+    root.style.setProperty("--ce", !nightCheck.checked ? "#CECECE" : "#313131");
+    root.style.setProperty("--de", !nightCheck.checked ? "#DEDEDE" : "#212121");
+    root.style.setProperty("--ee", !nightCheck.checked ? "#EEEEEE" : "#111111");
+    root.style.setProperty("--fe", !nightCheck.checked ? "#FEFEFE" : "#010101");
+
+    root.style.setProperty("--bg", !nightCheck.checked ? "#FBFAFF" : "#040500");
+
+    root.style.setProperty("--dark", !nightCheck.checked ? "#505050" : "#AFAFAF");
+    root.style.setProperty("--black", !nightCheck.checked ? "#303030" : "#CFCFCF");
+    root.style.setProperty("--blackest", !nightCheck.checked ? "#020202" : "#FDFDFD");
+
+    root.style.setProperty("--sliderBG", !nightCheck.checked ? "#F5F5F5" : "#0A0A0A");
+    root.style.setProperty("--sliderHandle", !nightCheck.checked ? "#9F9F9F" : "#606060");
+
+    root.style.setProperty("--teamCardHover", !nightCheck.checked ? "#C8C8C8" : "#373737");
+    root.style.setProperty("--teamCardActive", !nightCheck.checked ? "#B8B8B8" : "#474747");
+
+    root.style.setProperty("--removeHover", !nightCheck.checked ? "#E22525" : "#1DDADA");
+    root.style.setProperty("--removeActive", !nightCheck.checked ? "#D62525" : "#29DADA");
+
+    root.style.setProperty("--materialColor", !nightCheck.checked ? "#454545" : "#BABABA");
+}
 
 function getTier(target) {
     if (target <= 40) {
@@ -418,6 +468,9 @@ function isAscension(level) {
 window.onload = function () {
     document.getElementById("error").style.display = "none";
 
+    let root = document.querySelector(":root");
+    let nightCheck = document.getElementById("nightCheck");
+
     let asc = document.getElementById("teamAscension");
     let scrollpane = document.getElementById("scroll");
     let weapScrollpane = document.getElementById("weapScroll");
@@ -442,6 +495,15 @@ window.onload = function () {
     let weapAscension = document.getElementById("weapAscension");
     let weapTarInput = document.getElementById("weapTarInput");
     let weapTarAscension = document.getElementById("weapTarAscension");
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        nightCheck.checked = true;
+        swapMode(root, nightCheck);
+    }
+
+    nightCheck.onchange = () => {
+        swapMode(root, nightCheck);
+    }
 
     asc.addEventListener('change', (event) => {
         ascensionTeam = event.currentTarget.checked;
@@ -490,6 +552,17 @@ window.onload = function () {
 
                     currentTeam[team - 1] = val;
                     currentLevel[team - 1] = 1;
+
+                    if(currentWeapons[team - 1].typ != val.weapon){
+                        currentWeapons[team - 1] = defWeapons[val.weapon];
+                        document.getElementById("weapImg" + team).src = weapSelect.src = "./resources/weapons/" + defNames[val.weapon].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+                        weapName.innerHTML = defNames[val.weapon];
+
+                        currentWeaponLevel[team - 1] = 1;
+                        currentWeaponTargetLevel[team - 1] = 1;
+                        currentWeaponAscensions[team - 1] = false;
+                        currentWeaponTargetAscensions[team - 1] = false;
+                    }
 
                     if (team < 4 && currentTeam[team] == null) {
                         team++;
@@ -688,6 +761,15 @@ window.onload = function () {
 
         teamremove.onclick = event => {
             currentTeam[i - 1] = null;
+            currentWeapons[i - 1] = defWeapons["sword"];
+
+            document.getElementById("weapImg" + i).src = weapSelect.src = "./resources/weapons/" + defNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+            weapName.innerHTML = defNames["sword"];
+
+            currentWeaponLevel[i - 1] = 1;
+            currentWeaponTargetLevel[i - 1] = 1;
+            currentWeaponAscensions[i - 1] = false;
+            currentWeaponTargetAscensions[i - 1] = false;
 
             im.src = "resources/plus.png";
             pt.children[0].value = 0;
@@ -1015,6 +1097,8 @@ window.onload = function () {
     weapAccept.onclick = event => {
         weaponChoice = 0;
         weapPopup.style.display = "none";
+
+        weapFind.value = "";
     }
 
     downBut2.onclick = event => {

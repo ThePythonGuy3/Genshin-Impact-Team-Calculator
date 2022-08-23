@@ -14,12 +14,58 @@
 
 :root {
     --char-width: 390px;
+
+    /* Colors */
+    --lighterGray: #F0F0F0;
+    --lightGray: #E0E0E0;
+    --gray: #D0D0D0;
+    --darkGray: #C0C0C0;
+    --darkerGray: #B0B0B0;
+
+    --lvInput: #FEFEFE;
+    --weapLvInput: #FEFEFE;
+    --wpInput: #FEFEFE;
+
+    --ae: #AEAEAE;
+    --be: #BEBEBE;
+    --ce: #CECECE;
+    --de: #DEDEDE;
+    --ee: #EEEEEE;
+    --fe: #FEFEFE;
+
+    --bg: #FBFAFF;
+
+    --dark: #505050;
+    --black: #303030;
+    --blackest: #020202;
+
+    --sliderBG: #F5F5F5;
+    --sliderHandle: #9F9F9F;
+
+    --teamCardHover: #C8C8C8;
+    --teamCardActive: #B8B8B8;
+
+    --removeHover: #E22525;
+    --removeActive: #D62525;
+
+    --materialColor: #454545;
 }
 
 p {
     user-select: none;
 
     font-family: "Genshin";
+
+    color: var(--black);
+}
+
+label {
+    font-family: verdana;
+    font-size: 15px;
+
+    color: var(--text-color);
+
+    transition: .4s;
 }
 
 input {
@@ -28,6 +74,8 @@ input {
     outline: none;
 
     font-family: "Genshin";
+
+    color: var(--black);
 }
 
 input::-webkit-outer-spin-button,
@@ -62,21 +110,21 @@ input[type=number] {
 .specialScroll::-webkit-scrollbar-track {
     border-radius: 30px;
 
-    background: #F5F5F5;
+    background: var(--sliderBG);
 }
 
 .specialScroll::-webkit-scrollbar-thumb {
     border-radius: 30px;
 
-    background: #C0C0C0;
+    background: var(--darkGray);
 }
 
 .specialScroll::-webkit-scrollbar-thumb:hover {
-    background: #B0B0B0;
+    background: var(--darkerGray);
 }
 
 .specialScroll::-webkit-scrollbar-thumb:active {
-    background: #9F9F9F;
+    background: var(--sliderHandle);
 }
 
 .namecard {
@@ -91,7 +139,7 @@ input[type=number] {
 
     vertical-align: center;
 
-    background: #F0F0F0;
+    background: var(--lighterGray);
 
     user-select: none;
 
@@ -99,13 +147,13 @@ input[type=number] {
 }
 
 .namecard:hover {
-    background: #E0E0E0;
+    background: var(--lightGray);
 
     transition: 300ms;
 }
 
 .namecard:active {
-    background: #D0D0D0;
+    background: var(--gray);
 
     transition: 50ms;
 }
@@ -144,7 +192,7 @@ input[type=number] {
 .name {
     float: left;
 
-    color: #303030;
+    color: var(--black);
 
     margin-top: 18px;
 
@@ -154,7 +202,7 @@ input[type=number] {
 .weapname {
     float: left;
 
-    color: #303030;
+    color: var(--black);
 
     margin-top: 18px;
 
@@ -187,7 +235,7 @@ input[type=number] {
     width: 90px;
     height: 105px;
 
-    background: #E0E0E0;
+    background: var(--lightGray);
 
     user-select: none;
 
@@ -196,13 +244,13 @@ input[type=number] {
 }
 
 .teamcard:hover {
-    background: #C8C8C8;
+    background: var(--teamCardHover);
 
     transition: 300ms;
 }
 
 .teamcard:active, .teamcard:focus {
-    background: #B8B8B8;
+    background: var(--teamCardActive);
 
     transition: 50ms;
 }
@@ -261,8 +309,8 @@ input[type=number] {
     width: 90px;
     height: 21px;
 
-    color: #303030;
-    background: #F0F0F0;
+    color: var(--black);
+    background: var(--lighterGray);
 
     font-size: 15px;
     line-height: 22px;
@@ -274,7 +322,11 @@ input[type=number] {
     border: none;
 
     text-align: center;
-    background: #FEFEFE;
+    background: var(--lvInput);
+}
+
+.weaplevinput {
+    background: var(--weapLvInput) !important;
 }
 
 .nameinput {
@@ -283,7 +335,7 @@ input[type=number] {
     border-radius: 5px;
 
     text-align: center;
-    background: #FEFEFE;
+    background: var(--fe);
 }
 
 #charFind {
@@ -292,7 +344,7 @@ input[type=number] {
     border-radius: 5px;
 
     text-align: left;
-    background: #FEFEFE;
+    background: var(--lvInput);
 
     width: 285px;
     height: 25px;
@@ -309,7 +361,7 @@ input[type=number] {
     border-radius: 5px;
 
     text-align: left;
-    background: #FEFEFE;
+    background: var(--wpInput);
 
     width: 320px;
     height: 25px;
@@ -323,7 +375,7 @@ input[type=number] {
 }
 
 #targetinput {
-    background: #F0F0F0;
+    background: var(--lighterGray);
 }
 
 .remove {
@@ -350,13 +402,13 @@ input[type=number] {
 }
 
 .remove:hover {
-    background: #E22525;
+    background: var(--removeHover);
 
     transition: 300ms;
 }
 
 .remove:active {
-    background: #D62525;
+    background: var(--removeActive);
 
     transition: 50ms;
 }
@@ -370,7 +422,7 @@ input[type=number] {
 
     text-align: center;
 
-    color: #303030;
+    color: var(--black);
 
     font-size: 14px;
 }
@@ -380,7 +432,7 @@ input[type=number] {
 
     text-align: center;
 
-    color: #454545;
+    color: var(--materialColor);
 
     font-size: 12px;
 }
@@ -394,19 +446,19 @@ input[type=number] {
 }
 
 .click:hover {
-    background: #E0E0E0;
+    background: var(--lightGray);
 
     transition: 300ms;
 }
 
 .click:active {
-    background: #C0C0C0;
+    background: var(--darkGray);
 
     transition: 50ms;
 }
 
 .click-out {
-    background-color: #E0E0E0;
+    background-color: var(--lightGray);
 
     user-select: none;
 
@@ -414,20 +466,20 @@ input[type=number] {
 }
 
 .click-out:hover {
-    background-color: #C0C0C0;
+    background-color: var(--darkGray);
 
     transition: 300ms;
 }
 
 .click-out:active {
-    background-color: #B0B0B0;
+    background-color: var(--darkerGray);
 
     transition: 50ms;
 }
 
 
 .submBut {
-    background-color: #D0D0D0;
+    background-color: var(--gray);
 
     border: none;
 
@@ -442,13 +494,13 @@ input[type=number] {
 }
 
 .submBut:hover {
-    background-color: #C0C0C0;
+    background-color: var(--darkGray);
 
     transition: 300ms;
 }
 
 .submBut:active {
-    background-color: #B0B0B0;
+    background-color: var(--darkerGray);
 
     transition: 50ms;
 }
@@ -468,7 +520,7 @@ input[type=number] {
     width: 60px;
     height: 60px;
 
-    background-color: #DEDEDE;
+    background-color: var(--de);
 
     margin-right: 40px;
 
@@ -478,11 +530,11 @@ input[type=number] {
 }
 
 .weapImg:hover {
-    background-color: #CECECE;
+    background-color: var(--ce);
 }
 
 .weapImg:active {
-    background-color: #BEBEBE;
+    background-color: var(--be);
     transition: 50ms;
 }
 
@@ -494,9 +546,9 @@ input[type=number] {
     width: 80px;
     height: 80px;
 
-    border: 3px solid #AEAEAE;
+    border: 3px solid var(--ae);
 
-    background-color: #CECECE;
+    background-color: var(--ce);
 
     border-radius: 30%;
 }
@@ -518,7 +570,7 @@ input[type=number] {
 
     border-radius: 10px;
 
-    background-color: #CECECE;
+    background-color: var(--ce);
 
     height: 30px;
     width: 90px;
@@ -527,11 +579,11 @@ input[type=number] {
 }
 
 .acdecButton:hover {
-    background-color: #BEBEBE;
+    background-color: var(--be);
 }
 
 .acdecButton:active {
-    background-color: #AEAEAE;
+    background-color: var(--ae);
 
     transition: 50ms;
 }
@@ -541,6 +593,65 @@ input[type=number] {
     min-width: 400px;
 }
 
+#nightSwitch {
+    position: absolute;
+
+    top: 20px;
+
+    right: 10px;
+
+    z-index: 10002;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 18px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--ee);
+
+    transition: .4s;
+
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--dark);
+
+    transition: .4s;
+
+    border-radius: 30px;
+}
+
+input:checked + .slider {
+    background-color: var(--dark);
+}
+
+input:checked + .slider:before {
+    background-color: var(--ee);
+    transform: translateX(26px);
+}
 
 @media (max-width: 770px) {
     .name {
