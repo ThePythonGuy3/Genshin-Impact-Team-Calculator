@@ -99,7 +99,7 @@ input[type=number] {
 }
 
 #scroll {
-    width: 315px;
+    width: 320px;
     height: calc(97vh - 85px);
 }
 
@@ -135,6 +135,8 @@ input[type=number] {
 .namecard {
     border-radius: 30px;
 
+    margin: 5px;
+
     margin-bottom: 10px;
 
     overflow: hidden;
@@ -145,6 +147,8 @@ input[type=number] {
     vertical-align: center;
 
     background: var(--lighterGray);
+
+    /*box-shadow: 0px 0px 5px 0px var(--darkGray);*/
 
     user-select: none;
 
@@ -590,7 +594,7 @@ input[type=number] {
 
     margin-right: 40px;
 
-    border-radius: 30%;
+    border-radius: 15px;
 
     box-shadow: 0px 0px 9px 0px var(--darkerGray);
 
