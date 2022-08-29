@@ -26,6 +26,10 @@
     --weapLvInput: #FEFEFE;
     --wpInput: #FEFEFE;
 
+    --cinnamon: #F2EEE6;
+    --darkCinnamon: #CCBAAD;
+    --darkerCinnamon: #9C8270;
+
     --ae: #AEAEAE;
     --be: #BEBEBE;
     --ce: #CECECE;
@@ -48,7 +52,8 @@
     --removeHover: #E22525;
     --removeActive: #D62525;
 
-    --materialColor: #454545;
+    --materialColor: #917764;
+    --materialTitleColor: #7D624D;
 }
 
 p {
@@ -342,6 +347,65 @@ input[type=number] {
     background: var(--fe);
 }
 
+.materialGlobContCont {
+    width: 100%;
+    height: 35px;
+}
+
+.materialGlobCont {
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 340px;
+}
+
+.materialImageCont {
+    position: relative;
+
+    left: 0px;
+    top: 0px;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 6px;
+
+    float: left;
+
+    background: linear-gradient(225deg, var(--darkCinnamon), var(--darkerCinnamon), var(--darkCinnamon));
+}
+
+.materialImage {
+    position: relative;
+
+    left: 2px;
+    top: 2px;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 4px;
+    background: linear-gradient(var(--darkerCinnamon), var(--darkCinnamon));
+}
+
+.floatLeft {
+    position: relative;
+
+    text-align: left !important;
+
+    left: 6px;
+    top: 10px;
+}
+
+.floatRight {
+    position: relative;
+
+    text-align: right !important;
+
+    right: 0px;
+    bottom: 17px;
+}
+
 #charFind {
     border: none;
 
@@ -426,14 +490,12 @@ input[type=number] {
 
     text-align: center;
 
-    color: var(--black);
+    color: var(--materialTitleColor);
 
     font-size: 14px;
 }
 
 .material {
-    width: 100%;
-
     text-align: center;
 
     color: var(--materialColor);

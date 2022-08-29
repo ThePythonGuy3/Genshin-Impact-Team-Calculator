@@ -1,5 +1,3 @@
-//import { saveAs } from 'file-saver';
-
 let character = class {
     constructor(weapon, enemy, local, gems, boss, element, stars, alias) {
         this.weapon = weapon;
@@ -395,6 +393,10 @@ function swapMode(root, nightCheck) {
     root.style.setProperty("--darkGray", !nightCheck.checked ? "#C0C0C0" : "#3F3F3F");
     root.style.setProperty("--darkerGray", !nightCheck.checked ? "#B0B0B0" : "#4F4F4F");
 
+    root.style.setProperty("--cinnamon", !nightCheck.checked ? "#F2EEE6" : "#0F0F0F");
+    root.style.setProperty("--darkCinnamon", !nightCheck.checked ? "#CCBAAD" : "#2F2F2F");
+    root.style.setProperty("--darkerCinnamon", !nightCheck.checked ? "#9C8270" : "#4F4F4F");
+
     root.style.setProperty("--lvInput", !nightCheck.checked ? "#FEFEFE" : "#1F1F1F");
     root.style.setProperty("--weapLvInput", !nightCheck.checked ? "#FEFEFE" : "#3F3F3F");
     root.style.setProperty("--wpInput", !nightCheck.checked ? "#FEFEFE" : "#0F0F0F");
@@ -421,7 +423,8 @@ function swapMode(root, nightCheck) {
     root.style.setProperty("--removeHover", !nightCheck.checked ? "#E22525" : "#1DDADA");
     root.style.setProperty("--removeActive", !nightCheck.checked ? "#D62525" : "#29DADA");
 
-    root.style.setProperty("--materialColor", !nightCheck.checked ? "#454545" : "#BABABA");
+    root.style.setProperty("--materialColor", !nightCheck.checked ? "#917764" : "#BABABA");
+    root.style.setProperty("--materialTitleColor", !nightCheck.checked ? "#7D624D" : "#CFCFCF");
 }
 
 function getTier(target) {
@@ -440,6 +443,34 @@ function addMaterialElement(parent, data) {
     pp.innerHTML = data;
 
     parent.appendChild(pp);
+}
+
+function addMaterialTag(parent, material, pp, amount) {
+    let contDiv = document.createElement("div");
+    contDiv.className = "materialGlobCont";
+
+    let imm = document.createElement("div");
+    imm.className = "materialImageCont";
+
+    let imm2 = document.createElement("img");
+    imm2.className = "materialImage";
+    imm2.src = "resources/materials/" + material.replaceAll(" ", "_") + ".png";
+
+    let pp2 = document.createElement("p");
+    pp2.className = "material floatRight";
+    pp2.innerHTML = "x" + amount;
+
+    imm.appendChild(imm2);
+    contDiv.appendChild(imm);
+    contDiv.appendChild(pp);
+    contDiv.appendChild(pp2);
+
+    let contContDiv = document.createElement("div");
+    contContDiv.className = "materialGlobContCont";
+
+    contContDiv.appendChild(contDiv);
+
+    parent.appendChild(contContDiv);
 }
 
 function rgb(hex) {
@@ -950,24 +981,33 @@ window.onload = function () {
             addMaterialElement(matCont, "——EXP Books (Most optimal EXP distribution)——\n");
 
             if (big != 0) {
-                let v = "- Hero's Wit x" + big.toString();
-                text += v + "\n";
+                let bpp = document.createElement("p");
+                bpp.className = "material floatLeft";
+                bpp.innerHTML = "Hero's Wit";
 
-                addMaterialElement(matCont, v);
+                text += "- Hero's Wit x" + big.toString() + "\n";
+
+                addMaterialTag(matCont, "Hero's Wit", bpp, big);
             }
 
             if (medium != 0) {
-                let v = "- Adventurer's Experience x" + medium.toString();
-                text += v + "\n";
+                let mpp = document.createElement("p");
+                mpp.className = "material floatLeft";
+                mpp.innerHTML = "Adventurer's Experience";
 
-                addMaterialElement(matCont, v);
+                text += "- Adventurer's Experience x" + medium.toString() + "\n";
+
+                addMaterialTag(matCont, "Adventurer's Experience", mpp, medium);
             }
 
             if (small != 0) {
-                let v = "- Wanderer's Advice x" + small.toString();
-                text += v + "\n";
+                let spp = document.createElement("p");
+                spp.className = "material floatLeft";
+                spp.innerHTML = "Adventurer's Experience";
 
-                addMaterialElement(matCont, v);
+                text += "- Wanderer's Advice x" + small.toString() + "\n";
+
+                addMaterialTag(matCont, "Wanderer's Advice", spp, small);
             }
 
             text += "\n";
@@ -1000,10 +1040,8 @@ window.onload = function () {
             for (const [key, value] of Object.entries(newMatDict)) {
                 let pp = document.createElement("p");
                 let vv = key.split("^");
-                pp.className = "material";
-                let txt = "- " + vv[1] + " x" + value;
-                pp.innerHTML = txt;
-
+                pp.className = "material floatLeft";
+                pp.innerHTML = vv[1];
 
                 if (preV != vv[0]) {
                     let pp2 = document.createElement("p");
@@ -1019,8 +1057,10 @@ window.onload = function () {
                     matCont.appendChild(pp2);
                 }
 
-                text += txt + "\n";
-                matCont.appendChild(pp);
+                text += "- " + vv[1] + " x" + value + "\n";
+
+                addMaterialTag(matCont, vv[1], pp, value);
+
                 preV = vv[0];
             }
         }
@@ -1091,10 +1131,8 @@ window.onload = function () {
             for (const [key, value] of Object.entries(newMatDict)) {
                 let pp = document.createElement("p");
                 let vv = key.split("^");
-                pp.className = "material";
-                let txt = "- " + vv[1] + " x" + value;
-                pp.innerHTML = txt;
-
+                pp.className = "material floatLeft";
+                pp.innerHTML = vv[1];
 
                 if (preV != vv[0]) {
                     let pp2 = document.createElement("p");
@@ -1103,15 +1141,18 @@ window.onload = function () {
                     let iD = "## ";
                     if (preV != null) iD = "­<br>## ";
 
-                    let txt = iD + vv[0]
+                    let txt = iD + vv[0];
+                    console.log(vv[0]);
                     pp2.innerHTML = txt.replace("## ", "——") + "——";
 
                     text += txt.replace("<br>", "\n").replace("­", "") + "\n";
                     weapMatCont.appendChild(pp2);
                 }
 
-                text += txt + "\n";
-                weapMatCont.appendChild(pp);
+                text += "- " + vv[1] + " x" + value + "\n";
+
+                addMaterialTag(weapMatCont, vv[1], pp, value);
+
                 preV = vv[0];
             }
         }
