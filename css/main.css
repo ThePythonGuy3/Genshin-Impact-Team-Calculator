@@ -213,10 +213,14 @@ input[type=number] {
     position: relative;
     float: left;
 
+    border-radius: 10px;
+
     margin-right: 10px;
 
     width: 90px;
     height: 115px;
+
+    box-shadow: 0px 0px 9px 0px var(--darkerGray);
 }
 
 .teamcont:last-child {
@@ -526,6 +530,8 @@ input[type=number] {
 
     border-radius: 30%;
 
+    box-shadow: 0px 0px 9px 0px var(--darkerGray);
+
     transition: 300ms;
 }
 
@@ -546,9 +552,9 @@ input[type=number] {
     width: 80px;
     height: 80px;
 
-    border: 3px solid var(--ae);
-
     background-color: var(--ce);
+
+    box-shadow: 0px 0px 10px 0px var(--darkerGray);
 
     border-radius: 30%;
 }
