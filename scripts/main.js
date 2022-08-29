@@ -888,19 +888,30 @@ window.onload = function () {
             matCont.removeChild(matCont.lastChild);
         }
 
-        let exp_need = 0;
+        let exp_need = [];
         for (let i = 1; i < 5; i++) {
             if (currentTeam[i - 1] == null) continue;
 
             let maxTier = getTier(targetLevel)-((1-ascensionTeam)*isAscension(targetLevel));
             let minTier = getTier(currentLevel[i - 1])-((1-ascensions[i - 1])*isAscension(currentLevel[i - 1]));
 
-            if (maxTier == NaN) continue;
-            if (minTier == NaN) continue;
+            if (maxTier == NaN || minTier == NaN) continue;
 
+            let tier = 0, pre_tier = 0;
+            let exp_requirement = 0;
             for (let e = currentLevel[i - 1]; e < targetLevel; e++) {
-                exp_need += level_exp[e - 1];
+                tier = getTier(e - 1)
+
+                if(tier != pre_tier){
+                    exp_need.push(exp_requirement);
+                    exp_requirement = 0;
+                }
+
+                exp_requirement += level_exp[e - 1];
+                pre_tier = tier;
             }
+
+            exp_need.push(exp_requirement);
 
             if (maxTier == 0) continue;
 
@@ -923,13 +934,20 @@ window.onload = function () {
             }
         }
 
-        if (exp_need != 0) {
-            let big = Math.floor(exp_need / books_exp[2]);
-            let medium = Math.floor((exp_need - (big * books_exp[2])) / books_exp[1]);
-            let small = Math.ceil((exp_need - (big * books_exp[2]) - (medium * books_exp[1])) / books_exp[0]);
+        if (exp_need.length != 0) {
+            let big = 0, medium = 0, small = 0;
+            for(let ei = 0; ei < exp_need.length; ei++){
+                let tbig = Math.floor(exp_need[ei] / books_exp[2]);
+                let tmedium = Math.floor((exp_need[ei] - (tbig * books_exp[2])) / books_exp[1]);
+                let tsmall = Math.ceil((exp_need[ei] - (tbig * books_exp[2]) - (tmedium * books_exp[1])) / books_exp[0]);
 
-            text += "## EXP Books\n";
-            addMaterialElement(matCont, "——EXP Books——\n");
+                big += tbig;
+                medium += tmedium;
+                small += tsmall;
+            }
+
+            text += "## EXP Books (Most optimal EXP distribution)\n";
+            addMaterialElement(matCont, "——EXP Books (Most optimal EXP distribution)——\n");
 
             if (big != 0) {
                 let v = "- Hero's Wit x" + big.toString();
