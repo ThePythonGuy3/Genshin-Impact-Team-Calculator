@@ -108,7 +108,11 @@ let knife = ["Hunter's Sacrificial Knife", "Agent's Sacrificial Knife", "Inspect
     insignia_hoarder = ["Treasure Hoarder Insignia", "Silver Raven Insignia", "Golden Raven Insignia"],
     slime = ["Slime Condensate", "Slime Secretions", "Slime Concentrate"],
     spectral = ["Spectral Husk", "Spectral Heart", "Spectral Nucleus"],
-    statuette = ["Gloomy Statuette", "Dark Statuette", "Deathly Statuette"];
+    statuette = ["Gloomy Statuette", "Dark Statuette", "Deathly Statuette"],
+    spores = ["Fungal Spores", "Luminescent Pollen", "Crystalline Cyst Dust"],
+    headband = ["Faded Red Satin", "Trimmed Red Silk", "Rich Red Brocade"],
+    fungal_nucleus = ["Inactivated Fungal Nucleus", "Dormant Fungal Nucleus", "Robust Fungal Nucleus"],
+    chaos_storage = ["Chaos Storage", "Chaos Module", "Chaos Bolt"];
 
 // Domain Materials:
 let aerosiderite = ["Grain of Aerosiderite", "Piece of Aerosiderite", "Bit of Aerosiderite", "Chunk of Aerosiderite"],
@@ -119,7 +123,10 @@ let aerosiderite = ["Grain of Aerosiderite", "Piece of Aerosiderite", "Bit of Ae
     guyun = ["Luminous Sands from Guyun", "Lustrous Stone from Guyun", "Relic from Guyun", "Divine Body from Guyun"],
     mask = ["Mask of the Wicked Lieutenant", "Mask of the Tiger's Bite", "Mask of the One-Horned", "Mask of the Kijin"],
     mist_veiled = ["Mist Veiled Lead Elixir", "Mist Veiled Mercury Elixir", "Mist Veiled Gold Elixir", "Mist Veiled Primo Elixir"],
-    narukami = ["Narukami's Wisdom", "Narukami's Joy", "Narukami's Affection", "Narukami's Valor"];
+    narukami = ["Narukami's Wisdom", "Narukami's Joy", "Narukami's Affection", "Narukami's Valor"],
+    talisman = ["Copper Talisman of the Forest Dew", "Iron Talisman of the Forest Dew", "Silver Talisman of the Forest Dew", "Golden Talisman of the Forest Dew"],
+    oasis = ["Oasis Garden's Reminiscence", "Oasis Garden's Kindness", "Oasis Garden's Mourning", "Oasis Garden's Truth"],
+    scorching = ["Echo of Scorching Might", "Remnant Glow of Scorching Might", "Dream of Scorching Might", "Olden Days of Scorching Might"];
 
 // Gems:
 let prefixes = ["Sliver", "Fragment", "Chunk", "Gemstone"];
@@ -129,7 +136,8 @@ let agnidus = "Agnidus Agate",
     shivada = "Shivada Jade",
     vajrada = "Vajrada Amethyst",
     varunada = "Varunada Lazurite",
-    vayuda = "Vayuda Turquoise";
+    vayuda = "Vayuda Turquoise",
+    nagadus = "Nagadus Emerald";
 
 // Element colors
 let anemo = ["68F0BC", "09D2B8"],
@@ -137,8 +145,8 @@ let anemo = ["68F0BC", "09D2B8"],
     geo = ["FBE284", "FEA336"],
     pyro = ["FD8248", "FD0138"],
     hydro = ["7BD3E2", "0399D4"],
-    cryo = ["95B9F3", "608CF1"];
-//dendro = ["89FBB8", "79E2BB"]; // no need yet
+    cryo = ["95B9F3", "608CF1"],
+    dendro = ["bbd95f", "a5c83b"];
 
 let st = [
     ["888f98", "717b85"],
@@ -159,6 +167,7 @@ let characters = {
     "Beidou": new character("claymore", insignia_hoarder, "Noctilucous Jade", vajrada, "Lightning Prism", electro, 4),
     "Bennett": new character("sword", insignia_hoarder, "Windwheel Aster", agnidus, "Everflame Seed", pyro, 4),
     "Chongyun": new character("claymore", mask_boko, "Cor Lapis", shivada, "Hoarfrost Core", cryo, 4),
+    "Collei": new character("bow", arrowhead, "Rukkhashava Mushrooms", nagadus, "Majestic Hooked Beak", dendro, 4),
     "Diluc": new character("claymore", insignia_fatui, "Small Lamp Grass", agnidus, "Everflame Seed", pyro, 5),
     "Diona": new character("catalyst", arrowhead, "Calla Lily", shivada, "Hoarfrost Core", cryo, 4),
     "Eula": new character("claymore", mask_boko, "Dandelion Seed", shivada, "Crystalline Bloom", cryo, 5),
@@ -190,6 +199,7 @@ let characters = {
     "Sucrose": new character("catalyst", nectar, "Windwheel Aster", vayuda, "Hurricane Seed", anemo, 4),
     "Tartaglia": new character("bow", insignia_fatui, "Starconch", varunada, "Cleansing Heart", hydro, 5),
     "Thoma": new character("polearm", insignia_hoarder, "Fluorescent Fungus", agnidus, "Smoldering Pearl", pyro, 4, "Tohma"),
+    "Tighnari": new character("bow", spores, "Nilotpala Lotus", nagadus, "Majestic Hooked Beak", dendro, 5),
     "Traveler": new character("sword", mask_boko, "Windwheel Aster", brilliant, null, null, 5, "PlayerBoy"),
     "Venti": new character("bow", slime, "Cecilia", vayuda, "Hurricane Seed", anemo, 5),
     "Xiangling": new character("polearm", slime, "Jueyun Chili", agnidus, "Everflame Seed", pyro, 4),
@@ -235,6 +245,7 @@ let weapons = {
     "Dull Blade": new weapon("sword", decarabian, horn, arrowhead, 1),
     "Elegy for the End": new weapon("bow", wolf, horn, insignia_fatui, 5),
     "Emerald Orb": new weapon("catalyst", guyun, knife, insignia_hoarder, 3),
+    "End of the Line": new weapon("bow", scorching, fungal_nucleus, spores, 4),
     "Engulfing Lightning": new weapon("polearm", mask, chaos_axis, handguard, 5),
     "Everlasting Moonglow": new weapon("catalyst", coral, prism, spectral, 5),
     "Eye of Perception": new weapon("catalyst", mist_veiled, mist, mask_boko, 4),
@@ -247,19 +258,23 @@ let weapons = {
     "Ferrous Shadow": new weapon("claymore", decarabian, horn, nectar, 3),
     "Festering Desire": new weapon("sword", dandelion, horn, insignia_fatui, 4),
     "Fillet Blade": new weapon("sword", mist_veiled, mist, insignia_hoarder, 3),
+    "Forest Regalia": new weapon("claymore", talisman, chaos_storage, headband, 4),
     "Freedom-Sworn": new weapon("sword", dandelion, chaos_circuit, scroll, 5),
     "Frostbearer": new weapon("catalyst", dandelion, chaos_circuit, nectar, 4),
+    "Fruit of Fulfillment": new weapon("catalyst", oasis, statuette, spores, 4),
     "Hakushin Ring": new weapon("catalyst", coral, prism, scroll, 4),
     "Halberd": new weapon("polearm", mist_veiled, mist, nectar, 3),
     "Hamayumi": new weapon("bow", narukami, prism, arrowhead, 4),
     "Haran Geppaku Futsu": new weapon("sword", narukami, statuette, handguard, 5),
     "Harbinger of Dawn": new weapon("sword", wolf, ley_line, slime, 3),
     "Hunter's Bow": new weapon("bow", wolf, ley_line, insignia_hoarder, 1),
+    "Hunter's Path": new weapon("bow", scorching, fungal_nucleus, headband, 5),
     "Iron Point": new weapon("polearm", dandelion, chaos_circuit, scroll, 2),
     "Iron Sting": new weapon("sword", aerosiderite, bone, nectar, 4),
     "Kagotsurube Isshin": new weapon("sword", mask, statuette, spectral, 4),
     "Kagura's Verity": new weapon("catalyst", mask, concealed, spectral, 5),
     "Katsuragikiri Nagamasa": new weapon("claymore", narukami, chaos_axis, handguard, 4),
+    "King's Squire": new weapon("bow", scorching, fungal_nucleus, arrowhead, 4),
     "Kitain Cross Spear": new weapon("polearm", mask, chaos_axis, insignia_hoarder, 4),
     "Lion's Roar": new weapon("sword", guyun, knife, insignia_hoarder, 4),
     "Lithic Blade": new weapon("claymore", guyun, knife, arrowhead, 4),
@@ -272,6 +287,7 @@ let weapons = {
     "Messenger": new weapon("bow", mist_veiled, mist, insignia_hoarder, 3),
     "Mistsplitter Reforged": new weapon("sword", coral, chaos_axis, handguard, 5),
     "Mitternachts Waltz": new weapon("bow", decarabian, horn, insignia_hoarder, 4),
+    "Moonpiercer": new weapon("polearm", oasis, chaos_storage, insignia_fatui, 4),
     "Mouun's Moon": new weapon("bow", narukami, prism, spectral, 4),
     "Oathsworn Eye": new weapon("catalyst", coral, concealed, spectral, 4),
     "Old Merc's Pal": new weapon("claymore", wolf, ley_line, slime, 2),
@@ -300,6 +316,7 @@ let weapons = {
     "Sacrificial Fragments": new weapon("catalyst", dandelion, chaos_circuit, insignia_hoarder, 4),
     "Sacrificial Greatsword": new weapon("claymore", wolf, ley_line, arrowhead, 4),
     "Sacrificial Sword": new weapon("sword", dandelion, chaos_circuit, scroll, 4),
+    "Sapwood Blade": new weapon("sword", talisman, chaos_storage, headband, 4),
     "Seasoned Hunter's Bow": new weapon("bow", wolf, ley_line, insignia_hoarder, 2),
     "Serpent Spine": new weapon("claymore", aerosiderite, bone, nectar, 4),
     "Sharpshooter's Oath": new weapon("bow", wolf, ley_line, slime, 3),
