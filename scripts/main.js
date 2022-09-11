@@ -51,16 +51,16 @@ let sort_list = ["Enemy Drops", "Local Items", "Gems", "Boss Drops"];
 let weap_sort_list = ["Domain Materials", "Elite Enemy Drops", "Enemy Drops"];
 let char_mat_amount = [
     [[1, 3], [1, 15], [2, 12], [2, 18], [3, 12], [3, 24]],    // Enemy Drops [tier, amount]
-    [3, 10, 20, 30, 45, 60],         // Local Items
-    [[1, 1], [2, 3], [2, 6], [3, 3], [3, 6], [4, 6]],     // Gems [tier, amount]
-    [0, 2, 4, 8, 12, 20]          // Boss Drops
+    [3, 10, 20, 30, 45, 60],                                  // Local Items
+    [[1, 1], [2, 3], [2, 6], [3, 3], [3, 6], [4, 6]],         // Gems [tier, amount]
+    [0, 2, 4, 8, 12, 20]                                      // Boss Drops
 ]; // char_mat_amount[mat_type][ascension_level]
 
 let weap_mat_amount = [
     [ // 1 Star
         [[1, 1], [2, 1], [2, 2], [3, 1], [1, 0], [1, 0]],                      // Domain Material [tier, amount]
-        [[1, 1], [1, 4], [2, 2], [2, 4], [1, 0], [1, 0]],                     // Material 2 [tier, amount]
-        [[1, 1], [1, 2], [2, 2], [2, 3], [1, 0], [1, 0]]                     // Material 1 [tier, amount]
+        [[1, 1], [1, 4], [2, 2], [2, 4], [1, 0], [1, 0]],                      // Material 2 [tier, amount]
+        [[1, 1], [1, 2], [2, 2], [2, 3], [1, 0], [1, 0]]                       // Material 1 [tier, amount]
     ],
     [ // 2 Stars
         [[1, 1], [2, 1], [2, 3], [3, 1], [1, 0], [1, 0]],
@@ -168,6 +168,7 @@ let characters = {
     "Collei": new character("bow", arrowhead, "Rukkhashava Mushrooms", nagadus, "Majestic Hooked Beak", dendro, 4),
     "Diluc": new character("claymore", insignia_fatui, "Small Lamp Grass", agnidus, "Everflame Seed", pyro, 5),
     "Diona": new character("catalyst", arrowhead, "Calla Lily", shivada, "Hoarfrost Core", cryo, 4),
+    "Dori": new character("claymore", headband, "Kalpalata Lotus", vajrada, "Thunderclap Fruitcore", electro, 5),
     "Eula": new character("claymore", mask_boko, "Dandelion Seed", shivada, "Crystalline Bloom", cryo, 5),
     "Fischl": new character("bow", arrowhead, "Small Lamp Grass", vajrada, "Lightning Prism", electro, 4),
     "Ganyu": new character("bow", nectar, "Qingxin", shivada, "Hoarfrost Core", cryo, 5),
@@ -198,7 +199,7 @@ let characters = {
     "Tartaglia": new character("bow", insignia_fatui, "Starconch", varunada, "Cleansing Heart", hydro, 5),
     "Thoma": new character("polearm", insignia_hoarder, "Fluorescent Fungus", agnidus, "Smoldering Pearl", pyro, 4, "Tohma"),
     "Tighnari": new character("bow", spores, "Nilotpala Lotus", nagadus, "Majestic Hooked Beak", dendro, 5),
-    "Traveler": new character("sword", mask_boko, "Windwheel Aster", brilliant, null, null, 5, "PlayerBoy"),
+    "Traveler": new character("sword", mask_boko, "Windwheel Aster", brilliant, null, null, 5),
     "Venti": new character("bow", slime, "Cecilia", vayuda, "Hurricane Seed", anemo, 5),
     "Xiangling": new character("polearm", slime, "Jueyun Chili", agnidus, "Everflame Seed", pyro, 4),
     "Xiao": new character("polearm", slime, "Qingxin", vayuda, "Juvenile Jade", anemo, 5),
@@ -624,15 +625,18 @@ window.onload = function () {
         img.className = "image";
 
         if (val.alias == null) img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
-        else if (el=="Traveler") img.src = "./resources/traveler.png";
         else img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
+
+        if (el=="Traveler") img.src = "./resources/traveler.png";
 
         let elem2 = document.createElement("p"); // Name
         elem2.className = "name";
         elem2.style.width = "100px";
+
         if(textWidth(el, "16px Genshin") > 100){
             elem2.style.marginTop = "8px";
         }
+
         elem2.innerHTML = el;
 
         if (val.element != null) {
