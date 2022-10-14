@@ -110,7 +110,8 @@ let knife = ["Hunter's Sacrificial Knife", "Agent's Sacrificial Knife", "Inspect
     spores = ["Fungal Spores", "Luminescent Pollen", "Crystalline Cyst Dust"],
     headband = ["Faded Red Satin", "Trimmed Red Silk", "Rich Red Brocade"],
     fungal_nucleus = ["Inactivated Fungal Nucleus", "Dormant Fungal Nucleus", "Robust Fungal Nucleus"],
-    chaos_storage = ["Chaos Storage", "Chaos Module", "Chaos Bolt"];
+    chaos_storage = ["Chaos Storage", "Chaos Module", "Chaos Bolt"],
+    prism_robot = ["Damaged Prism", "Turbid Prism", "Radiant Prism"];
 
 // Domain Materials:
 let aerosiderite = ["Grain of Aerosiderite", "Piece of Aerosiderite", "Bit of Aerosiderite", "Chunk of Aerosiderite"],
@@ -187,6 +188,7 @@ let characters = {
     "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, 4, "Sara"),
     "Lisa": new character("catalyst", slime, "Valberry", vajrada, "Lightning Prism", electro, 4),
     "Mona": new character("catalyst", nectar, "Philanemo Mushroom", varunada, "Cleansing Heart", hydro, 5),
+    "Nilou": new character("sword", spores, "Padisarah", varunada, "Perpetual Caliber", hydro, 5),
     "Ningguang": new character("catalyst", insignia_fatui, "Glaze Lily", prithiva, "Basalt Pillar", geo, 4),
     "Noelle": new character("claymore", mask_boko, "Valberry", prithiva, "Basalt Pillar", geo, 4, "Noel"),
     "Qiqi": new character("sword", scroll, "Violetgrass", shivada, "Hoarfrost", cryo, 5),
@@ -275,6 +277,7 @@ let weapons = {
     "Kagotsurube Isshin": new weapon("sword", mask, statuette, spectral, 4),
     "Kagura's Verity": new weapon("catalyst", mask, concealed, spectral, 5),
     "Katsuragikiri Nagamasa": new weapon("claymore", narukami, chaos_axis, handguard, 4),
+    "Key of Khaj-Nisut": new weapon("sword", talisman, prism_robot, headband, 5),
     "King's Squire": new weapon("bow", scorching, fungal_nucleus, arrowhead, 4),
     "Kitain Cross Spear": new weapon("polearm", mask, chaos_axis, insignia_hoarder, 4),
     "Lion's Roar": new weapon("sword", guyun, knife, insignia_hoarder, 4),
@@ -287,6 +290,7 @@ let weapons = {
     "Mappa Mare": new weapon("catalyst", aerosiderite, bone, slime, 4),
     "Memory of Dust": new weapon("catalyst", aerosiderite, bone, mask_boko, 5),
     "Messenger": new weapon("bow", mist_veiled, mist, insignia_hoarder, 3),
+    "Missive Windspear": new weapon("polearm", wolf, statuette, slime, 4),
     "Mistsplitter Reforged": new weapon("sword", coral, chaos_axis, handguard, 5),
     "Mitternachts Waltz": new weapon("bow", decarabian, horn, insignia_hoarder, 4),
     "Moonpiercer": new weapon("polearm", oasis, chaos_storage, insignia_fatui, 4),
@@ -351,6 +355,7 @@ let weapons = {
     "Traveler's Handy Sword": new weapon("sword", dandelion, chaos_circuit, scroll, 3),
     "Twin Nephrite": new weapon("catalyst", mist_veiled, mist, insignia_fatui, 3),
     "Vortex Vanquisher": new weapon("polearm", aerosiderite, bone, insignia_hoarder, 5),
+    "Wandering Evenstar": new weapon("catalyst", oasis, fungal_nucleus, spores, 4),
     "Waster Greatsword": new weapon("claymore", wolf, ley_line, slime, 1),
     "Wavebreaker's Fin": new weapon("polearm", mask, concealed, handguard, 4),
     "White Iron Greatsword": new weapon("claymore", dandelion, chaos_circuit, slime, 3),
@@ -358,7 +363,8 @@ let weapons = {
     "Whiteblind": new weapon("claymore", guyun, knife, insignia_hoarder, 4),
     "Windblume Ode": new weapon("bow", dandelion, ley_line, nectar, 4),
     "Wine and Song": new weapon("catalyst", wolf, ley_line, insignia_hoarder, 4),
-    "Wolf's Gravestone": new weapon("claymore", dandelion, chaos_circuit, scroll, 5)
+    "Wolf's Gravestone": new weapon("claymore", dandelion, chaos_circuit, scroll, 5),
+    "Xiphos' Moonlight": new weapon("sword", talisman, prism_robot, headband, 4)
 }
 
 let defNames = {
