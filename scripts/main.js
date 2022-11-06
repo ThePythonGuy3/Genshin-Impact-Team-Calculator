@@ -188,6 +188,7 @@ let characters = {
     "Kujou Sara": new character("bow", mask_boko, "Dendrobium", vajrada, "Storm Beads", electro, 4, "Sara"),
     "Lisa": new character("catalyst", slime, "Valberry", vajrada, "Lightning Prism", electro, 4),
     "Mona": new character("catalyst", nectar, "Philanemo Mushroom", varunada, "Cleansing Heart", hydro, 5),
+    "Nahida": new character("catalyst", spores, "Kalpalata Lotus", nagadus, "Quelled Creeper", dendro, 5),
     "Nilou": new character("sword", spores, "Padisarah", varunada, "Perpetual Caliber", hydro, 5),
     "Ningguang": new character("catalyst", insignia_fatui, "Glaze Lily", prithiva, "Basalt Pillar", geo, 4),
     "Noelle": new character("claymore", mask_boko, "Valberry", prithiva, "Basalt Pillar", geo, 4, "Noel"),
@@ -219,6 +220,7 @@ let characters = {
 
 let weapons = {
     "\"The Catch\"": new weapon("polearm", mask, chaos_axis, spectral, 4),
+    "A Thousand Floating Dreams": new weapon("catalyst", oasis, prism_robot, spores, 5),
     "Akuoumaru": new weapon("claymore", coral, concealed, handguard, 4),
     "Alley Hunter": new weapon("bow", dandelion, chaos_circuit, slime, 4),
     "Amenoma Kageuchi": new weapon("sword", coral, chaos_axis, handguard, 4),
