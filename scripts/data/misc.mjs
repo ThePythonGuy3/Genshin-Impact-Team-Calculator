@@ -44,7 +44,7 @@ let elementColors = {
     "pyro": ["FD8248", "FD0138"],
     "hydro": ["7BD3E2", "0399D4"],
     "cryo": ["95B9F3", "608CF1"],
-    "dendro" ["bbd95f", "a5c83b"]
+    "dendro": ["bbd95f", "a5c83b"]
 }
 
 // Rarity (stars) colors

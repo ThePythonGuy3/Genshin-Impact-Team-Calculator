@@ -1,7 +1,5 @@
-import { enemyDrop, domainMaterial, gem, gemPrefixes } from './data/materials.mjs';
-/*import {*} from "./data/characters.mjs";
-import {*} from "./data/weapons.mjs";
-import {*} from "./data/misc.mjs";*/
+import { characters } from "./data/characters.mjs";
+import { weapons, defNames } from "./data/weapons.mjs";
 
 let sort_list = ["Enemy Drops", "Local Items", "Gems", "Boss Drops"];
 let weap_sort_list = ["Domain Materials", "Elite Enemy Drops", "Enemy Drops"];
