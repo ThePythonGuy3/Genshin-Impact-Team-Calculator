@@ -179,7 +179,7 @@ let weapons = {
     "Xiphos' Moonlight": new weapon("sword", domainMaterial("talisman"), enemyDrop("prism_robot"), enemyDrop("headband"), 4)
 }
 
-let defNames = {
+let defaultWeaponNames = {
     "sword": "Dull Blade",
     "claymore": "Waster Greatsword",
     "bow": "Hunter's Bow",
@@ -187,4 +187,4 @@ let defNames = {
     "polearm": "Beginner's Protector"
 }
 
-export { weapons, defNames };
+export { weapons, defaultWeaponNames };

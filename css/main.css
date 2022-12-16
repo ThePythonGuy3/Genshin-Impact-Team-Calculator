@@ -1,15 +1,26 @@
 @font-face {
-  font-family: 'Genshin';
-  src: url('../font.ttf') format('truetype');
+    font-family: 'Genshin';
+    src: url('../font.ttf') format('truetype');
 }
 
 @-webkit-keyframes fadeIn {
-    from { opacity: 0; }
-      to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
+
 @keyframes fadeIn {
-    from { opacity: 0; }
-      to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 :root {
@@ -91,10 +102,10 @@ input::-webkit-inner-spin-button {
 }
 
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
-#optImg{
+#optImg {
     image-rendering: -webkit-optimize-contrast;
 }
 
@@ -262,7 +273,8 @@ input[type=number] {
     transition: 300ms;
 }
 
-.teamcard:active, .teamcard:focus {
+.teamcard:active,
+.teamcard:focus {
     background: var(--teamCardActive);
 
     transition: 50ms;
@@ -351,19 +363,19 @@ input[type=number] {
     background: var(--fe);
 }
 
-.materialGlobContCont {
+.materialTagFullContainerElement {
     width: 100%;
     height: 35px;
 }
 
-.materialGlobCont {
+.materialTagContainerElement {
     margin-left: auto;
     margin-right: auto;
 
     width: 340px;
 }
 
-.materialImageCont {
+.materialImageContainer {
     position: relative;
 
     left: 0px;
@@ -661,7 +673,7 @@ input[type=number] {
 }
 
 #matContainer {
-    width: calc(100vw - var(--char-width)); 
+    width: calc(100vw - var(--char-width));
     min-width: 400px;
 }
 
@@ -682,7 +694,7 @@ input[type=number] {
     height: 18px;
 }
 
-.switch input { 
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
@@ -716,11 +728,11 @@ input[type=number] {
     border-radius: 30px;
 }
 
-input:checked + .slider {
+input:checked+.slider {
     background-color: var(--dark);
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
     background-color: var(--ee);
     transform: translateX(26px);
 }
