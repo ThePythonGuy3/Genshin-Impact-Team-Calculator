@@ -109,7 +109,7 @@ input[type=number] {
     image-rendering: -webkit-optimize-contrast;
 }
 
-#scroll {
+#characterScrollPane {
     width: 320px;
     height: calc(97vh - 85px);
 }
@@ -219,7 +219,7 @@ input[type=number] {
     user-select: none;
 }
 
-.weapname {
+.selectedWeaponName {
     float: left;
 
     color: var(--black);
@@ -229,7 +229,7 @@ input[type=number] {
     user-select: none;
 }
 
-.teamcont {
+.teamCard {
     position: relative;
     float: left;
 
@@ -243,11 +243,11 @@ input[type=number] {
     box-shadow: 0px 0px 9px 0px var(--darkerGray);
 }
 
-.teamcont:last-child {
+.teamCard:last-child {
     margin-right: 0;
 }
 
-.teamcard {
+.characterLevelCard {
     position: absolute;
     left: 0;
     top: 0;
@@ -267,14 +267,14 @@ input[type=number] {
 
 }
 
-.teamcard:hover {
+.characterLevelCard:hover {
     background: var(--teamCardHover);
 
     transition: 300ms;
 }
 
-.teamcard:active,
-.teamcard:focus {
+.characterLevelCard:active,
+.characterLevelCard:focus {
     background: var(--teamCardActive);
 
     transition: 50ms;
@@ -299,7 +299,7 @@ input[type=number] {
     visibility: hidden;
 }
 
-.teamimage {
+.characterImage {
     image-rendering: -webkit-optimize-contrast;
 
     position: absolute;
@@ -312,11 +312,11 @@ input[type=number] {
     visibility: hidden;
 }
 
-.teamimage[src] {
+.characterImage[src] {
     visibility: visible;
 }
 
-.teamimage[src="resources/plus.png"] {
+.characterImage[src="resources/plus.png"] {
     left: 20px;
     top: 20px;
 
@@ -324,7 +324,7 @@ input[type=number] {
     width: 50px;
 }
 
-.teamname {
+.teamLevelTag {
     position: absolute;
     left: 0;
     top: 69px;
@@ -422,7 +422,7 @@ input[type=number] {
     bottom: 17px;
 }
 
-#charFind {
+#characterFindField {
     border: none;
 
     border-radius: 5px;
@@ -439,7 +439,7 @@ input[type=number] {
     margin-bottom: 5px;
 }
 
-#weapFind {
+#weaponFindField {
     border: none;
 
     border-radius: 5px;
@@ -458,7 +458,7 @@ input[type=number] {
     margin-bottom: 5px;
 }
 
-#targetinput {
+#teamTargetLevelField {
     background: var(--lighterGray);
 }
 
@@ -588,12 +588,12 @@ input[type=number] {
 }
 
 /* Due to certain CSS limitation it's very hard to make it fade out so i'll just use a fade in */
-#popup-cover {
+#downloadPopupWindow {
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 }
 
-#weap-popup-cover {
+#weaponPopupWindow {
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 }
@@ -677,7 +677,7 @@ input[type=number] {
     min-width: 400px;
 }
 
-#nightSwitch {
+#darkModeSwitch {
     position: absolute;
 
     top: 20px;
@@ -700,7 +700,7 @@ input[type=number] {
     height: 0;
 }
 
-.slider {
+.darkModeSlider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -714,7 +714,7 @@ input[type=number] {
     border-radius: 30px;
 }
 
-.slider:before {
+.darkModeSlider:before {
     position: absolute;
     content: "";
     height: 12px;
@@ -728,11 +728,11 @@ input[type=number] {
     border-radius: 30px;
 }
 
-input:checked+.slider {
+input:checked+.darkModeSlider {
     background-color: var(--dark);
 }
 
-input:checked+.slider:before {
+input:checked+.darkModeSlider:before {
     background-color: var(--ee);
     transform: translateX(26px);
 }
@@ -746,7 +746,7 @@ input:checked+.slider:before {
         width: 80px;
     }
 
-    #scroll {
+    #characterScrollPane {
         width: 95px;
     }
 
@@ -758,7 +758,7 @@ input:checked+.slider:before {
         width: calc(100vw - 160px) !important;
     }
 
-    #charFind {
+    #characterFindField {
         width: 85px;
     }
 

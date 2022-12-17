@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html l
+ang="en">
 	<head>
 		<title>Genshin Impact Team Calculator</title>
 		<link rel="icon" href="icon.png">
@@ -19,41 +20,41 @@
 	</head>
 
 	<body style="overflow: hidden;">
-		<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;" id="popup-cover">
+		<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;" id="downloadPopupWindow">
 			<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"></div>
 			<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 20px; padding: 20px; line-height: 0px;" id="download-popup">
 				<p>Download team materials</p>
 				<div style="display: flex; align-items: center;">
-					<input type="text" style="width: 100%; height: 32px;" class="nameinput" id="downinput">
+					<input type="text" style="width: 100%; height: 32px;" class="nameinput" id="fileNameField">
 					<p style="line-height: 0px; color: var(--dark); margin-left: 5px;">.txt</p>
 				</div>
 				<div style="display: flex; align-items: center;">
-					<input type="submit" value="Cancel" style="width: 50%;" class="submBut" id="cancBut">
-					<input type="submit" value="Download" style="width: 50%;" class="submBut" id="downBut">
+					<input type="submit" value="Cancel" style="width: 50%;" class="submBut" id="popupCancelButton">
+					<input type="submit" value="Download" style="width: 50%;" class="submBut" id="popupDownloadButton">
 				</div>
 			</div>
 		</div>
 
-		<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;" id="weap-popup-cover">
+		<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;" id="weaponPopupWindow">
 			<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"></div>
 			<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 350px; width: 515px; right: calc(50vw - 225px); margin-right: auto; padding-bottom: 20px; padding-left: 10px;" id="weapon-popup">
 				<p style="margin-left: 10px;">Weapon selection</p>
 
 				<div style="display: flex; flex-direction: row;">
 					<div style="display: flex; flex-direction:  column; width: 345px; height: 300px;">
-						<input type="text" id="weapFind" placeholder="Find weapon by name">
-						<div style="overflow-y: auto; overflow-x: hidden; float: left;" id="weapScroll" class="specialScroll"></div>
+						<input type="text" id="weaponFindField" placeholder="Find weapon by name">
+						<div style="overflow-y: auto; overflow-x: hidden; float: left;" id="weaponScrollPane" class="specialScroll"></div>
 					</div>
 					<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; margin-right: 5px; margin-left: 5px;">
 						<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center;">
-							<img alt="Selected weapon" src="./resources/weapons/Dull_Blade.png" class="weapImg2" id="weapSelect">
-							<p style="text-align: center; word-break: break-word; padding: 5px; padding-top: 0px; font-size: 13px;" id="weapName">Dull Blade</p>
-							<p style="text-align: center; font-size: 15px;">Level: <input type="number" value=1 class="levelinput weaplevinput" id="weapInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapAscension" value=1 disabled></p>
-							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" value=20 class="levelinput weaplevinput" id="weapTarInput"><input type="checkbox" style="position: relative; top: 2px;" id="weapTarAscension" value=1 disabled></p>
+							<img alt="Selected weapon" src="./resources/weapons/Dull_Blade.png" class="weapImg2" id="selectedWeaponImage">
+							<p style="text-align: center; word-break: break-word; padding: 5px; padding-top: 0px; font-size: 13px;" id="selectedWeaponName">Dull Blade</p>
+							<p style="text-align: center; font-size: 15px;">Level: <input type="number" value=1 class="levelinput weaplevinput" id="selectedWeaponCurrentLevelField"><input type="checkbox" style="position: relative; top: 2px;" id="selectedWeaponCurrentAscendedCheckbox" value=1 disabled></p>
+							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" value=20 class="levelinput weaplevinput" id="selectedWeaponTargetLevelField"><input type="checkbox" style="position: relative; top: 2px;" id="selectedWeaponTargetAscendedCheckbox" value=1 disabled></p>
 						</div>
 						<div style="flex-grow: 1; user-select: none;">&nbsp;</div>
 						<div>
-							<input type="button" value="Close" class="acdecButton" id="weapAccept">
+							<input type="button" value="Close" class="acdecButton" id="weaponPopupAcceptButton">
 						</div>
 					</div>
 				</div>
@@ -65,40 +66,40 @@
 			<p style="margin-left: 10px; line-height: 10px; user-select: none; color: var(--black);">Genshin Impact Team Resource Calculator by ThePythonGuy</p>
 		</div>
 
-		<label id="nightSwitch" class="switch">
-			<input id="nightCheck" type="checkbox">
-			<span class="slider"></span>
+		<label id="darkModeSwitch" class="switch">
+			<input id="darkModeCheckbox" type="checkbox">
+			<span class="darkModeSlider"></span>
 		</label>
 
 		<div style="position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -2; background: var(--bg); padding: 10px;">
 			<div style="display: flex; position: absolute; left: 0; top: 67px;">
 				<div style="width: 310px;" id="shrink">
-					<input type="text" id="charFind" placeholder="Find character by name">
-					<div style="overflow-y: auto; overflow-x: hidden; margin-left: 10px; float: left; z-index: 1;" id="scroll" class="specialScroll"></div> <!-- Character container -->
+					<input type="text" id="characterFindField" placeholder="Find character by name">
+					<div style="overflow-y: auto; overflow-x: hidden; margin-left: 10px; float: left; z-index: 1;" id="characterScrollPane" class="specialScroll"></div> <!-- Character container -->
 				</div>
 				<div style="display: flex; flex-grow: 1; flex-direction: column; justify-content: center; margin-left: 25px; width: calc(100vw - 360px); flex-shrink: 0; padding-left: 10px; padding-right: 10px;" id="grow">
-					<div style="display: flex; justify-content: center; height: 130px; align-items: center;" id="teamcontcont">
+					<div style="display: flex; justify-content: center; height: 130px; align-items: center;" id="teamContainer">
 					</div> <!-- Team container -->
-					<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;" id="weapcont">
+					<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;" id="weaponContainer">
 					</div> <!-- Weapon container -->
 
 					<div style="display: flex; justify-content: center;">
-						<p style="text-align: center; font-size: 15px;">Team target level: <input type="number" value=20 class="levelinput" id="targetinput"><input type="checkbox" style="position: relative; top: 2px;" id="teamAscension"></p>
-						<p title="Calculate" tabindex="1" style="border-radius: 10px; margin: 2px; width: 90px; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; margin-left: 10px; margin-top: 10px;" class="click-out" id="calc">Calculate</p>
+						<p style="text-align: center; font-size: 15px;">Team target level: <input type="number" value=20 class="levelinput" id="teamTargetLevelField"><input type="checkbox" style="position: relative; top: 2px;" id="teamAscensionCheckbox"></p>
+						<p title="Calculate" tabindex="1" style="border-radius: 10px; margin: 2px; width: 90px; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; margin-left: 10px; margin-top: 10px;" class="click-out" id="calculateButton">Calculate</p>
 					</div>
 					<div style="display: flex; flex-grow: 1; justify-content: center; align-items: center; flex-direction: column;">
 						<div style="display: flex; align-content: center; flex-direction: column; background-color: var(--cinnamon); border-radius: 10px; box-shadow: 0px 0px 9px 0px var(--darkCinnamon); height: calc(100vh - 330px); position: relative;" id="matContainer">
 							<div class="specialScroll" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 270px);">
 								<p class="materialTitle" style="text-align: center; width: 100%;">Character level-up materials:</p>
-								<div id="charmat" style="width: 100%; margin-bottom: 15px;">
+								<div id="characterMaterialPane" style="width: 100%; margin-bottom: 15px;">
 									<p class="material">-</p>
 								</div>
 								<p class="materialTitle" style="text-align: center; width: 100%;">Weapon level-up materials:</p>
-								<div id="weapmat" style="width: 100%">
+								<div id="weaponMaterialPane" style="width: 100%">
 									<p class="material">-</p>
 								</div>
 							</div>
-							<img title="Download as PDF" tabindex="1" style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/download.png" id="down">
+							<img title="Download as PDF" tabindex="1" style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px;" class="click" src="resources/download.png" id="downloadButton">
 						</div>
 					</div>
 				</div>
@@ -107,7 +108,7 @@
 					<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Loading...</p>
 				</div> <!-- Loading screen -->
 
-				<div id="error" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: var(--fe);">
+				<div id="javascriptDisabledError" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: var(--fe);">
 					<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">JavaScript not enabled.<br><br>Please enable JavaScript to use this tool.</p>
 				</div> <!-- JavaScript disabled message -->
 
