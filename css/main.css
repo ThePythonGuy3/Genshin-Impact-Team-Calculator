@@ -23,6 +23,26 @@
     }
 }
 
+@-webkit-keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 :root {
     --char-width: 390px;
 
@@ -144,7 +164,7 @@ input[type=number] {
     background: var(--sliderHandle);
 }
 
-.namecard {
+.nameCard {
     border-radius: 30px;
 
     margin: 5px;
@@ -160,26 +180,24 @@ input[type=number] {
 
     background: var(--lighterGray);
 
-    /*box-shadow: 0px 0px 5px 0px var(--darkGray);*/
-
     user-select: none;
 
     transition: 300ms;
 }
 
-.namecard:hover {
+.nameCard:hover {
     background: var(--lightGray);
 
     transition: 300ms;
 }
 
-.namecard:active {
+.nameCard:active {
     background: var(--gray);
 
     transition: 50ms;
 }
 
-.namecard:last-child {
+.nameCard:last-child {
     margin-bottom: 0;
 }
 
@@ -436,8 +454,10 @@ input[type=number] {
 
     padding-left: 10px;
 
-    margin-left: 5px;
+    margin-left: 15px;
     margin-bottom: 5px;
+
+    box-shadow: 0px 0px 9px 0px var(--darkGray);
 }
 
 #weaponFindField {
@@ -588,15 +608,14 @@ input[type=number] {
     transition: 50ms;
 }
 
-/* Due to certain CSS limitation it's very hard to make it fade out so i'll just use a fade in */
-#downloadPopupWindow {
+.fadeIn {
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 }
 
-#weaponPopupWindow {
-    -webkit-animation: fadeIn 0.3s;
-    animation: fadeIn 0.3s;
+.fadeOut {
+    -webkit-animation: fadeOut 0.3s;
+    animation: fadeOut 0.3s;
 }
 
 .weapImg {
@@ -743,7 +762,7 @@ input:checked+.darkModeSlider:before {
         display: none;
     }
 
-    .namecard {
+    .nameCard {
         width: 80px;
     }
 

@@ -23,7 +23,9 @@ let enemyDrops = {
     "headband": ["Faded Red Satin", "Trimmed Red Silk", "Rich Red Brocade"],
     "fungal_nucleus": ["Inactivated Fungal Nucleus", "Dormant Fungal Nucleus", "Robust Fungal Nucleus"],
     "chaos_storage": ["Chaos Storage", "Chaos Module", "Chaos Bolt"],
-    "prism_robot": ["Damaged Prism", "Turbid Prism", "Radiant Prism"]
+    "prism_robot": ["Damaged Prism", "Turbid Prism", "Radiant Prism"],
+    "shell": ["Desiccated Shell", "Sturdy Shell", "Marked Shell"],
+    "flower": ["A Flower Yet to Bloom", "Treasured Flower", "Wanderer's Blooming Flower"]
 }
 
 // Domain Materials:

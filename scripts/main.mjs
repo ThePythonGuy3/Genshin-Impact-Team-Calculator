@@ -187,13 +187,13 @@ window.onload = function () {
 
     let weaponFindField = document.getElementById("weaponFindField");
     let weaponScrollpane = document.getElementById("weaponScrollPane");
-    
+
     let downloadPopupWindow = document.getElementById("downloadPopupWindow");
     let weaponPopupWindow = document.getElementById("weaponPopupWindow");
 
     let calculateButton = document.getElementById("calculateButton");
     let downloadButton = document.getElementById("downloadButton");
-    
+
     let fileNamefield = document.getElementById("fileNameField");
 
     let popupDownloadButton = document.getElementById("popupDownloadButton");
@@ -206,7 +206,7 @@ window.onload = function () {
 
     let teamContainer = document.getElementById("teamContainer");
     let weaponContainer = document.getElementById("weaponContainer");
-    
+
     let selectedWeaponImage = document.getElementById("selectedWeaponImage");
     let selectedWeaponName = document.getElementById("selectedWeaponName");
 
@@ -221,7 +221,7 @@ window.onload = function () {
         swapMode(root, darkModeSwitch);
     }
 
-    darkModeSwitch.onchange = () => {
+    darkModeSwitch.onchange = function() {
         swapMode(root, darkModeSwitch);
     }
 
@@ -229,7 +229,7 @@ window.onload = function () {
         ascensionTeam = event.currentTarget.checked;
     });
 
-    teamTargetLevelField.addEventListener("input", () => {
+    teamTargetLevelField.addEventListener("input", (event) => {
         teamAscensionCheckbox.disabled = true;
         teamAscensionCheckbox.checked = false;
         if (teamTargetLevelField.value.length > 2) {
@@ -241,22 +241,22 @@ window.onload = function () {
         teamTargetLevel = teamTargetLevelField.value;
     });
 
-    teamTargetLevelField.addEventListener("focusout", () => {
+    teamTargetLevelField.addEventListener("focusout", (event) => {
         if (teamTargetLevelField.value == "" || teamTargetLevelField.value == 0) teamTargetLevelField.value = 1;
         if (teamTargetLevelField.value > 90) teamTargetLevelField.value = 90;
         teamTargetLevel = teamTargetLevelField.value;
     });
 
     for (const [el, val] of Object.entries(characters)) {
-        let elem = document.createElement("div"); // Character namecard container
-        let c = rgb(starColors[val.stars - 1][0]);
-        let c2 = rgb(starColors[val.stars - 1][1]);
-        let cc = hex(c[0] + 50, c[1] + 50, c[2] + 50) + ", " + hex(c2[0] + 50, c2[1] + 50, c2[2] + 50);
+        let namecard = document.createElement("div"); // Character namecard container
+        let color1 = rgb(starColors[val.stars - 1][0]);
+        let color2 = rgb(starColors[val.stars - 1][1]);
+        let hexColor = hex(color1[0] + 50, color1[1] + 50, color1[2] + 50) + ", " + hex(color2[0] + 50, color2[1] + 50, color2[2] + 50);
 
-        elem.style.backgroundImage = "linear-gradient(90deg, rgba(0,0,0,0) 80%, " + cc + ")";
-        elem.className = "namecard";
-        elem.tabIndex = 1;
-        elem.onclick = function () {
+        namecard.style.backgroundImage = "linear-gradient(90deg, rgba(0,0,0,0) 80%, " + hexColor + ")";
+        namecard.className = "nameCard";
+        namecard.tabIndex = 1;
+        namecard.onclick = function (event) {
             if (selectedCharacter != 0) {
                 if (!currentTeam.includes(val)) {
                     let doc = document.getElementById("team" + selectedCharacter);
@@ -273,7 +273,7 @@ window.onload = function () {
                     currentTeam[selectedCharacter - 1] = val;
                     currentCharacterLevel[selectedCharacter - 1] = 1;
 
-                    if (currentWeapons[selectedCharacter - 1].typ != val.weaponType) {
+                    if (currentWeapons[selectedCharacter - 1].type != val.weaponType) {
                         currentWeapons[selectedCharacter - 1] = defaultWeapons[val.weaponType];
                         document.getElementById("weapImg" + selectedCharacter).src = selectedWeaponImage.src = "./resources/weapons/" + defaultWeaponNames[val.weaponType].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
                         selectedWeaponName.innerHTML = defaultWeaponNames[val.weaponType];
@@ -284,10 +284,12 @@ window.onload = function () {
                         currentWeaponTargetAscensions[selectedCharacter - 1] = false;
                     }
 
-                    if (selectedCharacter < 4 && currentTeam[selectedCharacter] == null) {
+                    if (selectedCharacter < 4 && currentTeam[selectedCharacter + 1] == null) {
                         selectedCharacter++;
                         document.getElementById("team" + selectedCharacter).focus();
-                    } else selectedCharacter = 0;
+                    } else {
+                        selectedCharacter = 0;
+                    }
                 } else document.getElementById("team" + selectedCharacter).focus();
             }
         }
@@ -295,10 +297,7 @@ window.onload = function () {
         let img = document.createElement("img"); // Face image
         img.className = "image";
 
-        if (val.alias == null) img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + el + ".png";
-        else img.src = "https://upload-os-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_" + val.alias + ".png";
-
-        if (el == "Traveler") img.src = "./resources/traveler.png";
+        img.src = "./resources/characters/" + el.replace(" ", "_") + ".png";
 
         let elem2 = document.createElement("p"); // Name
         elem2.className = "name";
@@ -314,8 +313,8 @@ window.onload = function () {
             img.style.backgroundImage = "linear-gradient(0deg, #" + val.element[0] + ", #" + val.element[1] + ")";
         }
 
-        elem.appendChild(img);
-        elem.appendChild(elem2);
+        namecard.appendChild(img);
+        namecard.appendChild(elem2);
 
         let contDiv = document.createElement("div");
         contDiv.style.float = "right";
@@ -328,9 +327,9 @@ window.onload = function () {
             contDiv.appendChild(elem2);
         }
 
-        elem.appendChild(contDiv);
+        namecard.appendChild(contDiv);
 
-        characterScrollPane.appendChild(elem);
+        characterScrollPane.appendChild(namecard);
     }
 
     characterFindField.addEventListener("input", () => {
@@ -359,13 +358,13 @@ window.onload = function () {
     });
 
     for (const [el, val] of Object.entries(weapons)) {
-        let elem = document.createElement("div"); // Character namecard container
+        let elem = document.createElement("div"); // Weapon namecard container
         let c = rgb(starColors[val.stars - 1][0]);
         let c2 = rgb(starColors[val.stars - 1][1]);
         let cc = hex(c[0] + 50, c[1] + 50, c[2] + 50) + ", " + hex(c2[0] + 50, c2[1] + 50, c2[2] + 50);
 
         elem.style.backgroundImage = "linear-gradient(90deg, rgba(0,0,0,0) 80%, " + cc + ")";
-        elem.className = "namecard";
+        elem.className = "nameCard";
         elem.style.width = "330px";
         elem.tabIndex = 1;
         elem.onclick = function () {
@@ -383,7 +382,7 @@ window.onload = function () {
         img.src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
 
         let elem2 = document.createElement("p"); // Name
-        elem2.className = "weapname";
+        elem2.className = "selectedWeaponName";
         elem2.style.width = "160px";
         elem2.style.marginTop = "14spx";
         if (textWidth(el, "16px Genshin") > 160) {
@@ -836,17 +835,41 @@ window.onload = function () {
 
     downloadButton.onclick = event => {
         if (text != "") {
+            downloadPopupWindow.classList.remove("fadeOut");
+            downloadPopupWindow.classList.add("fadeIn");
             downloadPopupWindow.style.display = "flex";
         }
     }
 
     popupCancelButton.onclick = event => {
-        downloadPopupWindow.style.display = "none";
+        downloadPopupWindow.classList.remove("fadeIn");
+        downloadPopupWindow.classList.add("fadeOut");
+
+        setTimeout(() => {
+            weaponPopupWindow.style.opacity = "0";
+            downloadPopupWindow.style.display = "none";
+
+            setTimeout(() => {
+                weaponPopupWindow.style.opacity = "1";
+            }, 50);
+        }, 300);
     }
 
     weaponPopupAcceptButton.onclick = event => {
         selectedWeapons = 0;
-        weaponPopupWindow.style.display = "none";
+        weaponPopupWindow.classList.remove("fadeIn");
+        weaponPopupWindow.classList.add("fadeOut");
+
+        setTimeout(() => {
+            weaponPopupWindow.style.opacity = "0";
+            weaponPopupWindow.style.display = "none";
+            
+            setTimeout(() => {
+                weaponPopupWindow.classList.remove("fadeOut");
+                weaponPopupWindow.classList.add("fadeIn");
+                weaponPopupWindow.style.opacity = "1";
+            }, 50); // Just in case
+        }, 300);
 
         weaponFindField.value = "";
     }
@@ -864,5 +887,7 @@ window.onload = function () {
 }
 
 document.addEventListener('focusout', event => {
-    if (event.relatedTarget == null || (event.relatedTarget.className != "namecard" && event.relatedTarget.className != "teamcard")) selectedCharacter = 0;
+    if (event.relatedTarget == null || (event.relatedTarget.className != "nameCard" && event.relatedTarget.className != "teamCard" && event.relatedTarget.className != "characterLevelCard")) {
+        selectedCharacter = 0;
+    }
 }, true);
