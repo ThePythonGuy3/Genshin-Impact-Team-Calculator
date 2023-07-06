@@ -38,6 +38,16 @@ function setElementStyleProperty(root, name, value) {
 
 // Swaps dark mode on or off
 function swapMode(root, nightCheck) {
+    let nameCards = document.getElementsByClassName("nameCard");
+
+    for (let i = 0; i < nameCards.length; i++) {
+        if (nightCheck.checked) {
+            nameCards[i].classList.add("disableBackgroundImage");
+        } else {
+            nameCards[i].classList.remove("disableBackgroundImage");
+        }
+    }
+
     setElementStyleProperty(root, "lighterGray", !nightCheck.checked ? "#F0F0F0" : "#0F0F0F");
     setElementStyleProperty(root, "lightGray", !nightCheck.checked ? "#E0E0E0" : "#1F1F1F");
     setElementStyleProperty(root, "gray", !nightCheck.checked ? "#E0E0E0" : "#2F2F2F");
@@ -51,6 +61,8 @@ function swapMode(root, nightCheck) {
     setElementStyleProperty(root, "lvInput", !nightCheck.checked ? "#FEFEFE" : "#1F1F1F");
     setElementStyleProperty(root, "weapLvInput", !nightCheck.checked ? "#FEFEFE" : "#3F3F3F");
     setElementStyleProperty(root, "wpInput", !nightCheck.checked ? "#FEFEFE" : "#0F0F0F");
+
+    setElementStyleProperty(root, "swInput", !nightCheck.checked ? "#FFCF45" : "#AFAFAF");
 
     setElementStyleProperty(root, "ae", !nightCheck.checked ? "#AEAEAE" : "#515151");
     setElementStyleProperty(root, "be", !nightCheck.checked ? "#BEBEBE" : "#414141");
@@ -221,7 +233,7 @@ window.onload = function () {
         swapMode(root, darkModeSwitch);
     }
 
-    darkModeSwitch.onchange = function() {
+    darkModeSwitch.onchange = function () {
         swapMode(root, darkModeSwitch);
     }
 
@@ -284,13 +296,15 @@ window.onload = function () {
                         currentWeaponTargetAscensions[selectedCharacter - 1] = false;
                     }
 
-                    if (selectedCharacter < 4 && currentTeam[selectedCharacter + 1] == null) {
+                    if (selectedCharacter < 4) {
+                        document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
                         selectedCharacter++;
-                        document.getElementById("team" + selectedCharacter).focus();
+                        document.getElementById("team" + selectedCharacter).classList.add("teamFocus");
                     } else {
+                        document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
                         selectedCharacter = 0;
                     }
-                } else document.getElementById("team" + selectedCharacter).focus();
+                } else document.getElementById("team" + selectedCharacter).classList.add("teamFocus");
             }
         }
 
@@ -420,7 +434,9 @@ window.onload = function () {
         characterLevelCard.className = "characterLevelCard";
 
         characterLevelCard.onclick = () => {
+            if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
             selectedCharacter = i;
+            characterLevelCard.classList.add("teamFocus");
         }
 
         let characterImage = document.createElement("img");
@@ -457,6 +473,7 @@ window.onload = function () {
         });
 
         characterLevelField.addEventListener("focus", () => {
+            if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
             selectedCharacter = 0;
         });
 
@@ -464,6 +481,7 @@ window.onload = function () {
             if (characterLevelField.value == "" || characterLevelField.value == 0) characterLevelField.value = 1;
             if (characterLevelField.value > 90) characterLevelField.value = 90;
             currentCharacterLevel[i - 1] = characterLevelField.value;
+            if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
             selectedCharacter = 0;
         });
 
@@ -587,6 +605,7 @@ window.onload = function () {
 
         let done = false;
         let matDict = {};
+        let added = false;
         text = "# Character level-up Materials\n\n";
 
         while (characterMaterialPane.firstChild) {
@@ -660,6 +679,7 @@ window.onload = function () {
                 bpp.innerHTML = "Hero's Wit";
 
                 text += "- Hero's Wit x" + big.toString() + "\n";
+                added = true;
 
                 addMaterialTag(characterMaterialPane, "Hero's Wit", bpp, big);
             }
@@ -670,6 +690,7 @@ window.onload = function () {
                 mpp.innerHTML = "Adventurer's Experience";
 
                 text += "- Adventurer's Experience x" + medium.toString() + "\n";
+                added = true;
 
                 addMaterialTag(characterMaterialPane, "Adventurer's Experience", mpp, medium);
             }
@@ -680,6 +701,7 @@ window.onload = function () {
                 spp.innerHTML = "Adventurer's Experience";
 
                 text += "- Wanderer's Advice x" + small.toString() + "\n";
+                added = true;
 
                 addMaterialTag(characterMaterialPane, "Wanderer's Advice", spp, small);
             }
@@ -728,10 +750,12 @@ window.onload = function () {
                     pp2.innerHTML = txt.replace("## ", "——") + "——";
 
                     text += txt.replace("<br>", "\n").replace("­", "") + "\n";
+                    added = true;
                     characterMaterialPane.appendChild(pp2);
                 }
 
                 text += "- " + vv[1] + " x" + value + "\n";
+                added = true;
 
                 addMaterialTag(characterMaterialPane, vv[1], pp, value);
 
@@ -819,10 +843,12 @@ window.onload = function () {
                     pp2.innerHTML = txt.replace("## ", "——") + "——";
 
                     text += txt.replace("<br>", "\n").replace("­", "") + "\n";
+                    added = true;
                     weaponMaterialPane.appendChild(pp2);
                 }
 
                 text += "- " + vv[1] + " x" + value + "\n";
+                added = true;
 
                 addMaterialTag(weaponMaterialPane, vv[1], pp, value);
 
@@ -831,6 +857,15 @@ window.onload = function () {
         }
 
         text += "\n#### NOTE: This file can be stylized with a MARKDOWN viewer."
+
+        if (added) {
+            downloadButton.classList.remove("disabled");
+            downloadButton.classList.add("click");
+        } else {
+            downloadButton.classList.remove("click");
+            downloadButton.classList.add("disabled");
+            text = "";
+        }
     }
 
     downloadButton.onclick = event => {
@@ -852,7 +887,7 @@ window.onload = function () {
             setTimeout(() => {
                 weaponPopupWindow.style.opacity = "1";
             }, 50);
-        }, 300);
+        }, 200);
     }
 
     weaponPopupAcceptButton.onclick = event => {
@@ -863,13 +898,13 @@ window.onload = function () {
         setTimeout(() => {
             weaponPopupWindow.style.opacity = "0";
             weaponPopupWindow.style.display = "none";
-            
+
             setTimeout(() => {
                 weaponPopupWindow.classList.remove("fadeOut");
                 weaponPopupWindow.classList.add("fadeIn");
                 weaponPopupWindow.style.opacity = "1";
             }, 50); // Just in case
-        }, 300);
+        }, 200);
 
         weaponFindField.value = "";
     }
@@ -887,7 +922,8 @@ window.onload = function () {
 }
 
 document.addEventListener('focusout', event => {
-    if (event.relatedTarget == null || (event.relatedTarget.className != "nameCard" && event.relatedTarget.className != "teamCard" && event.relatedTarget.className != "characterLevelCard")) {
+    if (event.relatedTarget == null || (!event.relatedTarget.classList.includes("nameCard") && event.relatedTarget.className != "teamCard" && event.relatedTarget.className != "characterLevelCard" && event.relatedTarget.id != "characterFindField")) {
+        if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
         selectedCharacter = 0;
     }
 }, true);

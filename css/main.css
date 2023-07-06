@@ -1,3 +1,8 @@
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 @font-face {
     font-family: 'Genshin';
     src: url('../font.ttf') format('truetype');
@@ -56,6 +61,8 @@
     --lvInput: #FEFEFE;
     --weapLvInput: #FEFEFE;
     --wpInput: #FEFEFE;
+
+    --swInput: #FFCF45;
 
     --cinnamon: #F2EEE6;
     --darkCinnamon: #CCBAAD;
@@ -292,11 +299,14 @@ input[type=number] {
     transition: 300ms;
 }
 
-.characterLevelCard:active,
-.characterLevelCard:focus {
+.teamFocus {
     background: var(--teamCardActive);
 
     transition: 50ms;
+}
+
+.teamFocus:hover {
+    background: var(--teamCardActive) !important;
 }
 
 .weapon {
@@ -449,7 +459,7 @@ input[type=number] {
     text-align: left;
     background: var(--lvInput);
 
-    width: 285px;
+    width: 290px;
     height: 25px;
 
     padding-left: 10px;
@@ -477,6 +487,8 @@ input[type=number] {
 
     margin-left: 5px;
     margin-bottom: 5px;
+
+    box-shadow: 0px 0px 9px 0px var(--darkGray);
 }
 
 #teamTargetLevelField {
@@ -700,7 +712,7 @@ input[type=number] {
 #darkModeSwitch {
     position: absolute;
 
-    top: 20px;
+    top: 16px;
 
     right: 10px;
 
@@ -710,8 +722,8 @@ input[type=number] {
 .switch {
     position: relative;
     display: inline-block;
-    width: 44px;
-    height: 18px;
+    width: 48px;
+    height: 22px;
 }
 
 .switch input {
@@ -732,6 +744,8 @@ input[type=number] {
     transition: .4s;
 
     border-radius: 30px;
+
+    border: solid var(--ae) 2px;
 }
 
 .darkModeSlider:before {
@@ -739,9 +753,9 @@ input[type=number] {
     content: "";
     height: 12px;
     width: 12px;
-    left: 3px;
+    left: 5px;
     bottom: 3px;
-    background-color: var(--dark);
+    background-color: var(--swInput);
 
     transition: .4s;
 
@@ -754,7 +768,11 @@ input:checked+.darkModeSlider {
 
 input:checked+.darkModeSlider:before {
     background-color: var(--ee);
-    transform: translateX(26px);
+    transform: translateX(24px);
+}
+
+.disableBackgroundImage {
+    background-image: none !important;
 }
 
 @media (max-width: 770px) {
