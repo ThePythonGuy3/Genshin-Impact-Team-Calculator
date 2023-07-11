@@ -103,19 +103,33 @@
 						</div>
 					</div>
 				</div>
-
-				<div id="loader" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: var(--fe);">
-					<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">Loading...</p>
-				</div> <!-- Loading screen -->
-
-				<div id="javascriptDisabledError" style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: var(--fe);">
-					<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">JavaScript not enabled.<br><br>Please enable JavaScript to use this tool.</p>
-				</div> <!-- JavaScript disabled message -->
-
-				<div id="unusable" style="display: none; width: 100vw; height: 100vh; z-index: 10000; position: absolute; left: 0; top: 0; background: var(--fe);">
-					<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">The width of your display is too small,<br>this tool does not work properly at this viewport size.<br><br>Please rotate your device or use another one.<br>Sorry for any trouble this might cause.<br><br>(Keep in mind it is not optimized for mobile devices)</p>
-				</div> <!-- Width too small message -->
 			</div>
+			<div id="loader"
+				style="width: 100vw; height: 100vh; z-index: 1000; position: absolute; left: 0; top: 0; background: var(--fe); transition: opacity 200ms;">
+				<p style="text-align: center; position: absolute; left: 0; top: calc(50vh - 20px); width: 100vw;">Loading...</p>
+				<p style="text-align: center; position: absolute; left: 0; top: calc(50vh + 5px); width: 100vw;">This can take a while.</p>
+				<div id="loadingBar">
+					<div id="loadingBarStick"></div>
+				</div>
+				<button style="padding-left: 12px; padding-right: 12px; border-radius: 30px; text-align: center; position: absolute; height: 5vh; right: 10px; bottom: 10px;" id="skipButton">SKIP (Images may not appear while they are being loaded)</button>
+			</div> <!-- Loading screen -->
 		</div>
 	</body>
+
+	<div id="unusable"
+		style="display: none; width: 100vw; height: 100vh; z-index: 100
+		000; position: absolute; left: 0; top: 0; background: var(--fe);">
+		<p style="text-align: center; position: absolute; left: 0; top: 35vh; width: 100vw;">The width of your display is
+			too small,<br>this tool does not work properly at this viewport size.<br><br>Please rotate your device or use
+			another one.<br>Sorry for any trouble this might cause.<br><br>(Keep in mind it is not optimized for mobile
+			devices)</p>
+	</div> <!-- Width too small message -->
+
+	<noscript>
+		<div id="javascriptDisabledError"
+			style="width: 100vw; height: 100vh; z-index: 100000; position: absolute; left: 0; top: 0; background: var(--fe);">
+			<p style="text-align: center; position: absolute; left: 0; top: 40vh; width: 100vw;">
+				JavaScript is either not supported or is disabled.<br><br>Please enable JavaScript or update your browser to use this tool.</p>
+		</div> <!-- JavaScript disabled message -->
+	</noscript>
 </html>

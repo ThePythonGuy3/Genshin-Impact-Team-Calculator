@@ -69,4 +69,28 @@ function gem(name) {
     return gems[name];
 }
 
-export { enemyDrop, domainMaterial, gem, gemPrefixes };
+function returnAllImages() {
+    let images = [];
+
+    for (const [el, val] of Object.entries(enemyDrops)) {
+        for (let i of val) {
+            images.push("/materials/" + i.replaceAll(" ", "_") + ".png");
+        }
+    }
+
+    for (const [el, val] of Object.entries(domainMaterials)) {
+        for (let i of val) {
+            images.push("/materials/" + i.replaceAll(" ", "_") + ".png");
+        }
+    }
+
+    for (const [el, val] of Object.entries(gems)) {
+        for (let i of gemPrefixes) {
+            images.push("/materials/" + val.replaceAll(" ", "_") + "_" + i + ".png");
+        }
+    }
+
+    return images;
+}
+
+export { enemyDrop, domainMaterial, gem, returnAllImages, gemPrefixes };
