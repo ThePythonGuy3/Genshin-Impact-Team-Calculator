@@ -158,7 +158,7 @@ input[type=number] {
 
 #skipButton:active {
     background-color: var(--gray);
-    
+
     transition: background-color 50ms;
 }
 
@@ -324,7 +324,7 @@ input[type=number] {
     margin-right: 10px;
 
     width: 90px;
-    height: 115px;
+    height: 150px;
 
     box-shadow: 0px 0px 9px 0px var(--darkerGray);
 }
@@ -343,7 +343,7 @@ input[type=number] {
     overflow: hidden;
 
     width: 90px;
-    height: 105px;
+    height: calc(100% - 17px);
 
     background: var(--lightGray);
 
@@ -416,12 +416,18 @@ input[type=number] {
 .teamLevelTag {
     position: absolute;
     left: 0;
-    top: 69px;
+    bottom: 0;
+
+    user-select: none;
+
+    font-family: "Genshin";
+
+    color: var(--black);
 
     text-align: center;
 
     width: 90px;
-    height: 21px;
+    height: 42px;
 
     color: var(--black);
     background: var(--lighterGray);
@@ -431,12 +437,53 @@ input[type=number] {
 }
 
 .levelinput {
+    position: absolute;
+    top: 2px;
+    left: calc(50% - 2px);
+
     width: 20px;
 
     border: none;
 
     text-align: center;
     background: var(--lvInput);
+}
+
+.levelinput2 {
+    position: absolute;
+    bottom: 2px;
+    left: calc(50% - 2px);
+
+    width: 20px;
+
+    border: none;
+
+    text-align: center;
+    background: var(--lvInput);
+}
+
+#levelText {
+    position: absolute;
+    top: 0;
+    right: calc(50% + 5px);
+
+    width: 20px;
+
+    border: none;
+
+    text-align: right;
+}
+
+#levelText2 {
+    position: absolute;
+    bottom: 0;
+    right: calc(50% + 5px);
+
+    width: 20px;
+
+    border: none;
+
+    text-align: right;
 }
 
 .weaplevinput {
@@ -551,41 +598,43 @@ input[type=number] {
     box-shadow: 0px 0px 9px 0px var(--darkGray);
 }
 
-#teamTargetLevelField {
-    background: var(--lighterGray);
-}
-
 .remove {
     position: absolute;
     left: 0;
-    top: 80px;
+    bottom: 0;
+
+    user-select: none;
+
+    font-family: "Genshin";
+
+    color: var(--black);
 
     border-radius: 0 0 10px 10px;
+    line-height: 32px;
 
     margin-right: 10px;
 
     text-align: center;
-    line-height: 32px;
 
     width: 90px;
     height: 25px;
 
     color: #FEFEFE;
-    background: #F05050;
+    background-color: #F05050;
 
     user-select: none;
 
-    transition: background 300ms;
+    transition: background-color 300ms;
 }
 
 .remove:hover {
-    background: var(--removeHover);
+    background-color: var(--removeHover);
 
     transition: 300ms;
 }
 
 .remove:active {
-    background: var(--removeActive);
+    background-color: var(--removeActive);
 
     transition: 50ms;
 }
@@ -733,7 +782,18 @@ input[type=number] {
 .check {
     position: absolute;
     left: 70px;
-    top: 88px;
+    top: 5px;
+
+    margin: 0;
+    padding: 0;
+
+    height: 13px;
+}
+
+.check2 {
+    position: absolute;
+    left: 70px;
+    bottom: 4px;
 
     margin: 0;
     padding: 0;

@@ -13,8 +13,8 @@ let selectedCharacter = 0,
     currentTeam = [null, null, null, null],
     currentCharacterLevel = [1, 1, 1, 1],
     currentCharacterAscended = [false, false, false, false],
-    ascensionTeam = false,
-    teamTargetLevel = 20,
+    currentCharacterTargetLevel = [1, 1, 1, 1],
+    currentCharacterTargetAscended = [false, false, false, false],
 
     selectedWeapons = 0,
     currentWeapons = [weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"]],
@@ -190,9 +190,6 @@ window.onload = function () {
     let root = document.querySelector(":root");
     let darkModeSwitch = document.getElementById("darkModeCheckbox");
 
-    let teamTargetLevelField = document.getElementById("teamTargetLevelField");
-    let teamAscensionCheckbox = document.getElementById("teamAscensionCheckbox");
-
     let characterFindField = document.getElementById("characterFindField");
     let characterScrollPane = document.getElementById("characterScrollPane");
 
@@ -291,28 +288,6 @@ window.onload = function () {
         if (loaded) return;
         loaded = true;
 
-        teamAscensionCheckbox.addEventListener('change', (event) => {
-            ascensionTeam = event.currentTarget.checked;
-        });
-
-        teamTargetLevelField.addEventListener("input", (event) => {
-            teamAscensionCheckbox.disabled = true;
-            teamAscensionCheckbox.checked = false;
-            if (teamTargetLevelField.value.length > 2) {
-                teamTargetLevelField.value = teamTargetLevelField.value.slice(0, 2);
-            }
-
-            if (isAscension(teamTargetLevelField.value)) teamAscensionCheckbox.disabled = false;
-
-            teamTargetLevel = teamTargetLevelField.value;
-        });
-
-        teamTargetLevelField.addEventListener("focusout", (event) => {
-            if (teamTargetLevelField.value == "" || teamTargetLevelField.value == 0) teamTargetLevelField.value = 1;
-            if (teamTargetLevelField.value > 90) teamTargetLevelField.value = 90;
-            teamTargetLevel = teamTargetLevelField.value;
-        });
-
         for (const [el, val] of Object.entries(characters)) {
             let namecard = document.createElement("div"); // Character namecard container
             let color1 = rgb(starColors[val.stars - 1][0]);
@@ -336,8 +311,15 @@ window.onload = function () {
                         selB.checked = false;
 
                         doc.children[0].src = self.src;
+                        doc.children[1].children[0].disabled = false;
+                        doc.children[1].children[1].disabled = false;
                         doc.children[1].children[0].value = 1;
-                        doc.children[3].src = "resources/" + val.weaponType + ".png";
+                        doc.children[1].children[1].value = 90;
+                        currentCharacterLevel[selectedCharacter - 1] = 1;
+                        currentCharacterTargetLevel[selectedCharacter - 1] = 90;
+                        currentCharacterAscended[selectedCharacter - 1] = false;
+                        currentCharacterTargetAscended[selectedCharacter - 1] = false;
+                        doc.children[2].src = "resources/" + val.weaponType + ".png";
 
                         currentTeam[selectedCharacter - 1] = val;
                         currentCharacterLevel[selectedCharacter - 1] = 1;
@@ -503,15 +485,21 @@ window.onload = function () {
             characterImage.src = "resources/plus.png";
             characterImage.className = "characterImage";
 
-            let characterLevelTag = document.createElement("p");
-            characterLevelTag.innerHTML = "Lv.";
+            let characterLevelTag = document.createElement("div");
             characterLevelTag.className = "teamLevelTag";
 
             let characterAscensionCheckbox = document.createElement("input");
             characterAscensionCheckbox.disabled = true;
 
+            let characterAscensionTargetCheckbox = document.createElement("input");
+            characterAscensionTargetCheckbox.disabled = true;
+
             characterAscensionCheckbox.addEventListener('change', (event) => {
                 currentCharacterAscended[i - 1] = event.currentTarget.checked;
+            });
+
+            characterAscensionTargetCheckbox.addEventListener('change', (event) => {
+                currentCharacterTargetAscended[i - 1] = event.currentTarget.checked;
             });
 
             let characterLevelField = document.createElement("input");
@@ -546,15 +534,54 @@ window.onload = function () {
             });
 
             characterLevelField.value = "0";
+            characterLevelField.disabled = true;
+
+            let characterLevelTargetField = document.createElement("input");
+            characterLevelTargetField.className = "levelinput2";
+            characterLevelTargetField.id = "targetinput" + i;
+            characterLevelTargetField.type = "number";
+            characterLevelTargetField.addEventListener("input", () => {
+                characterAscensionTargetCheckbox.checked = false;
+                characterAscensionTargetCheckbox.disabled = true;
+                currentCharacterTargetAscended[i - 1] = false;
+
+                if (characterLevelTargetField.value.length > 2) {
+                    characterLevelTargetField.value = characterLevelTargetField.value.slice(0, 2);
+                }
+
+                if (isAscension(characterLevelTargetField.value)) characterAscensionTargetCheckbox.disabled = false;
+
+                currentCharacterTargetLevel[i - 1] = characterLevelTargetField.value;
+            });
+
+            characterLevelTargetField.addEventListener("focus", () => {
+                if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
+                selectedCharacter = 0;
+            });
+
+            characterLevelTargetField.addEventListener("focusout", () => {
+                if (characterLevelTargetField.value == "" || characterLevelTargetField.value == 0) characterLevelTargetField.value = 1;
+                if (characterLevelTargetField.value > 90) characterLevelTargetField.value = 90;
+                currentCharacterTargetLevel[i - 1] = characterLevelTargetField.value;
+                if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
+                selectedCharacter = 0;
+            });
+
+            characterLevelTargetField.value = "0";
+            characterLevelTargetField.disabled = true;
 
             characterAscensionCheckbox.id = "sel" + i;
             characterAscensionCheckbox.type = "checkbox";
             characterAscensionCheckbox.className = "check";
 
+            characterAscensionTargetCheckbox.id = "selTarget" + i;
+            characterAscensionTargetCheckbox.type = "checkbox";
+            characterAscensionTargetCheckbox.className = "check2";
+
             let im2 = document.createElement("img");
             im2.className = "weapon";
 
-            let teamremove = document.createElement("p");
+            let teamremove = document.createElement("div");
             teamremove.tabIndex = "1";
             teamremove.className = "remove";
             teamremove.innerHTML = "-";
@@ -573,13 +600,30 @@ window.onload = function () {
 
                 characterImage.src = "resources/plus.png";
                 characterLevelTag.children[0].value = 0;
+                characterLevelTag.children[1].value = 0;
+                characterLevelTag.children[0].disabled = true;
+                characterLevelTag.children[1].disabled = true;
+                characterLevelTag.children[2].disabled = true;
+                characterLevelTag.children[3].disabled = true;
                 im2.src = "";
             }
 
+            let characterLevelText = document.createElement("div");
+            characterLevelText.id = "levelText";
+            
+            let characterLevelTargetText = document.createElement("div");
+            characterLevelTargetText.id = "levelText2";
+
+            characterLevelText.innerHTML = characterLevelTargetText.innerHTML = "Lv.";
+
             characterLevelTag.appendChild(characterLevelField);
+            characterLevelTag.appendChild(characterLevelTargetField);
+            characterLevelTag.appendChild(characterAscensionCheckbox);
+            characterLevelTag.appendChild(characterAscensionTargetCheckbox);
+            characterLevelTag.appendChild(characterLevelText);
+            characterLevelTag.appendChild(characterLevelTargetText);
             characterLevelCard.appendChild(characterImage);
             characterLevelCard.appendChild(characterLevelTag);
-            characterLevelCard.appendChild(characterAscensionCheckbox);
             characterLevelCard.appendChild(im2);
             characterCard.appendChild(teamremove);
             characterCard.appendChild(characterLevelCard);
@@ -676,14 +720,14 @@ window.onload = function () {
             for (let i = 1; i < 5; i++) {
                 if (currentTeam[i - 1] == null) continue;
 
-                let maxTier = getAscensionfromLevel(teamTargetLevel) - ((1 - ascensionTeam) * isAscension(teamTargetLevel));
+                let maxTier = getAscensionfromLevel(currentCharacterTargetLevel[i - 1]) - ((1 - currentCharacterTargetAscended[i - 1]) * isAscension(currentCharacterTargetLevel[i - 1]));
                 let minTier = getAscensionfromLevel(currentCharacterLevel[i - 1]) - ((1 - currentCharacterAscended[i - 1]) * isAscension(currentCharacterLevel[i - 1]));
 
                 if (maxTier == NaN || minTier == NaN) continue;
 
                 let tier = 0, pre_tier = 0;
                 let exp_requirement = 0;
-                for (let e = currentCharacterLevel[i - 1]; e < teamTargetLevel; e++) {
+                for (let e = currentCharacterLevel[i - 1]; e < currentCharacterTargetLevel[i - 1]; e++) {
                     tier = getAscensionfromLevel(e - 1)
 
                     if (tier != pre_tier) {
