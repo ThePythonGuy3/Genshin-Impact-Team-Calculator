@@ -855,11 +855,6 @@ input[type=number] {
     transition: 50ms;
 }
 
-#matContainer {
-    width: calc(100vw - var(--char-width));
-    min-width: 400px;
-}
-
 #darkModeSwitch {
     position: absolute;
 
@@ -948,6 +943,10 @@ input:checked+.darkModeSlider:before {
     transition: 50ms;
 }
 
+#grow {
+    flex-direction: row;
+}
+
 @media (max-width: 770px) {
     .name {
         display: none;
@@ -967,10 +966,6 @@ input:checked+.darkModeSlider:before {
         width: 110px !important;
     }
 
-    #grow {
-        width: calc(100vw - 160px) !important;
-    }
-
     #characterFindField {
         display: none;
     }
@@ -982,6 +977,12 @@ input:checked+.darkModeSlider:before {
     /*#matContainer {
         width: 400px !important;
     }*/
+}
+
+@media (max-width: 1100px) {
+    #grow {
+        flex-direction: column !important;
+    }
 }
 
 
