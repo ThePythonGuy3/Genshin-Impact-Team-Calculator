@@ -359,7 +359,21 @@ function generateWeaponCard(i, weaponPopup) {
 
     weaponImage.onclick = () => {
         selectedWeapon = i;
+
+        let i2 = 0;
+        for (const [el, val] of Object.entries(weapons)) {
+            let pla = currentTeam[i - 1];
+            if (pla != null && val.type != pla.weaponType) {
+                weaponScrollPane.children[i2].style.display = "none";
+            } else {
+                weaponScrollPane.children[i2].style.display = "block";
+            }
+            i2++;
+        }
+
         weaponPopup.style.display = "flex";
+        
+        weaponScrollPane.scrollTop = 0;
     }
 
     let weaponLevelTag = document.createElement("div");
@@ -690,6 +704,8 @@ window.onload = function () {
                 }
                 i++;
             }
+
+            characterScrollPane.scrollTop = 0;
         });
 
         weaponFindField.addEventListener("input", () => {
@@ -703,6 +719,8 @@ window.onload = function () {
                 }
                 i++;
             }
+
+            weaponScrollPane.scrollTop = 0;
         });
 
         for (const [el, val] of Object.entries(weapons)) {
