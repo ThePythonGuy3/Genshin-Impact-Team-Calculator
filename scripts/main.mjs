@@ -44,24 +44,26 @@ function swapMode(root, nightCheck) {
     for (let i = 0; i < nameCards.length; i++) {
         if (nightCheck.checked) {
             nameCards[i].classList.add("disableBackgroundImage");
+            document.getElementById("backdrop2").style.opacity = "0";
         } else {
             nameCards[i].classList.remove("disableBackgroundImage");
+            document.getElementById("backdrop2").style.opacity = "1";
         }
     }
 
-    setElementStyleProperty(root, "lighterGray", !nightCheck.checked ? "#F0F0F0" : "#0F0F0F");
-    setElementStyleProperty(root, "lightGray", !nightCheck.checked ? "#E0E0E0" : "#1F1F1F");
-    setElementStyleProperty(root, "gray", !nightCheck.checked ? "#E0E0E0" : "#2F2F2F");
-    setElementStyleProperty(root, "darkGray", !nightCheck.checked ? "#C0C0C0" : "#3F3F3F");
-    setElementStyleProperty(root, "darkerGray", !nightCheck.checked ? "#B0B0B0" : "#4F4F4F");
+    setElementStyleProperty(root, "lighterGray", !nightCheck.checked ? "#F0F0F0" : "#141A20");
+    setElementStyleProperty(root, "lightGray", !nightCheck.checked ? "#E0E0E0" : "#1A2129");
+    setElementStyleProperty(root, "gray", !nightCheck.checked ? "#D0D0D0" : "#232C36");
+    setElementStyleProperty(root, "darkGray", !nightCheck.checked ? "#C0C0C0" : "#2C3742");
+    setElementStyleProperty(root, "darkerGray", !nightCheck.checked ? "#B0B0B0" : "#35424F");
 
     setElementStyleProperty(root, "cinnamon", !nightCheck.checked ? "#F2EEE6" : "#0F0F0F");
     setElementStyleProperty(root, "darkCinnamon", !nightCheck.checked ? "#CCBAAD" : "#2F2F2F");
     setElementStyleProperty(root, "darkerCinnamon", !nightCheck.checked ? "#9C8270" : "#4F4F4F");
 
-    setElementStyleProperty(root, "lvInput", !nightCheck.checked ? "#FEFEFE" : "#1F1F1F");
+    setElementStyleProperty(root, "lvInput", !nightCheck.checked ? "#FEFEFE" : "#0E1012");
     setElementStyleProperty(root, "weapLvInput", !nightCheck.checked ? "#FEFEFE" : "#3F3F3F");
-    setElementStyleProperty(root, "wpInput", !nightCheck.checked ? "#FEFEFE" : "#0F0F0F");
+    setElementStyleProperty(root, "wpInput", !nightCheck.checked ? "#FEFEFE" : "#0E1012");
 
     setElementStyleProperty(root, "swInput", !nightCheck.checked ? "#FFCF45" : "#AFAFAF");
 
@@ -70,22 +72,19 @@ function swapMode(root, nightCheck) {
     setElementStyleProperty(root, "ce", !nightCheck.checked ? "#CECECE" : "#313131");
     setElementStyleProperty(root, "de", !nightCheck.checked ? "#DEDEDE" : "#212121");
     setElementStyleProperty(root, "ee", !nightCheck.checked ? "#EEEEEE" : "#111111");
-    setElementStyleProperty(root, "fe", !nightCheck.checked ? "#FEFEFE" : "#010101");
-
-    setElementStyleProperty(root, "bg", !nightCheck.checked ? "#FBFAFF" : "#040500");
+    setElementStyleProperty(root, "fe", !nightCheck.checked ? "#FEFEFE" : "#141A20");
 
     setElementStyleProperty(root, "dark", !nightCheck.checked ? "#505050" : "#AFAFAF");
     setElementStyleProperty(root, "black", !nightCheck.checked ? "#303030" : "#CFCFCF");
     setElementStyleProperty(root, "blackest", !nightCheck.checked ? "#020202" : "#FDFDFD");
 
-    setElementStyleProperty(root, "sliderBG", !nightCheck.checked ? "#F5F5F5" : "#0A0A0A");
+    setElementStyleProperty(root, "sliderBG", !nightCheck.checked ? "#F5F5F5" : "#0E1012");
     setElementStyleProperty(root, "sliderHandle", !nightCheck.checked ? "#9F9F9F" : "#606060");
+    setElementStyleProperty(root, "sliderHandleHover", !nightCheck.checked ? "#7F7F7F" : "#808080");
+    setElementStyleProperty(root, "sliderHandleActive", !nightCheck.checked ? "#5F5F5F" : "#A0A0A0");
 
     setElementStyleProperty(root, "teamCardHover", !nightCheck.checked ? "#C8C8C8" : "#373737");
     setElementStyleProperty(root, "teamCardActive", !nightCheck.checked ? "#B8B8B8" : "#474747");
-
-    setElementStyleProperty(root, "removeHover", !nightCheck.checked ? "#E22525" : "#1DDADA");
-    setElementStyleProperty(root, "removeActive", !nightCheck.checked ? "#D62525" : "#29DADA");
 
     setElementStyleProperty(root, "materialColor", !nightCheck.checked ? "#917764" : "#BABABA");
     setElementStyleProperty(root, "materialTitleColor", !nightCheck.checked ? "#7D624D" : "#CFCFCF");

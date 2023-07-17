@@ -3,6 +3,10 @@
     opacity: 0.5;
 }
 
+* {
+    transition: 300ms;
+}
+
 @font-face {
     font-family: 'Genshin';
     src: url('../font.ttf') format('truetype');
@@ -75,14 +79,14 @@
     --ee: #EEEEEE;
     --fe: #FEFEFE;
 
-    --bg: #FBFAFF;
-
     --dark: #505050;
     --black: #303030;
     --blackest: #020202;
 
     --sliderBG: #F5F5F5;
     --sliderHandle: #9F9F9F;
+    --sliderHandleHover: #7F7F7F;
+    --sliderHandleActive: #5F5F5F;
 
     --teamCardHover: #C8C8C8;
     --teamCardActive: #B8B8B8;
@@ -147,19 +151,19 @@ input[type=number] {
     border: solid 2px var(--lightGray);
     box-shadow: 0px 0px 9px 0px var(--darkerGray);
 
-    transition: background-color 300ms;
+    transition: 300ms;
 }
 
 #skipButton:hover {
     background-color: var(--lightGray);
 
-    transition: background-color 300ms;
+    transition: 300ms;
 }
 
 #skipButton:active {
     background-color: var(--gray);
 
-    transition: background-color 50ms;
+    transition: 50ms;
 }
 
 #loadingBar {
@@ -220,15 +224,15 @@ input[type=number] {
 .specialScroll::-webkit-scrollbar-thumb {
     border-radius: 30px;
 
-    background: var(--darkGray);
+    background: var(--sliderHandle);
 }
 
 .specialScroll::-webkit-scrollbar-thumb:hover {
-    background: var(--darkerGray);
+    background: var(--sliderHandleHover);
 }
 
 .specialScroll::-webkit-scrollbar-thumb:active {
-    background: var(--sliderHandle);
+    background: var(--sliderHandleActive);
 }
 
 .nameCard {
@@ -245,23 +249,23 @@ input[type=number] {
 
     vertical-align: center;
 
-    background: var(--lighterGray);
+    background-color: var(--lighterGray);
 
     user-select: none;
 
-    transition: background 300ms;
+    transition: 300ms;
 }
 
 .nameCard:hover {
-    background: var(--lightGray);
+    background-color: var(--lightGray);
 
-    transition: background 300ms;
+    transition: 300ms;
 }
 
 .nameCard:active {
-    background: var(--gray);
+    background-color: var(--gray);
 
-    transition: background 50ms;
+    transition: 50ms;
 }
 
 .nameCard:last-child {
@@ -356,11 +360,11 @@ input[type=number] {
     width: 90px;
     height: calc(100% - 18px);
 
-    background: var(--lightGray);
+    background-color: var(--lightGray);
 
     user-select: none;
 
-    transition: background 300ms;
+    transition: 300ms;
 
 }
 
@@ -376,22 +380,22 @@ input[type=number] {
     width: 90px;
     height: calc(100% - 18px);
 
-    background: var(--lightGray);
+    background-color: var(--lightGray);
 
     user-select: none;
 
-    transition: background 300ms;
+    transition: 300ms;
 
 }
 
 .weaponLevelCard:hover {
-    background: var(--teamCardHover);
+    background-color: var(--teamCardHover);
 
     transition: 300ms;
 }
 
 .teamFocus {
-    background: var(--teamCardActive);
+    background-color: var(--teamCardActive);
 
     transition: 50ms;
 }
@@ -435,7 +439,7 @@ input[type=number] {
 }
 
 .characterLevelCard:hover {
-    background: var(--teamCardHover);
+    background-color: var(--teamCardHover);
 
     transition: 300ms;
 }
@@ -595,7 +599,7 @@ input[type=number] {
     border-radius: 5px;
 
     text-align: left;
-    background: var(--lvInput);
+    background: var(--lighterGray);
 
     width: 290px;
     height: 25px;
@@ -655,7 +659,7 @@ input[type=number] {
 
     user-select: none;
 
-    transition: background-color 300ms;
+    transition: 300ms;
 }
 
 .remove:hover {
@@ -693,21 +697,21 @@ input[type=number] {
 }
 
 .click {
-    background: transparent;
+    background-color: transparent;
 
     user-select: none;
 
-    transition: background 300ms;
+    transition: 300ms;
 }
 
 .click:hover {
-    background: var(--lightGray);
+    background-color: var(--lightGray);
 
     transition: 300ms;
 }
 
 .click:active {
-    background: var(--darkGray);
+    background-color: var(--darkGray);
 
     transition: 50ms;
 }
@@ -717,7 +721,7 @@ input[type=number] {
 
     user-select: none;
 
-    transition: background 300ms;
+    transition: 300ms;
 }
 
 .click-out:hover {
@@ -745,7 +749,7 @@ input[type=number] {
 
     margin-top: 10px;
 
-    transition: background 300ms;
+    transition: 300ms;
 }
 
 .submBut:hover {
@@ -885,13 +889,13 @@ input[type=number] {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--ee);
+    background-color: var(--lightGray);
 
     transition: .4s;
 
     border-radius: 30px;
 
-    border: solid var(--de) 2px;
+    border: solid var(--gray) 2px;
 }
 
 .darkModeSlider:before {
