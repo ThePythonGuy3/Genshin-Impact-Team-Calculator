@@ -305,16 +305,6 @@ input[type=number] {
     user-select: none;
 }
 
-.selectedWeaponName {
-    float: left;
-
-    color: var(--black);
-
-    margin-top: 18px;
-
-    user-select: none;
-}
-
 .teamCard {
     position: relative;
     float: left;
@@ -931,6 +921,28 @@ input:checked+.darkModeSlider:before {
 
 .disableBackgroundImage {
     background-image: none !important;
+}
+
+#weaponPopupCancelButton {
+    cursor: pointer;
+
+    background-color: var(--lightGray);
+
+    transition: 300ms;
+
+    box-shadow: 0px 0px 5px 0px var(--darkerGray);
+}
+
+#weaponPopupCancelButton:hover {
+    background-color: var(--gray);
+
+    transition: 300ms;
+}
+
+#weaponPopupCancelButton:active {
+    background-color: var(--darkerGray);
+
+    transition: 50ms;
 }
 
 @media (max-width: 770px) {

@@ -16,7 +16,7 @@ let selectedCharacter = 0,
     currentCharacterTargetLevel = [1, 1, 1, 1],
     currentCharacterTargetAscended = [false, false, false, false],
 
-    selectedWeapons = 0,
+    selectedWeapon = 0,
     currentWeapons = [weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"]],
     currentWeaponLevel = [1, 1, 1, 1],
     currentWeaponTargetLevel = [1, 1, 1, 1],
@@ -362,7 +362,7 @@ function generateWeaponCard(i, weaponPopup) {
     weaponLevelCard.className = "weaponLevelCard";
 
     weaponLevelCard.onclick = () => {
-        let currentWeapon = i;
+        selectedWeapon = i;
         weaponPopup.style.display = "flex";
     }
 
@@ -456,9 +456,12 @@ function generateWeaponCard(i, weaponPopup) {
     return weaponCard;
 }
 
+let title;
 window.onload = function () {
     let root = document.querySelector(":root");
     let darkModeSwitch = document.getElementById("darkModeCheckbox");
+
+    title = document.getElementById("title");
 
     let characterFindField = document.getElementById("characterFindField");
     let characterScrollPane = document.getElementById("characterScrollPane");
@@ -484,15 +487,6 @@ window.onload = function () {
 
     let teamContainer = document.getElementById("teamContainer");
     let weaponContainer = document.getElementById("weaponContainer");
-
-    let selectedWeaponImage = document.getElementById("selectedWeaponImage");
-    let selectedWeaponName = document.getElementById("selectedWeaponName");
-
-    let selectedWeaponCurrentLevelField = document.getElementById("selectedWeaponCurrentLevelField");
-    let selectedWeaponTargetLevelField = document.getElementById("selectedWeaponTargetLevelField");
-
-    let selectedWeaponCurrentAscendedCheckbox = document.getElementById("selectedWeaponCurrentAscendedCheckbox");
-    let selectedWeaponTargetAscendedCheckbox = document.getElementById("selectedWeaponTargetAscendedCheckbox");
 
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         darkModeSwitch.checked = true;
@@ -669,7 +663,7 @@ window.onload = function () {
         weaponFindField.addEventListener("input", () => {
             let i = 0;
             for (const [el, val] of Object.entries(weapons)) {
-                let pla = currentTeam[selectedWeapons - 1];
+                let pla = currentTeam[selectedWeapon - 1];
                 if (!(pla != null && val.type != pla.weaponType) && el.toLowerCase().includes(weaponFindField.value.toLowerCase())) {
                     weaponScrollpane.children[i].style.display = "block";
                 } else {
@@ -690,14 +684,13 @@ window.onload = function () {
             elem.style.width = "330px";
             elem.tabIndex = 1;
             elem.onclick = function () {
-                if (selectedWeapons != 0) {
+                if (selectedWeapon != 0) {
                     weaponFindField.value = "";
                     weaponFindField.dispatchEvent(new Event("input"));
 
-                    currentWeapons[selectedWeapons - 1] = val;
+                    currentWeapons[selectedWeapon - 1] = val;
 
-                    document.getElementById("weapImg" + selectedWeapons).src = selectedWeaponImage.src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
-                    selectedWeaponName.innerHTML = el;
+                    document.getElementById("weapon" + selectedWeapon).children[0].src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
                 }
             }
 
@@ -707,7 +700,7 @@ window.onload = function () {
             img.src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
 
             let elem2 = document.createElement("p"); // Name
-            elem2.className = "selectedWeaponName";
+            elem2.className = "name";
             elem2.style.width = "160px";
             elem2.style.marginTop = "14spx";
             if (textWidth(el, "16px Genshin") > 160) {
@@ -1035,7 +1028,7 @@ window.onload = function () {
         }
 
         weaponPopupCancelButton.onclick = event => {
-            selectedWeapons = 0;
+            selectedWeapon = 0;
             weaponPopupWindow.classList.remove("fadeIn");
             weaponPopupWindow.classList.add("fadeOut");
 
@@ -1063,6 +1056,18 @@ window.onload = function () {
         }
 
     });
+
+    window.onresize();
+}
+
+window.onresize = () => {
+    if (title != null) {
+        if (window.innerWidth <= 770) {
+            title.innerHTML = "Genshin Impact Team Resource Calculator";
+        } else {
+            title.innerHTML = "Genshin Impact Team Resource Calculator by ThePythonGuy";
+        }
+    }
 }
 
 document.addEventListener('focusout', event => {
