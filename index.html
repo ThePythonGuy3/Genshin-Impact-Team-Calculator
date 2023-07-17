@@ -36,25 +36,13 @@
 
 		<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;"  class="fadeIn" id="weaponPopupWindow">
 			<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"></div>
-			<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 350px; width: 515px; right: calc(50vw - 225px); margin-right: auto; padding-bottom: 20px; padding-left: 10px; box-shadow: 0px 0px 9px 0px var(--dark);" id="weapon-popup">
+			<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 50vh; min-height: 140px; width: 355px; right: calc(50vw - 178px); margin-right: auto; padding-bottom: 20px; padding-left: 10px; box-shadow: 0px 0px 9px 0px var(--dark);" id="weapon-popup">
 				<p style="margin-left: 10px;">Weapon selection</p>
 
 				<div style="display: flex; flex-direction: row;">
-					<div style="display: flex; flex-direction:  column; width: 345px; height: 300px;">
+					<div style="display: flex; flex-direction:  column; width: 345px; height: calc(50vh - 50px); min-height: 100px;">
 						<input type="text" id="weaponFindField" placeholder="Find weapon by name">
 						<div style="overflow-y: auto; overflow-x: hidden; float: left;" id="weaponScrollPane" class="specialScroll"></div>
-					</div>
-					<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center; margin-right: 5px; margin-left: 5px;">
-						<div style="display: flex; flex-direction: column; flex-grow: 1; align-items: center;">
-							<img alt="Selected weapon" src="./resources/weapons/Dull_Blade.png" class="weapImg2" id="selectedWeaponImage">
-							<p style="text-align: center; word-break: break-word; padding: 5px; padding-top: 0px; font-size: 13px;" id="selectedWeaponName">Dull Blade</p>
-							<p style="text-align: center; font-size: 15px;">Level: <input type="number" value=1 class="levelinput weaplevinput" id="selectedWeaponCurrentLevelField"><input type="checkbox" style="position: relative; top: 2px;" id="selectedWeaponCurrentAscendedCheckbox" value=1 disabled></p>
-							<p style="text-align: center; font-size: 15px;">Target Level: <input type="number" value=20 class="levelinput weaplevinput" id="selectedWeaponTargetLevelField"><input type="checkbox" style="position: relative; top: 2px;" id="selectedWeaponTargetAscendedCheckbox" value=1 disabled></p>
-						</div>
-						<div style="flex-grow: 1; user-select: none;">&nbsp;</div>
-						<div>
-							<input type="button" value="Close" class="acdecButton" id="weaponPopupAcceptButton">
-						</div>
 					</div>
 				</div>
 			</div>
@@ -78,9 +66,9 @@
 					<div style="overflow-y: auto; overflow-x: hidden; margin-left: 10px; float: left; z-index: 1;" id="characterScrollPane" class="specialScroll"></div> <!-- Character container -->
 				</div>
 				<div style="display: flex; flex-grow: 1; flex-direction: column; justify-content: center; margin-left: 25px; width: calc(100vw - 360px); flex-shrink: 0; padding-left: 10px; padding-right: 10px;" id="grow">
-					<div style="display: flex; justify-content: center; height: 130px; align-items: center;" id="teamContainer">
+					<div style="display: flex; justify-content: center; height: 130px; align-items: center; margin-top: 10px;" id="teamContainer">
 					</div> <!-- Team container -->
-					<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;" id="weaponContainer">
+					<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;" id="weaponContainer">
 					</div> <!-- Weapon container -->
 
 					<div style="display: flex; justify-content: center;">

@@ -249,19 +249,19 @@ input[type=number] {
 
     user-select: none;
 
-    transition: 300ms;
+    transition: background 300ms;
 }
 
 .nameCard:hover {
     background: var(--lightGray);
 
-    transition: 300ms;
+    transition: background 300ms;
 }
 
 .nameCard:active {
     background: var(--gray);
 
-    transition: 50ms;
+    transition: background 50ms;
 }
 
 .nameCard:last-child {
@@ -333,6 +333,24 @@ input[type=number] {
     margin-right: 0;
 }
 
+.weaponCard {
+    position: relative;
+    float: left;
+
+    border-radius: 10px;
+
+    margin-right: 10px;
+
+    width: 90px;
+    height: 132px;
+
+    box-shadow: 0px 0px 9px 0px var(--darkerGray);
+}
+
+.weaponCard:last-child {
+    margin-right: 0;
+}
+
 .characterLevelCard {
     position: absolute;
     left: 0;
@@ -343,7 +361,7 @@ input[type=number] {
     overflow: hidden;
 
     width: 90px;
-    height: calc(100% - 17px);
+    height: calc(100% - 18px);
 
     background: var(--lightGray);
 
@@ -353,7 +371,27 @@ input[type=number] {
 
 }
 
-.characterLevelCard:hover {
+.weaponLevelCard {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    width: 90px;
+    height: 100%;
+
+    background: var(--lightGray);
+
+    user-select: none;
+
+    transition: background 300ms;
+
+}
+
+.weaponLevelCard:hover {
     background: var(--teamCardHover);
 
     transition: 300ms;
@@ -399,18 +437,18 @@ input[type=number] {
     width: 90px;
 
     visibility: hidden;
+
+    transition: 300ms;
+}
+
+.characterLevelCard:hover {
+    background: var(--teamCardHover);
+
+    transition: 300ms;
 }
 
 .characterImage[src] {
     visibility: visible;
-}
-
-.characterImage[src="resources/plus.png"] {
-    left: 20px;
-    top: 20px;
-
-    height: 50px;
-    width: 50px;
 }
 
 .teamLevelTag {
@@ -610,7 +648,7 @@ input[type=number] {
     color: var(--black);
 
     border-radius: 0 0 10px 10px;
-    line-height: 32px;
+    line-height: 31px;
 
     margin-right: 10px;
 
@@ -901,11 +939,13 @@ input:checked+.darkModeSlider:before {
     }
 
     .nameCard {
-        width: 80px;
+        width: 55px;
     }
 
     #characterScrollPane {
-        width: 95px;
+        width: 85px;
+
+        height: calc(97vh - 60px);
     }
 
     #shrink {
@@ -917,7 +957,7 @@ input:checked+.darkModeSlider:before {
     }
 
     #characterFindField {
-        width: 85px;
+        display: none;
     }
 
     :root {

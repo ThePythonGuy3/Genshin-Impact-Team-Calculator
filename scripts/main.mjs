@@ -20,8 +20,8 @@ let selectedCharacter = 0,
     currentWeapons = [weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"]],
     currentWeaponLevel = [1, 1, 1, 1],
     currentWeaponTargetLevel = [1, 1, 1, 1],
-    currentWeaponAscensions = [false, false, false, false],
-    currentWeaponTargetAscensions = [false, false, false, false],
+    currentWeaponAscended = [false, false, false, false],
+    currentWeaponTargetAscended = [false, false, false, false],
 
     text = "";
 
@@ -186,6 +186,276 @@ function isAscension(level) {
     return level == 20 || level == 40 || level == 50 || level == 60 || level == 70 || level == 80;
 }
 
+function generateCard(i) {
+    let characterCard = document.createElement("div");
+    characterCard.id = "teamcont" + i;
+    characterCard.className = "teamCard";
+
+    let characterLevelCard = document.createElement("div");
+    characterLevelCard.tabIndex = "1";
+    characterLevelCard.id = "team" + i;
+    characterLevelCard.className = "characterLevelCard";
+
+    let characterImage = document.createElement("img");
+    characterImage.src = "resources/plus.png";
+    characterImage.className = "characterImage";
+
+    characterImage.onclick = () => {
+        if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
+        selectedCharacter = i;
+        characterLevelCard.classList.add("teamFocus");
+    }
+
+    let characterLevelTag = document.createElement("div");
+    characterLevelTag.className = "teamLevelTag";
+
+    let characterAscensionCheckbox = document.createElement("input");
+    characterAscensionCheckbox.disabled = true;
+
+    let characterAscensionTargetCheckbox = document.createElement("input");
+    characterAscensionTargetCheckbox.disabled = true;
+
+    characterAscensionCheckbox.addEventListener('change', (event) => {
+        currentCharacterAscended[i - 1] = event.currentTarget.checked;
+    });
+
+    characterAscensionTargetCheckbox.addEventListener('change', (event) => {
+        currentCharacterTargetAscended[i - 1] = event.currentTarget.checked;
+    });
+
+    let characterLevelField = document.createElement("input");
+    characterLevelField.className = "levelinput";
+    characterLevelField.id = "input" + i;
+    characterLevelField.type = "number";
+    characterLevelField.addEventListener("input", () => {
+        characterAscensionCheckbox.checked = false;
+        characterAscensionCheckbox.disabled = true;
+        currentCharacterAscended[i - 1] = false;
+
+        if (characterLevelField.value.length > 2) {
+            characterLevelField.value = characterLevelField.value.slice(0, 2);
+        }
+
+        if (isAscension(characterLevelField.value)) characterAscensionCheckbox.disabled = false;
+
+        currentCharacterLevel[i - 1] = characterLevelField.value;
+    });
+
+    characterLevelField.addEventListener("focus", () => {
+        if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
+        selectedCharacter = 0;
+    });
+
+    characterLevelField.addEventListener("focusout", () => {
+        if (characterLevelField.value == "" || characterLevelField.value == 0) characterLevelField.value = 1;
+        if (characterLevelField.value > 90) characterLevelField.value = 90;
+        currentCharacterLevel[i - 1] = characterLevelField.value;
+        if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
+        selectedCharacter = 0;
+    });
+
+    characterLevelField.value = "0";
+    characterLevelField.disabled = true;
+
+    let characterLevelTargetField = document.createElement("input");
+    characterLevelTargetField.className = "levelinput2";
+    characterLevelTargetField.id = "targetinput" + i;
+    characterLevelTargetField.type = "number";
+    characterLevelTargetField.addEventListener("input", () => {
+        characterAscensionTargetCheckbox.checked = false;
+        characterAscensionTargetCheckbox.disabled = true;
+        currentCharacterTargetAscended[i - 1] = false;
+
+        if (characterLevelTargetField.value.length > 2) {
+            characterLevelTargetField.value = characterLevelTargetField.value.slice(0, 2);
+        }
+
+        if (isAscension(characterLevelTargetField.value)) characterAscensionTargetCheckbox.disabled = false;
+
+        currentCharacterTargetLevel[i - 1] = characterLevelTargetField.value;
+    });
+
+    characterLevelTargetField.addEventListener("focus", () => {
+        if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
+        selectedCharacter = 0;
+    });
+
+    characterLevelTargetField.addEventListener("focusout", () => {
+        if (characterLevelTargetField.value == "" || characterLevelTargetField.value == 0) characterLevelTargetField.value = 1;
+        if (characterLevelTargetField.value > 90) characterLevelTargetField.value = 90;
+        currentCharacterTargetLevel[i - 1] = characterLevelTargetField.value;
+        if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
+        selectedCharacter = 0;
+    });
+
+    characterLevelTargetField.value = "0";
+    characterLevelTargetField.disabled = true;
+
+    characterAscensionCheckbox.id = "sel" + i;
+    characterAscensionCheckbox.type = "checkbox";
+    characterAscensionCheckbox.className = "check";
+
+    characterAscensionTargetCheckbox.id = "selTarget" + i;
+    characterAscensionTargetCheckbox.type = "checkbox";
+    characterAscensionTargetCheckbox.className = "check2";
+
+    let im2 = document.createElement("img");
+    im2.className = "weapon";
+
+    let teamremove = document.createElement("div");
+    teamremove.tabIndex = "1";
+    teamremove.className = "remove";
+    teamremove.innerHTML = "-";
+
+    teamremove.onclick = event => {
+        currentTeam[i - 1] = null;
+        currentWeapons[i - 1] = defaultWeapons["sword"];
+
+        document.getElementById("weapon" + i).children[0].src = "./resources/weapons/" + defaultWeaponNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+
+        currentWeaponLevel[i - 1] = 1;
+        currentWeaponTargetLevel[i - 1] = 1;
+        currentWeaponAscended[i - 1] = false;
+        currentWeaponTargetAscended[i - 1] = false;
+
+        characterImage.src = "resources/plus.png";
+        characterLevelTag.children[0].value = 0;
+        characterLevelTag.children[1].value = 0;
+        characterLevelTag.children[0].disabled = true;
+        characterLevelTag.children[1].disabled = true;
+        characterLevelTag.children[2].disabled = true;
+        characterLevelTag.children[3].disabled = true;
+        im2.src = "";
+    }
+
+    let characterLevelText = document.createElement("div");
+    characterLevelText.id = "levelText";
+
+    let characterLevelTargetText = document.createElement("div");
+    characterLevelTargetText.id = "levelText2";
+
+    characterLevelText.innerHTML = characterLevelTargetText.innerHTML = "Lv.";
+
+    characterLevelTag.appendChild(characterLevelField);
+    characterLevelTag.appendChild(characterLevelTargetField);
+    characterLevelTag.appendChild(characterAscensionCheckbox);
+    characterLevelTag.appendChild(characterAscensionTargetCheckbox);
+    characterLevelTag.appendChild(characterLevelText);
+    characterLevelTag.appendChild(characterLevelTargetText);
+    characterLevelCard.appendChild(characterImage);
+    characterLevelCard.appendChild(characterLevelTag);
+    characterLevelCard.appendChild(im2);
+    characterCard.appendChild(teamremove);
+    characterCard.appendChild(characterLevelCard);
+
+    return characterCard;
+}
+
+function generateWeaponCard(i, weaponPopup) {
+    let weaponCard = document.createElement("div");
+    weaponCard.id = "weaponCard" + i;
+    weaponCard.className = "weaponCard";
+
+    let weaponLevelCard = document.createElement("div");
+    weaponLevelCard.tabIndex = "1";
+    weaponLevelCard.id = "weapon" + i;
+    weaponLevelCard.className = "weaponLevelCard";
+
+    weaponLevelCard.onclick = () => {
+        let currentWeapon = i;
+        weaponPopup.style.display = "flex";
+    }
+
+    let weaponImage = document.createElement("img");
+    weaponImage.src = "./resources/weapons/Dull_Blade.png";
+    weaponImage.className = "characterImage";
+
+    let weaponLevelTag = document.createElement("div");
+    weaponLevelTag.className = "teamLevelTag";
+
+    let weaponAscensionCheckbox = document.createElement("input");
+    weaponAscensionCheckbox.disabled = true;
+
+    let weaponAscensionTargetCheckbox = document.createElement("input");
+    weaponAscensionTargetCheckbox.disabled = true;
+
+    weaponAscensionCheckbox.addEventListener('change', (event) => {
+        currentWeaponAscended[i - 1] = event.currentTarget.checked;
+    });
+
+    weaponAscensionTargetCheckbox.addEventListener('change', (event) => {
+        currentWeaponTargetAscended[i - 1] = event.currentTarget.checked;
+    });
+
+    let weaponLevelField = document.createElement("input");
+    weaponLevelField.className = "levelinput";
+    weaponLevelField.id = "weaponInput" + i;
+    weaponLevelField.type = "number";
+    weaponLevelField.addEventListener("input", () => {
+        weaponAscensionCheckbox.checked = false;
+        weaponAscensionCheckbox.disabled = true;
+        currentWeaponAscended[i - 1] = false;
+
+        if (weaponLevelField.value.length > 2) {
+            weaponLevelField.value = weaponLevelField.value.slice(0, 2);
+        }
+
+        if (isAscension(weaponLevelField.value)) weaponAscensionCheckbox.disabled = false;
+
+        currentWeaponLevel[i - 1] = weaponLevelField.value;
+    });
+
+    weaponLevelField.value = "0";
+
+    let weaponLevelTargetField = document.createElement("input");
+    weaponLevelTargetField.className = "levelinput2";
+    weaponLevelTargetField.id = "weaponTargetinput" + i;
+    weaponLevelTargetField.type = "number";
+    weaponLevelTargetField.addEventListener("input", () => {
+        weaponAscensionTargetCheckbox.checked = false;
+        weaponAscensionTargetCheckbox.disabled = true;
+        currentWeaponTargetAscended[i - 1] = false;
+
+        if (weaponLevelTargetField.value.length > 2) {
+            weaponLevelTargetField.value = weaponLevelTargetField.value.slice(0, 2);
+        }
+
+        if (isAscension(weaponLevelTargetField.value)) weaponAscensionTargetCheckbox.disabled = false;
+
+        currentWeaponTargetLevel[i - 1] = weaponLevelTargetField.value;
+    });
+
+    weaponLevelTargetField.value = "0";
+
+    weaponAscensionCheckbox.id = "weapSel" + i;
+    weaponAscensionCheckbox.type = "checkbox";
+    weaponAscensionCheckbox.className = "check";
+
+    weaponAscensionTargetCheckbox.id = "weapSelTarget" + i;
+    weaponAscensionTargetCheckbox.type = "checkbox";
+    weaponAscensionTargetCheckbox.className = "check2";
+
+    let weaponLevelText = document.createElement("div");
+    weaponLevelText.id = "levelText";
+
+    let weaponLevelTargetText = document.createElement("div");
+    weaponLevelTargetText.id = "levelText2";
+
+    weaponLevelText.innerHTML = weaponLevelTargetText.innerHTML = "Lv.";
+
+    weaponLevelTag.appendChild(weaponLevelField);
+    weaponLevelTag.appendChild(weaponLevelTargetField);
+    weaponLevelTag.appendChild(weaponAscensionCheckbox);
+    weaponLevelTag.appendChild(weaponAscensionTargetCheckbox);
+    weaponLevelTag.appendChild(weaponLevelText);
+    weaponLevelTag.appendChild(weaponLevelTargetText);
+    weaponLevelCard.appendChild(weaponImage);
+    weaponLevelCard.appendChild(weaponLevelTag);
+    weaponCard.appendChild(weaponLevelCard);
+
+    return weaponCard;
+}
+
 window.onload = function () {
     let root = document.querySelector(":root");
     let darkModeSwitch = document.getElementById("darkModeCheckbox");
@@ -207,7 +477,7 @@ window.onload = function () {
     let popupDownloadButton = document.getElementById("popupDownloadButton");
     let popupCancelButton = document.getElementById("popupCancelButton");
 
-    let weaponPopupAcceptButton = document.getElementById("weaponPopupAcceptButton");
+    let weaponPopupCancelButton = document.getElementById("weaponPopupCancelButton");
 
     let characterMaterialPane = document.getElementById("characterMaterialPane");
     let weaponMaterialPane = document.getElementById("weaponMaterialPane");
@@ -302,7 +572,7 @@ window.onload = function () {
                     if (!currentTeam.includes(val)) {
                         characterFindField.value = "";
                         characterFindField.dispatchEvent(new Event("input"));
-                    
+
                         let doc = document.getElementById("team" + selectedCharacter);
                         let self = event.currentTarget.children[0];
 
@@ -326,13 +596,12 @@ window.onload = function () {
 
                         if (currentWeapons[selectedCharacter - 1].type != val.weaponType) {
                             currentWeapons[selectedCharacter - 1] = defaultWeapons[val.weaponType];
-                            document.getElementById("weapImg" + selectedCharacter).src = selectedWeaponImage.src = "./resources/weapons/" + defaultWeaponNames[val.weaponType].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
-                            selectedWeaponName.innerHTML = defaultWeaponNames[val.weaponType];
+                            document.getElementById("weapon" + selectedCharacter).children[0].src = "./resources/weapons/" + defaultWeaponNames[val.weaponType].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
 
                             currentWeaponLevel[selectedCharacter - 1] = 1;
                             currentWeaponTargetLevel[selectedCharacter - 1] = 1;
-                            currentWeaponAscensions[selectedCharacter - 1] = false;
-                            currentWeaponTargetAscensions[selectedCharacter - 1] = false;
+                            currentWeaponAscended[selectedCharacter - 1] = false;
+                            currentWeaponTargetAscended[selectedCharacter - 1] = false;
                         }
 
                         if (selectedCharacter < 4) {
@@ -466,243 +735,14 @@ window.onload = function () {
         }
 
         for (let i = 1; i < 5; i++) {
-            let characterCard = document.createElement("div");
-            characterCard.id = "teamcont" + i;
-            characterCard.className = "teamCard";
+            let characterCard = generateCard(i);
 
-            let characterLevelCard = document.createElement("div");
-            characterLevelCard.tabIndex = "1";
-            characterLevelCard.id = "team" + i;
-            characterLevelCard.className = "characterLevelCard";
-
-            characterLevelCard.onclick = () => {
-                if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
-                selectedCharacter = i;
-                characterLevelCard.classList.add("teamFocus");
-            }
-
-            let characterImage = document.createElement("img");
-            characterImage.src = "resources/plus.png";
-            characterImage.className = "characterImage";
-
-            let characterLevelTag = document.createElement("div");
-            characterLevelTag.className = "teamLevelTag";
-
-            let characterAscensionCheckbox = document.createElement("input");
-            characterAscensionCheckbox.disabled = true;
-
-            let characterAscensionTargetCheckbox = document.createElement("input");
-            characterAscensionTargetCheckbox.disabled = true;
-
-            characterAscensionCheckbox.addEventListener('change', (event) => {
-                currentCharacterAscended[i - 1] = event.currentTarget.checked;
-            });
-
-            characterAscensionTargetCheckbox.addEventListener('change', (event) => {
-                currentCharacterTargetAscended[i - 1] = event.currentTarget.checked;
-            });
-
-            let characterLevelField = document.createElement("input");
-            characterLevelField.className = "levelinput";
-            characterLevelField.id = "input" + i;
-            characterLevelField.type = "number";
-            characterLevelField.addEventListener("input", () => {
-                characterAscensionCheckbox.checked = false;
-                characterAscensionCheckbox.disabled = true;
-                currentCharacterAscended[i - 1] = false;
-
-                if (characterLevelField.value.length > 2) {
-                    characterLevelField.value = characterLevelField.value.slice(0, 2);
-                }
-
-                if (isAscension(characterLevelField.value)) characterAscensionCheckbox.disabled = false;
-
-                currentCharacterLevel[i - 1] = characterLevelField.value;
-            });
-
-            characterLevelField.addEventListener("focus", () => {
-                if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
-                selectedCharacter = 0;
-            });
-
-            characterLevelField.addEventListener("focusout", () => {
-                if (characterLevelField.value == "" || characterLevelField.value == 0) characterLevelField.value = 1;
-                if (characterLevelField.value > 90) characterLevelField.value = 90;
-                currentCharacterLevel[i - 1] = characterLevelField.value;
-                if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
-                selectedCharacter = 0;
-            });
-
-            characterLevelField.value = "0";
-            characterLevelField.disabled = true;
-
-            let characterLevelTargetField = document.createElement("input");
-            characterLevelTargetField.className = "levelinput2";
-            characterLevelTargetField.id = "targetinput" + i;
-            characterLevelTargetField.type = "number";
-            characterLevelTargetField.addEventListener("input", () => {
-                characterAscensionTargetCheckbox.checked = false;
-                characterAscensionTargetCheckbox.disabled = true;
-                currentCharacterTargetAscended[i - 1] = false;
-
-                if (characterLevelTargetField.value.length > 2) {
-                    characterLevelTargetField.value = characterLevelTargetField.value.slice(0, 2);
-                }
-
-                if (isAscension(characterLevelTargetField.value)) characterAscensionTargetCheckbox.disabled = false;
-
-                currentCharacterTargetLevel[i - 1] = characterLevelTargetField.value;
-            });
-
-            characterLevelTargetField.addEventListener("focus", () => {
-                if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
-                selectedCharacter = 0;
-            });
-
-            characterLevelTargetField.addEventListener("focusout", () => {
-                if (characterLevelTargetField.value == "" || characterLevelTargetField.value == 0) characterLevelTargetField.value = 1;
-                if (characterLevelTargetField.value > 90) characterLevelTargetField.value = 90;
-                currentCharacterTargetLevel[i - 1] = characterLevelTargetField.value;
-                if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
-                selectedCharacter = 0;
-            });
-
-            characterLevelTargetField.value = "0";
-            characterLevelTargetField.disabled = true;
-
-            characterAscensionCheckbox.id = "sel" + i;
-            characterAscensionCheckbox.type = "checkbox";
-            characterAscensionCheckbox.className = "check";
-
-            characterAscensionTargetCheckbox.id = "selTarget" + i;
-            characterAscensionTargetCheckbox.type = "checkbox";
-            characterAscensionTargetCheckbox.className = "check2";
-
-            let im2 = document.createElement("img");
-            im2.className = "weapon";
-
-            let teamremove = document.createElement("div");
-            teamremove.tabIndex = "1";
-            teamremove.className = "remove";
-            teamremove.innerHTML = "-";
-
-            teamremove.onclick = event => {
-                currentTeam[i - 1] = null;
-                currentWeapons[i - 1] = defaultWeapons["sword"];
-
-                document.getElementById("weapImg" + i).src = selectedWeaponImage.src = "./resources/weapons/" + defaultWeaponNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
-                selectedWeaponName.innerHTML = defaultWeaponNames["sword"];
-
-                currentWeaponLevel[i - 1] = 1;
-                currentWeaponTargetLevel[i - 1] = 1;
-                currentWeaponAscensions[i - 1] = false;
-                currentWeaponTargetAscensions[i - 1] = false;
-
-                characterImage.src = "resources/plus.png";
-                characterLevelTag.children[0].value = 0;
-                characterLevelTag.children[1].value = 0;
-                characterLevelTag.children[0].disabled = true;
-                characterLevelTag.children[1].disabled = true;
-                characterLevelTag.children[2].disabled = true;
-                characterLevelTag.children[3].disabled = true;
-                im2.src = "";
-            }
-
-            let characterLevelText = document.createElement("div");
-            characterLevelText.id = "levelText";
-            
-            let characterLevelTargetText = document.createElement("div");
-            characterLevelTargetText.id = "levelText2";
-
-            characterLevelText.innerHTML = characterLevelTargetText.innerHTML = "Lv.";
-
-            characterLevelTag.appendChild(characterLevelField);
-            characterLevelTag.appendChild(characterLevelTargetField);
-            characterLevelTag.appendChild(characterAscensionCheckbox);
-            characterLevelTag.appendChild(characterAscensionTargetCheckbox);
-            characterLevelTag.appendChild(characterLevelText);
-            characterLevelTag.appendChild(characterLevelTargetText);
-            characterLevelCard.appendChild(characterImage);
-            characterLevelCard.appendChild(characterLevelTag);
-            characterLevelCard.appendChild(im2);
-            characterCard.appendChild(teamremove);
-            characterCard.appendChild(characterLevelCard);
             teamContainer.appendChild(characterCard);
 
-            let imW = document.createElement("img");
-            imW.title = "Select Weapon";
-            imW.src = "./resources/weapons/Dull_Blade.png";
-            imW.className = "weapImg";
-            imW.id = "weapImg" + i;
+            let weaponCard = generateWeaponCard(i, weaponPopupWindow);
 
-            imW.onclick = event => {
-                selectedWeapons = i;
-
-                selectedWeaponCurrentAscendedCheckbox.checked = !currentWeaponAscensions[i - 1];
-                selectedWeaponTargetAscendedCheckbox.checked = !currentWeaponTargetAscensions[i - 1];
-                selectedWeaponCurrentAscendedCheckbox.disabled = !isAscension(currentWeaponLevel[i - 1]);
-                selectedWeaponTargetAscendedCheckbox.disabled = !isAscension(currentWeaponTargetLevel[i - 1]);
-                selectedWeaponImage.src = imW.src;
-                selectedWeaponName.innerHTML = imW.src.split("/").slice(-1).toString().replaceAll("_", " ").replaceAll(".png", "");
-                selectedWeaponCurrentLevelField.value = currentWeaponLevel[i - 1];
-                selectedWeaponTargetLevelField.value = currentWeaponTargetLevel[i - 1];
-                selectedWeaponCurrentAscendedCheckbox.checked = currentWeaponAscensions[i - 1];
-                selectedWeaponTargetAscendedCheckbox.checked = currentWeaponTargetAscensions[i - 1];
-                if (selectedWeaponName.innerHTML == "The Catch") selectedWeaponName.innerHTML = '"The Catch"';
-
-                let i2 = 0;
-                for (const [el, val] of Object.entries(weapons)) {
-                    let pla = currentTeam[i - 1];
-                    if (pla != null && val.type != pla.weaponType) {
-                        weaponScrollpane.children[i2].style.display = "none";
-                    } else {
-                        weaponScrollpane.children[i2].style.display = "block";
-                    }
-                    i2++;
-                }
-
-                weaponPopupWindow.style.display = "flex";
-                weaponScrollpane.scrollTo(0, 0);
-            }
-
-            weaponContainer.appendChild(imW);
+            weaponContainer.appendChild(weaponCard);
         }
-
-        selectedWeaponCurrentLevelField.addEventListener('input', (event) => {
-            selectedWeaponCurrentAscendedCheckbox.checked = false;
-            selectedWeaponCurrentAscendedCheckbox.disabled = true;
-            currentWeaponAscensions[selectedWeapons - 1] = false;
-
-            if (selectedWeaponCurrentLevelField.value.length > 2) {
-                selectedWeaponCurrentLevelField.value = selectedWeaponCurrentLevelField.value.slice(0, 2);
-            }
-
-            if (isAscension(selectedWeaponCurrentLevelField.value)) selectedWeaponCurrentAscendedCheckbox.disabled = false;
-
-            currentWeaponLevel[selectedWeapons - 1] = selectedWeaponCurrentLevelField.value;
-        });
-
-        selectedWeaponTargetLevelField.addEventListener('input', (event) => {
-            selectedWeaponTargetAscendedCheckbox.checked = false;
-            selectedWeaponTargetAscendedCheckbox.disabled = true;
-            currentWeaponTargetAscensions[selectedWeapons - 1] = false;
-
-            if (selectedWeaponTargetLevelField.value.length > 2) {
-                selectedWeaponTargetLevelField.value = selectedWeaponTargetLevelField.value.slice(0, 2);
-            }
-
-            if (isAscension(selectedWeaponTargetLevelField.value)) selectedWeaponTargetAscendedCheckbox.disabled = false;
-
-            currentWeaponTargetLevel[selectedWeapons - 1] = selectedWeaponTargetLevelField.value;
-        });
-
-        selectedWeaponCurrentAscendedCheckbox.addEventListener('change', (event) => {
-            currentWeaponAscensions[selectedWeapons - 1] = selectedWeaponCurrentAscendedCheckbox.checked;
-        });
-
-        selectedWeaponTargetAscendedCheckbox.addEventListener('change', (event) => {
-            currentWeaponTargetAscensions[selectedWeapons - 1] = selectedWeaponTargetAscendedCheckbox.checked;
-        });
 
         calculateButton.onclick = event => {
             // Characters
@@ -880,8 +920,8 @@ window.onload = function () {
             for (let i = 1; i < 5; i++) {
                 if (currentWeapons[i - 1] == null) continue;
 
-                let maxTier = getAscensionfromLevel(currentWeaponTargetLevel[i - 1]) - ((1 - currentWeaponTargetAscensions[i - 1]) * isAscension(currentWeaponTargetLevel[i - 1]));
-                let minTier = getAscensionfromLevel(currentWeaponLevel[i - 1]) - ((1 - currentWeaponAscensions[i - 1]) * isAscension(currentWeaponLevel[i - 1]));
+                let maxTier = getAscensionfromLevel(currentWeaponTargetLevel[i - 1]) - ((1 - currentWeaponTargetAscended[i - 1]) * isAscension(currentWeaponTargetLevel[i - 1]));
+                let minTier = getAscensionfromLevel(currentWeaponLevel[i - 1]) - ((1 - currentWeaponAscended[i - 1]) * isAscension(currentWeaponLevel[i - 1]));
 
                 if (maxTier == NaN) continue;
                 if (minTier == NaN) continue;
@@ -994,7 +1034,7 @@ window.onload = function () {
             }, 200);
         }
 
-        weaponPopupAcceptButton.onclick = event => {
+        weaponPopupCancelButton.onclick = event => {
             selectedWeapons = 0;
             weaponPopupWindow.classList.remove("fadeIn");
             weaponPopupWindow.classList.add("fadeOut");
@@ -1021,7 +1061,7 @@ window.onload = function () {
 
             saveAs(blob, name, { type: "text/plain;charset=utf-8" });
         }
-        
+
     });
 }
 
