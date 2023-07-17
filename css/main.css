@@ -332,7 +332,7 @@ input[type=number] {
     margin-right: 10px;
 
     width: 90px;
-    height: 132px;
+    height: 150px;
 
     box-shadow: 0px 0px 9px 0px var(--darkerGray);
 }
@@ -371,7 +371,7 @@ input[type=number] {
     overflow: hidden;
 
     width: 90px;
-    height: 100%;
+    height: calc(100% - 18px);
 
     background: var(--lightGray);
 

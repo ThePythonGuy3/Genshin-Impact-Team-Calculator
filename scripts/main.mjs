@@ -281,7 +281,7 @@ function generateCard(i) {
     });
 
     characterLevelTargetField.addEventListener("focusout", () => {
-        if (characterLevelTargetField.value == "" || characterLevelTargetField.value == 0) characterLevelTargetField.value = 1;
+        if (characterLevelTargetField.value == "" || characterLevelTargetField.value <= 0) characterLevelTargetField.value = 1;
         if (characterLevelTargetField.value > 90) characterLevelTargetField.value = 90;
         currentCharacterTargetLevel[i - 1] = characterLevelTargetField.value;
         if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
@@ -309,14 +309,6 @@ function generateCard(i) {
 
     teamremove.onclick = event => {
         currentTeam[i - 1] = null;
-        currentWeapons[i - 1] = defaultWeapons["sword"];
-
-        document.getElementById("weapon" + i).children[0].src = "./resources/weapons/" + defaultWeaponNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
-
-        currentWeaponLevel[i - 1] = 1;
-        currentWeaponTargetLevel[i - 1] = 1;
-        currentWeaponAscended[i - 1] = false;
-        currentWeaponTargetAscended[i - 1] = false;
 
         characterImage.src = "resources/plus.png";
         characterLevelTag.children[0].value = 0;
@@ -361,14 +353,14 @@ function generateWeaponCard(i, weaponPopup) {
     weaponLevelCard.id = "weapon" + i;
     weaponLevelCard.className = "weaponLevelCard";
 
-    weaponLevelCard.onclick = () => {
-        selectedWeapon = i;
-        weaponPopup.style.display = "flex";
-    }
-
     let weaponImage = document.createElement("img");
     weaponImage.src = "./resources/weapons/Dull_Blade.png";
     weaponImage.className = "characterImage";
+
+    weaponImage.onclick = () => {
+        selectedWeapon = i;
+        weaponPopup.style.display = "flex";
+    }
 
     let weaponLevelTag = document.createElement("div");
     weaponLevelTag.className = "teamLevelTag";
@@ -405,7 +397,13 @@ function generateWeaponCard(i, weaponPopup) {
         currentWeaponLevel[i - 1] = weaponLevelField.value;
     });
 
-    weaponLevelField.value = "0";
+    weaponLevelField.addEventListener("focusout", () => {
+        if (weaponLevelField.value == "" || weaponLevelField.value <= 0) weaponLevelField.value = 1;
+        if (weaponLevelField.value > 90) weaponLevelField.value = 90;
+        currentWeaponLevel[i - 1] = weaponLevelField.value;
+    });
+
+    weaponLevelField.value = "1";
 
     let weaponLevelTargetField = document.createElement("input");
     weaponLevelTargetField.className = "levelinput2";
@@ -425,7 +423,34 @@ function generateWeaponCard(i, weaponPopup) {
         currentWeaponTargetLevel[i - 1] = weaponLevelTargetField.value;
     });
 
-    weaponLevelTargetField.value = "0";
+    weaponLevelTargetField.addEventListener("focusout", () => {
+        if (weaponLevelTargetField.value == "" || weaponLevelTargetField.value <= 0) weaponLevelTargetField.value = 1;
+        if (weaponLevelTargetField.value > 90) weaponLevelTargetField.value = 90;
+        currentWeaponTargetLevel[i - 1] = weaponLevelTargetField.value;
+    });
+
+    weaponLevelTargetField.value = "1";
+
+    let weaponRemove = document.createElement("div");
+    weaponRemove.tabIndex = "1";
+    weaponRemove.className = "remove";
+    weaponRemove.innerHTML = "-";
+
+    weaponRemove.onclick = event => {
+        currentWeapons[i - 1] = defaultWeapons["sword"];
+
+        weaponImage.src = "./resources/weapons/" + defaultWeaponNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+
+        currentWeaponLevel[i - 1] = 1;
+        currentWeaponTargetLevel[i - 1] = 1;
+        currentWeaponAscended[i - 1] = false;
+        currentWeaponTargetAscended[i - 1] = false;
+
+        weaponLevelField.value = 1;
+        weaponLevelTargetField.value = 1;
+        weaponAscensionCheckbox.disabled = true;
+        weaponAscensionTargetCheckbox.disabled = true;
+    }
 
     weaponAscensionCheckbox.id = "weapSel" + i;
     weaponAscensionCheckbox.type = "checkbox";
@@ -451,6 +476,7 @@ function generateWeaponCard(i, weaponPopup) {
     weaponLevelTag.appendChild(weaponLevelTargetText);
     weaponLevelCard.appendChild(weaponImage);
     weaponLevelCard.appendChild(weaponLevelTag);
+    weaponCard.appendChild(weaponRemove);
     weaponCard.appendChild(weaponLevelCard);
 
     return weaponCard;
