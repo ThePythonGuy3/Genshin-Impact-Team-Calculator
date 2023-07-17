@@ -279,6 +279,7 @@ input[type=number] {
     width: 55px;
 
     user-select: none;
+    pointer-events: none;
 }
 
 .star {
@@ -293,6 +294,7 @@ input[type=number] {
     width: 20px;
 
     user-select: none;
+    pointer-events: none;
 }
 
 .name {
@@ -303,6 +305,7 @@ input[type=number] {
     margin-top: 18px;
 
     user-select: none;
+    pointer-events: none;
 }
 
 .teamCard {

@@ -22,8 +22,8 @@
 <body style="overflow: hidden;">
 	<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;"
 		class="fadeOut" id="downloadPopupWindow">
-		<div
-			style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;">
+		<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"
+			id="popupBackground1">
 		</div>
 		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 20px; padding: 20px; box-shadow: 0px 0px 9px 0px var(--dark);"
 			id="download-popup">
@@ -41,8 +41,8 @@
 
 	<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;"
 		class="fadeIn" id="weaponPopupWindow">
-		<div
-			style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;">
+		<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"
+			id="popupBackground2">
 		</div>
 		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 50vh; min-height: 140px; width: 355px; right: calc(50vw - 178px); margin-right: auto; padding-bottom: 20px; padding-left: 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
 			id="weapon-popup">
@@ -100,7 +100,7 @@
 				</div> <!-- Weapon container -->
 
 				<div style="display: flex; justify-content: center;">
-					<p title="Calculate" tabindex="1"
+					<p title="Calculate"
 						style="border-radius: 10px; margin: 2px; width: 200px; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; margin-left: 10px; margin-top: 10px; border: 2px solid var(--darkGray);"
 						class="click-out" id="calculateButton">Calculate</p>
 				</div>
@@ -121,7 +121,7 @@
 								<p class="material">-</p>
 							</div>
 						</div>
-						<img title="Download as PDF" tabindex="1"
+						<img title="Download as PDF"
 							style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px; transition: opacity 200ms;"
 							class="disabled" src="resources/download.png" id="downloadButton">
 					</div>

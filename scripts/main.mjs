@@ -192,7 +192,6 @@ function generateCard(i) {
     characterCard.className = "teamCard";
 
     let characterLevelCard = document.createElement("div");
-    characterLevelCard.tabIndex = "1";
     characterLevelCard.id = "team" + i;
     characterLevelCard.className = "characterLevelCard";
 
@@ -303,7 +302,6 @@ function generateCard(i) {
     im2.className = "weapon";
 
     let teamremove = document.createElement("div");
-    teamremove.tabIndex = "1";
     teamremove.className = "remove";
     teamremove.innerHTML = "-";
 
@@ -349,7 +347,6 @@ function generateWeaponCard(i, weaponPopup) {
     weaponCard.className = "weaponCard";
 
     let weaponLevelCard = document.createElement("div");
-    weaponLevelCard.tabIndex = "1";
     weaponLevelCard.id = "weapon" + i;
     weaponLevelCard.className = "weaponLevelCard";
 
@@ -372,7 +369,7 @@ function generateWeaponCard(i, weaponPopup) {
         }
 
         weaponPopup.style.display = "flex";
-        
+
         weaponScrollPane.scrollTop = 0;
     }
 
@@ -446,7 +443,6 @@ function generateWeaponCard(i, weaponPopup) {
     weaponLevelTargetField.value = "1";
 
     let weaponRemove = document.createElement("div");
-    weaponRemove.tabIndex = "1";
     weaponRemove.className = "remove";
     weaponRemove.innerHTML = "-";
 
@@ -500,6 +496,38 @@ function generateWeaponCard(i, weaponPopup) {
     weaponCard.appendChild(weaponLevelCard);
 
     return weaponCard;
+}
+
+function hideDownloadPopup() {
+    downloadPopupWindow.classList.remove("fadeIn");
+    downloadPopupWindow.classList.add("fadeOut");
+
+    setTimeout(() => {
+        weaponPopupWindow.style.opacity = "0";
+        downloadPopupWindow.style.display = "none";
+
+        setTimeout(() => {
+            weaponPopupWindow.style.opacity = "1";
+        }, 50);
+    }, 200);
+}
+
+function hideWeaponPopup() {
+    weaponPopupWindow.classList.remove("fadeIn");
+    weaponPopupWindow.classList.add("fadeOut");
+
+    setTimeout(() => {
+        weaponPopupWindow.style.opacity = "0";
+        weaponPopupWindow.style.display = "none";
+
+        setTimeout(() => {
+            weaponPopupWindow.classList.remove("fadeOut");
+            weaponPopupWindow.classList.add("fadeIn");
+            weaponPopupWindow.style.opacity = "1";
+        }, 50); // Just in case
+    }, 200);
+
+    weaponFindField.value = "";
 }
 
 let title;
@@ -606,7 +634,6 @@ window.onload = function () {
 
             namecard.style.backgroundImage = "linear-gradient(90deg, rgba(0,0,0,0) 80%, " + hexColor + ")";
             namecard.className = "nameCard";
-            namecard.tabIndex = 1;
             namecard.onclick = function (event) {
                 if (selectedCharacter != 0) {
                     if (!currentTeam.includes(val)) {
@@ -679,6 +706,7 @@ window.onload = function () {
             namecard.appendChild(elem2);
 
             let contDiv = document.createElement("div");
+            contDiv.style.pointerEvents = "none";
             contDiv.style.float = "right";
             contDiv.style.marginRight = "10px";
 
@@ -732,7 +760,6 @@ window.onload = function () {
             elem.style.backgroundImage = "linear-gradient(90deg, rgba(0,0,0,0) 80%, " + cc + ")";
             elem.className = "nameCard";
             elem.style.width = "330px";
-            elem.tabIndex = 1;
             elem.onclick = function () {
                 if (selectedWeapon != 0) {
                     weaponFindField.value = "";
@@ -741,22 +768,8 @@ window.onload = function () {
                     currentWeapons[selectedWeapon - 1] = val;
 
                     document.getElementById("weapon" + selectedWeapon).children[0].src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
-                    
-                    weaponPopupWindow.classList.remove("fadeIn");
-                    weaponPopupWindow.classList.add("fadeOut");
 
-                    setTimeout(() => {
-                        weaponPopupWindow.style.opacity = "0";
-                        weaponPopupWindow.style.display = "none";
-
-                        setTimeout(() => {
-                            weaponPopupWindow.classList.remove("fadeOut");
-                            weaponPopupWindow.classList.add("fadeIn");
-                            weaponPopupWindow.style.opacity = "1";
-                        }, 50); // Just in case
-                    }, 200);
-
-                    weaponFindField.value = "";
+                    hideWeaponPopup();
                 }
             }
 
@@ -1080,36 +1093,13 @@ window.onload = function () {
         }
 
         popupCancelButton.onclick = event => {
-            downloadPopupWindow.classList.remove("fadeIn");
-            downloadPopupWindow.classList.add("fadeOut");
-
-            setTimeout(() => {
-                weaponPopupWindow.style.opacity = "0";
-                downloadPopupWindow.style.display = "none";
-
-                setTimeout(() => {
-                    weaponPopupWindow.style.opacity = "1";
-                }, 50);
-            }, 200);
+            hideDownloadPopup();
         }
 
         weaponPopupCancelButton.onclick = event => {
             selectedWeapon = 0;
-            weaponPopupWindow.classList.remove("fadeIn");
-            weaponPopupWindow.classList.add("fadeOut");
-
-            setTimeout(() => {
-                weaponPopupWindow.style.opacity = "0";
-                weaponPopupWindow.style.display = "none";
-
-                setTimeout(() => {
-                    weaponPopupWindow.classList.remove("fadeOut");
-                    weaponPopupWindow.classList.add("fadeIn");
-                    weaponPopupWindow.style.opacity = "1";
-                }, 50); // Just in case
-            }, 200);
-
-            weaponFindField.value = "";
+            
+            hideWeaponPopup();
         }
 
         popupDownloadButton.onclick = event => {
@@ -1119,6 +1109,8 @@ window.onload = function () {
             if (fileNamefield.value != "") name = fileNamefield.value + ".txt";
 
             saveAs(blob, name, { type: "text/plain;charset=utf-8" });
+
+            hideDownloadPopup();
         }
 
     });
@@ -1136,9 +1128,27 @@ window.onresize = () => {
     }
 }
 
-document.addEventListener('focusout', event => {
-    if (event.relatedTarget == null || (!event.relatedTarget.classList.contains("nameCard") && event.relatedTarget.className != "teamCard" && event.relatedTarget.className != "characterLevelCard" && event.relatedTarget.id != "characterFindField")) {
+document.addEventListener('click', event => {
+    if (event.target == null || (!event.target.classList.contains("nameCard") && event.target.className != "teamCard" && event.target.className != "characterLevelCard" && event.target.id != "characterFindField")) {
         if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
         selectedCharacter = 0;
     }
+
+    console.log(event.target);
 }, true);
+
+document.addEventListener('keydown', function (e) {
+    if (e.key == "Escape" || e.key == "Esc") {
+        hideDownloadPopup();
+
+        hideWeaponPopup();
+    }
+});
+
+document.getElementById("popupBackground1").onclick = () => {
+    hideDownloadPopup();
+}
+
+document.getElementById("popupBackground2").onclick = () => {
+    hideWeaponPopup();
+}
