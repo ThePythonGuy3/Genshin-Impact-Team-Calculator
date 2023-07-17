@@ -437,9 +437,15 @@ function generateWeaponCard(i, weaponPopup) {
     weaponRemove.innerHTML = "-";
 
     weaponRemove.onclick = event => {
-        currentWeapons[i - 1] = defaultWeapons["sword"];
+        if (currentTeam[i - 1] == null) {
+            currentWeapons[i - 1] = defaultWeapons["sword"];
 
-        weaponImage.src = "./resources/weapons/" + defaultWeaponNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+            weaponImage.src = "./resources/weapons/" + defaultWeaponNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+        } else {
+            currentWeapons[i - 1] = defaultWeapons[currentTeam[i - 1].weaponType];
+
+            weaponImage.src = "./resources/weapons/" + defaultWeaponNames[currentTeam[i - 1].weaponType].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+        }
 
         currentWeaponLevel[i - 1] = 1;
         currentWeaponTargetLevel[i - 1] = 1;
@@ -717,6 +723,22 @@ window.onload = function () {
                     currentWeapons[selectedWeapon - 1] = val;
 
                     document.getElementById("weapon" + selectedWeapon).children[0].src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+                    
+                    weaponPopupWindow.classList.remove("fadeIn");
+                    weaponPopupWindow.classList.add("fadeOut");
+
+                    setTimeout(() => {
+                        weaponPopupWindow.style.opacity = "0";
+                        weaponPopupWindow.style.display = "none";
+
+                        setTimeout(() => {
+                            weaponPopupWindow.classList.remove("fadeOut");
+                            weaponPopupWindow.classList.add("fadeIn");
+                            weaponPopupWindow.style.opacity = "1";
+                        }, 50); // Just in case
+                    }, 200);
+
+                    weaponFindField.value = "";
                 }
             }
 
