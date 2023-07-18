@@ -300,12 +300,15 @@ function generateCard(i) {
 
     let im2 = document.createElement("img");
     im2.className = "weapon";
+    im2.onerror = () => im2.style.display = 'none';
 
     let teamremove = document.createElement("div");
     teamremove.className = "remove";
     teamremove.innerHTML = "-";
 
     teamremove.onclick = event => {
+        im2.src = "";
+
         currentTeam[i - 1] = null;
 
         characterImage.src = "resources/plus.png";
@@ -315,7 +318,6 @@ function generateCard(i) {
         characterLevelTag.children[1].disabled = true;
         characterLevelTag.children[2].disabled = true;
         characterLevelTag.children[3].disabled = true;
-        im2.src = "";
     }
 
     let characterLevelText = document.createElement("div");
@@ -537,6 +539,10 @@ if (nightFromStorage !== null && nightFromStorage === "true") {
     swapMode(document.querySelector(":root"), true);
 }
 
+function generateTeamString() {
+
+}
+
 let title;
 window.onload = function () {
     let root = document.querySelector(":root");
@@ -669,6 +675,7 @@ window.onload = function () {
                         currentCharacterTargetLevel[selectedCharacter - 1] = 90;
                         currentCharacterAscended[selectedCharacter - 1] = false;
                         currentCharacterTargetAscended[selectedCharacter - 1] = false;
+                        doc.children[2].style.display = "block";
                         doc.children[2].src = "resources/" + val.weaponType + ".png";
 
                         currentTeam[selectedCharacter - 1] = val;
@@ -780,7 +787,10 @@ window.onload = function () {
 
                     currentWeapons[selectedWeapon - 1] = val;
 
+                    currentWeaponTargetLevel[selectedWeapon - 1] = 90
+
                     document.getElementById("weapon" + selectedWeapon).children[0].src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+                    document.getElementById("weaponTargetinput" + selectedWeapon).value = 90;
 
                     hideWeaponPopup();
                 }
