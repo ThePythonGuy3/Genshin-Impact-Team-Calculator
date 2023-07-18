@@ -38,11 +38,12 @@ function setElementStyleProperty(root, name, value) {
 }
 
 // Swaps dark mode on or off
-function swapMode(root, nightCheck) {
+function swapMode(root, checked) {
     let nameCards = document.getElementsByClassName("nameCard");
+    localStorage.setItem("night", checked.toString());
 
     for (let i = 0; i < nameCards.length; i++) {
-        if (nightCheck.checked) {
+        if (checked) {
             nameCards[i].classList.add("disableBackgroundImage");
             document.getElementById("backdrop2").style.opacity = "0";
         } else {
@@ -51,43 +52,43 @@ function swapMode(root, nightCheck) {
         }
     }
 
-    setElementStyleProperty(root, "lighterGray", !nightCheck.checked ? "#F0F0F0" : "#141A20");
-    setElementStyleProperty(root, "lightGray", !nightCheck.checked ? "#E0E0E0" : "#1A2129");
-    setElementStyleProperty(root, "gray", !nightCheck.checked ? "#D0D0D0" : "#232C36");
-    setElementStyleProperty(root, "darkGray", !nightCheck.checked ? "#C0C0C0" : "#2C3742");
-    setElementStyleProperty(root, "darkerGray", !nightCheck.checked ? "#B0B0B0" : "#35424F");
+    setElementStyleProperty(root, "lighterGray", !checked ? "#F0F0F0" : "#141A20");
+    setElementStyleProperty(root, "lightGray", !checked ? "#E0E0E0" : "#1A2129");
+    setElementStyleProperty(root, "gray", !checked ? "#D0D0D0" : "#232C36");
+    setElementStyleProperty(root, "darkGray", !checked ? "#C0C0C0" : "#2C3742");
+    setElementStyleProperty(root, "darkerGray", !checked ? "#B0B0B0" : "#35424F");
 
-    setElementStyleProperty(root, "cinnamon", !nightCheck.checked ? "#F2EEE6" : "#0F0F0F");
-    setElementStyleProperty(root, "darkCinnamon", !nightCheck.checked ? "#CCBAAD" : "#2F2F2F");
-    setElementStyleProperty(root, "darkerCinnamon", !nightCheck.checked ? "#9C8270" : "#4F4F4F");
+    setElementStyleProperty(root, "cinnamon", !checked ? "#F2EEE6" : "#0F0F0F");
+    setElementStyleProperty(root, "darkCinnamon", !checked ? "#CCBAAD" : "#2F2F2F");
+    setElementStyleProperty(root, "darkerCinnamon", !checked ? "#9C8270" : "#4F4F4F");
 
-    setElementStyleProperty(root, "lvInput", !nightCheck.checked ? "#FEFEFE" : "#0E1012");
-    setElementStyleProperty(root, "weapLvInput", !nightCheck.checked ? "#FEFEFE" : "#3F3F3F");
-    setElementStyleProperty(root, "wpInput", !nightCheck.checked ? "#FEFEFE" : "#0E1012");
+    setElementStyleProperty(root, "lvInput", !checked ? "#FEFEFE" : "#0E1012");
+    setElementStyleProperty(root, "weapLvInput", !checked ? "#FEFEFE" : "#3F3F3F");
+    setElementStyleProperty(root, "wpInput", !checked ? "#FEFEFE" : "#0E1012");
 
-    setElementStyleProperty(root, "swInput", !nightCheck.checked ? "#FFCF45" : "#AFAFAF");
+    setElementStyleProperty(root, "swInput", !checked ? "#FFCF45" : "#AFAFAF");
 
-    setElementStyleProperty(root, "ae", !nightCheck.checked ? "#AEAEAE" : "#515151");
-    setElementStyleProperty(root, "be", !nightCheck.checked ? "#BEBEBE" : "#414141");
-    setElementStyleProperty(root, "ce", !nightCheck.checked ? "#CECECE" : "#313131");
-    setElementStyleProperty(root, "de", !nightCheck.checked ? "#DEDEDE" : "#212121");
-    setElementStyleProperty(root, "ee", !nightCheck.checked ? "#EEEEEE" : "#111111");
-    setElementStyleProperty(root, "fe", !nightCheck.checked ? "#FEFEFE" : "#141A20");
+    setElementStyleProperty(root, "ae", !checked ? "#AEAEAE" : "#515151");
+    setElementStyleProperty(root, "be", !checked ? "#BEBEBE" : "#414141");
+    setElementStyleProperty(root, "ce", !checked ? "#CECECE" : "#313131");
+    setElementStyleProperty(root, "de", !checked ? "#DEDEDE" : "#212121");
+    setElementStyleProperty(root, "ee", !checked ? "#EEEEEE" : "#111111");
+    setElementStyleProperty(root, "fe", !checked ? "#FEFEFE" : "#141A20");
 
-    setElementStyleProperty(root, "dark", !nightCheck.checked ? "#505050" : "#AFAFAF");
-    setElementStyleProperty(root, "black", !nightCheck.checked ? "#303030" : "#CFCFCF");
-    setElementStyleProperty(root, "blackest", !nightCheck.checked ? "#020202" : "#FDFDFD");
+    setElementStyleProperty(root, "dark", !checked ? "#505050" : "#AFAFAF");
+    setElementStyleProperty(root, "black", !checked ? "#303030" : "#CFCFCF");
+    setElementStyleProperty(root, "blackest", !checked ? "#020202" : "#FDFDFD");
 
-    setElementStyleProperty(root, "sliderBG", !nightCheck.checked ? "#F5F5F5" : "#0E1012");
-    setElementStyleProperty(root, "sliderHandle", !nightCheck.checked ? "#9F9F9F" : "#606060");
-    setElementStyleProperty(root, "sliderHandleHover", !nightCheck.checked ? "#7F7F7F" : "#808080");
-    setElementStyleProperty(root, "sliderHandleActive", !nightCheck.checked ? "#5F5F5F" : "#A0A0A0");
+    setElementStyleProperty(root, "sliderBG", !checked ? "#F5F5F5" : "#0E1012");
+    setElementStyleProperty(root, "sliderHandle", !checked ? "#9F9F9F" : "#606060");
+    setElementStyleProperty(root, "sliderHandleHover", !checked ? "#7F7F7F" : "#808080");
+    setElementStyleProperty(root, "sliderHandleActive", !checked ? "#5F5F5F" : "#A0A0A0");
 
-    setElementStyleProperty(root, "teamCardHover", !nightCheck.checked ? "#C8C8C8" : "#373737");
-    setElementStyleProperty(root, "teamCardActive", !nightCheck.checked ? "#B8B8B8" : "#474747");
+    setElementStyleProperty(root, "teamCardHover", !checked ? "#C8C8C8" : "#373737");
+    setElementStyleProperty(root, "teamCardActive", !checked ? "#B8B8B8" : "#474747");
 
-    setElementStyleProperty(root, "materialColor", !nightCheck.checked ? "#917764" : "#BABABA");
-    setElementStyleProperty(root, "materialTitleColor", !nightCheck.checked ? "#7D624D" : "#CFCFCF");
+    setElementStyleProperty(root, "materialColor", !checked ? "#917764" : "#BABABA");
+    setElementStyleProperty(root, "materialTitleColor", !checked ? "#7D624D" : "#CFCFCF");
 }
 
 // Returns the ascension level from the raw level
@@ -529,6 +530,13 @@ function hideWeaponPopup() {
     weaponFindField.value = "";
 }
 
+let nightFromStorage = localStorage.getItem("night");
+if (nightFromStorage !== null && nightFromStorage === "true") {
+    darkModeSwitch.checked = true;
+
+    swapMode(document.querySelector(":root"), true);
+}
+
 let title;
 window.onload = function () {
     let root = document.querySelector(":root");
@@ -563,11 +571,15 @@ window.onload = function () {
 
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         darkModeSwitch.checked = true;
-        swapMode(root, darkModeSwitch);
+        swapMode(root, darkModeSwitch.checked);
     }
 
     darkModeSwitch.onchange = function () {
-        swapMode(root, darkModeSwitch);
+        swapMode(root, darkModeSwitch.checked);
+    }
+
+    if (nightFromStorage !== null && nightFromStorage === "true") {
+        darkModeSwitch.checked = true;
     }
 
     // Loading resources
@@ -598,6 +610,7 @@ window.onload = function () {
         if (imageId >= allImages.length) {
             document.getElementById("loader").style.opacity = "0";
             document.dispatchEvent(new Event("loaded"));
+            darkModeSwitch.onchange();
             setTimeout(() => {
                 document.getElementById("loader").style.display = "none";
             }, 300);
@@ -613,6 +626,7 @@ window.onload = function () {
     document.getElementById("skipButton").onclick = () => {
         document.getElementById("loader").style.opacity = "0";
         document.dispatchEvent(new Event("loaded"));
+        darkModeSwitch.onchange();
         setTimeout(() => {
             document.getElementById("loader").style.display = "none";
         }, 300);
@@ -1097,7 +1111,7 @@ window.onload = function () {
 
         weaponPopupCancelButton.onclick = event => {
             selectedWeapon = 0;
-            
+
             hideWeaponPopup();
         }
 
