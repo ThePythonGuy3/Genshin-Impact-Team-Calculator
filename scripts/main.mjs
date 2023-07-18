@@ -1146,8 +1146,6 @@ document.addEventListener('click', event => {
         if (selectedCharacter != 0) document.getElementById("team" + selectedCharacter).classList.remove("teamFocus");
         selectedCharacter = 0;
     }
-
-    console.log(event.target);
 }, true);
 
 document.addEventListener('keydown', function (e) {
