@@ -1012,7 +1012,7 @@ input:checked+.darkModeSlider:before {
     margin-bottom: 10px;
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1200px) {
     #grow {
         flex-direction: column !important;
     }

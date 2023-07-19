@@ -11,6 +11,7 @@ let defaultWeapons = {};
 
 let selectedCharacter = 0,
     currentTeam = [null, null, null, null],
+    currentTeamNames = ["", "", "", ""],
     currentCharacterLevel = [1, 1, 1, 1],
     currentCharacterAscended = [false, false, false, false],
     currentCharacterTargetLevel = [1, 1, 1, 1],
@@ -18,6 +19,7 @@ let selectedCharacter = 0,
 
     selectedWeapon = 0,
     currentWeapons = [weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"], weapons["Dull Blade"]],
+    currentWeaponNames = ["Dull Blade", "Dull Blade", "Dull Blade", "Dull Blade"],
     currentWeaponLevel = [1, 1, 1, 1],
     currentWeaponTargetLevel = [1, 1, 1, 1],
     currentWeaponAscended = [false, false, false, false],
@@ -540,7 +542,86 @@ if (nightFromStorage !== null && nightFromStorage === "true") {
 }
 
 function generateTeamString() {
+    let output = "";
 
+    for (let i = 0; i < 4; i++) {
+        let isNotNull = currentTeam[i] != null;
+        if (isNotNull) {
+            output += currentTeamNames[i];
+        }
+        output += "$";
+
+        if (isNotNull) {
+            output += currentCharacterLevel[i].toString();
+        }
+        output += "$";
+
+        if (isNotNull) {
+            output += currentCharacterTargetLevel[i].toString();
+        }
+        output += "$";
+
+        if (isNotNull) {
+            output += currentCharacterAscended[i].toString();
+        }
+        output += "$";
+
+        if (isNotNull) {
+            output += currentCharacterTargetAscended[i].toString();
+        }
+        output += "$";
+
+        output += currentWeaponNames[i] + "$";
+        output += currentWeaponLevel[i].toString() + "$";
+        output += currentWeaponTargetLevel[i].toString() + "$";
+        output += currentWeaponAscended[i].toString() + "$";
+        output += currentWeaponTargetAscended[i].toString() + "$";
+    }
+
+    output = output.slice(0, -1);
+
+    console.log(output);
+    return output;
+}
+
+function getTeamFromString(str) {
+    let splitString = str.split("$");
+
+    let title = splitString[0];
+
+    for (let i = 0; i < 4; i++) {
+        let character = characters[splitString[i * 10 + 1]];
+        currentTeam[i] = character ? character : null;
+
+        let characterLevel = splitString[i * 10 + 2];
+        currentCharacterLevel[i] = characterLevel ? parseInt(characterLevel) : 0;
+
+        let characterTargetLevel = splitString[i * 10 + 3];
+        currentCharacterTargetLevel[i] = characterTargetLevel ? parseInt(characterTargetLevel) : 0;
+
+        let characterAscended = splitString[i * 10 + 4];
+        currentCharacterAscended[i] = characterAscended ? characterAscended : false;
+
+        let characterTargetAscended = splitString[i * 10 + 5];
+        currentCharacterTargetAscended[i] = characterTargetAscended ? characterTargetAscended : false;
+
+        let weapon = weapons[splitString[i * 10 + 6]];
+        currentWeapons[i] = weapon ? weapon : weapons["Dull Blade"];
+
+        let weaponLevel = splitString[i * 10 + 7];
+        currentWeaponLevel[i] = weaponLevel ? parseInt(weaponLevel) : 1;
+
+        let weaponTargetLevel = splitString[i * 10 + 8];
+        currentWeaponTargetLevel[i] = weaponTargetLevel ? parseInt(weaponTargetLevel) : 1;
+
+        let weaponAscended = splitString[i * 10 + 9];
+        currentWeaponAscended[i] = weaponAscended ? weaponAscended : false;
+
+        let weaponTargetAscended = splitString[(i + 1) * 10];
+        currentWeaponTargetAscended[i] = weaponTargetAscended ? weaponTargetAscended : false;
+    }
+
+    console.log(currentTeam, currentCharacterLevel, currentCharacterTargetLevel, currentCharacterAscended, currentCharacterTargetAscended, currentWeapons, currentWeaponLevel, currentWeaponTargetLevel, currentWeaponAscended, currentWeaponTargetAscended);
 }
 
 let title;
@@ -560,6 +641,7 @@ window.onload = function () {
     let weaponPopupWindow = document.getElementById("weaponPopupWindow");
 
     let calculateButton = document.getElementById("calculateButton");
+    let saveButton = document.getElementById("saveButton");
     let downloadButton = document.getElementById("downloadButton");
 
     let fileNamefield = document.getElementById("fileNameField");
@@ -679,6 +761,7 @@ window.onload = function () {
                         doc.children[2].src = "resources/" + val.weaponType + ".png";
 
                         currentTeam[selectedCharacter - 1] = val;
+                        currentTeamNames[selectedCharacter - 1] = el;
                         currentCharacterLevel[selectedCharacter - 1] = 1;
 
                         if (currentWeapons[selectedCharacter - 1].type != val.weaponType) {
@@ -786,6 +869,7 @@ window.onload = function () {
                     weaponFindField.dispatchEvent(new Event("input"));
 
                     currentWeapons[selectedWeapon - 1] = val;
+                    currentWeaponNames[selectedWeapon - 1] = el;
 
                     currentWeaponTargetLevel[selectedWeapon - 1] = 90
 
@@ -1105,6 +1189,11 @@ window.onload = function () {
                 downloadButton.classList.add("disabled");
                 text = "";
             }
+        }
+
+        saveButton.onclick = event => {
+            generateTeamString();
+            getTeamFromString("bruhLmao$" + generateTeamString());
         }
 
         downloadButton.onclick = event => {
