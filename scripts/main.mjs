@@ -27,6 +27,9 @@ let selectedCharacter = 0,
 
     text = "";
 
+let weaponPopupWindow, downloadPopupWindow, savePopupWindow;
+let popupDownloadButton, popupCancelButton, weaponPopupCancelButton, savePopupCancelButton;
+
 // Get the weapon objects from the default names
 for (const [type, name] of Object.entries(defaultWeaponNames)) {
     defaultWeapons[type] = weapons[name];
@@ -212,9 +215,11 @@ function generateCard(i) {
 
     let characterAscensionCheckbox = document.createElement("input");
     characterAscensionCheckbox.disabled = true;
+    characterAscensionCheckbox.checked = false;
 
     let characterAscensionTargetCheckbox = document.createElement("input");
     characterAscensionTargetCheckbox.disabled = true;
+    characterAscensionTargetCheckbox.checked = false;
 
     characterAscensionCheckbox.addEventListener('change', (event) => {
         currentCharacterAscended[i - 1] = event.currentTarget.checked;
@@ -320,6 +325,8 @@ function generateCard(i) {
         characterLevelTag.children[1].disabled = true;
         characterLevelTag.children[2].disabled = true;
         characterLevelTag.children[3].disabled = true;
+        characterLevelTag.children[2].checked = false;
+        characterLevelTag.children[3].checked = false;
     }
 
     let characterLevelText = document.createElement("div");
@@ -382,9 +389,11 @@ function generateWeaponCard(i, weaponPopup) {
 
     let weaponAscensionCheckbox = document.createElement("input");
     weaponAscensionCheckbox.disabled = true;
+    weaponAscensionCheckbox.checked = false;
 
     let weaponAscensionTargetCheckbox = document.createElement("input");
     weaponAscensionTargetCheckbox.disabled = true;
+    weaponAscensionTargetCheckbox.checked = false;
 
     weaponAscensionCheckbox.addEventListener('change', (event) => {
         currentWeaponAscended[i - 1] = event.currentTarget.checked;
@@ -469,7 +478,9 @@ function generateWeaponCard(i, weaponPopup) {
         weaponLevelField.value = 1;
         weaponLevelTargetField.value = 1;
         weaponAscensionCheckbox.disabled = true;
+        weaponAscensionCheckbox.checked = false;
         weaponAscensionTargetCheckbox.disabled = true;
+        weaponAscensionTargetCheckbox.checked = false;
     }
 
     weaponAscensionCheckbox.id = "weapSel" + i;
@@ -532,6 +543,22 @@ function hideWeaponPopup() {
     }, 200);
 
     weaponFindField.value = "";
+}
+
+function hideSavePopup() {
+    savePopupWindow.classList.remove("fadeIn");
+    savePopupWindow.classList.add("fadeOut");
+
+    setTimeout(() => {
+        savePopupWindow.style.opacity = "0";
+        savePopupWindow.style.display = "none";
+
+        setTimeout(() => {
+            savePopupWindow.classList.remove("fadeOut");
+            savePopupWindow.classList.add("fadeIn");
+            savePopupWindow.style.opacity = "1";
+        }, 50); // Just in case
+    }, 200);
 }
 
 let nightFromStorage = localStorage.getItem("night");
@@ -600,10 +627,10 @@ function getTeamFromString(str) {
         currentCharacterTargetLevel[i] = characterTargetLevel ? parseInt(characterTargetLevel) : 0;
 
         let characterAscended = splitString[i * 10 + 4];
-        currentCharacterAscended[i] = characterAscended ? characterAscended : false;
+        currentCharacterAscended[i] = characterAscended ? characterAscended === "true" : false;
 
         let characterTargetAscended = splitString[i * 10 + 5];
-        currentCharacterTargetAscended[i] = characterTargetAscended ? characterTargetAscended : false;
+        currentCharacterTargetAscended[i] = characterTargetAscended ? characterTargetAscended === "true" : false;
 
         let weapon = weapons[splitString[i * 10 + 6]];
         currentWeapons[i] = weapon ? weapon : weapons["Dull Blade"];
@@ -615,13 +642,11 @@ function getTeamFromString(str) {
         currentWeaponTargetLevel[i] = weaponTargetLevel ? parseInt(weaponTargetLevel) : 1;
 
         let weaponAscended = splitString[i * 10 + 9];
-        currentWeaponAscended[i] = weaponAscended ? weaponAscended : false;
+        currentWeaponAscended[i] = weaponAscended ? weaponAscended === "true" : false;
 
         let weaponTargetAscended = splitString[(i + 1) * 10];
-        currentWeaponTargetAscended[i] = weaponTargetAscended ? weaponTargetAscended : false;
+        currentWeaponTargetAscended[i] = weaponTargetAscended ? weaponTargetAscended === "true" : false;
     }
-
-    console.log(currentTeam, currentCharacterLevel, currentCharacterTargetLevel, currentCharacterAscended, currentCharacterTargetAscended, currentWeapons, currentWeaponLevel, currentWeaponTargetLevel, currentWeaponAscended, currentWeaponTargetAscended);
 }
 
 let title;
@@ -637,8 +662,9 @@ window.onload = function () {
     let weaponFindField = document.getElementById("weaponFindField");
     let weaponScrollpane = document.getElementById("weaponScrollPane");
 
-    let downloadPopupWindow = document.getElementById("downloadPopupWindow");
-    let weaponPopupWindow = document.getElementById("weaponPopupWindow");
+    downloadPopupWindow = document.getElementById("downloadPopupWindow");
+    weaponPopupWindow = document.getElementById("weaponPopupWindow");
+    savePopupWindow = document.getElementById("savePopupWindow");
 
     let calculateButton = document.getElementById("calculateButton");
     let saveButton = document.getElementById("saveButton");
@@ -646,10 +672,11 @@ window.onload = function () {
 
     let fileNamefield = document.getElementById("fileNameField");
 
-    let popupDownloadButton = document.getElementById("popupDownloadButton");
-    let popupCancelButton = document.getElementById("popupCancelButton");
+    popupDownloadButton = document.getElementById("popupDownloadButton");
+    popupCancelButton = document.getElementById("popupCancelButton");
 
-    let weaponPopupCancelButton = document.getElementById("weaponPopupCancelButton");
+    weaponPopupCancelButton = document.getElementById("weaponPopupCancelButton");
+    savePopupCancelButton = document.getElementById("savePopupCancelButton");
 
     let characterMaterialPane = document.getElementById("characterMaterialPane");
     let weaponMaterialPane = document.getElementById("weaponMaterialPane");
@@ -1192,8 +1219,9 @@ window.onload = function () {
         }
 
         saveButton.onclick = event => {
-            generateTeamString();
-            getTeamFromString("bruhLmao$" + generateTeamString());
+            savePopupWindow.classList.remove("fadeOut");
+            savePopupWindow.classList.add("fadeIn");
+            savePopupWindow.style.display = "flex";
         }
 
         downloadButton.onclick = event => {
@@ -1214,10 +1242,14 @@ window.onload = function () {
             hideWeaponPopup();
         }
 
+        savePopupCancelButton.onclick = event => {
+            hideSavePopup();
+        }
+
         popupDownloadButton.onclick = event => {
             let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
 
-            let name = "MyTeam.txt";
+            let name = "My Team.txt";
             if (fileNamefield.value != "") name = fileNamefield.value + ".txt";
 
             saveAs(blob, name, { type: "text/plain;charset=utf-8" });
@@ -1252,6 +1284,8 @@ document.addEventListener('keydown', function (e) {
         hideDownloadPopup();
 
         hideWeaponPopup();
+
+        hideSavePopup();
     }
 });
 
@@ -1261,4 +1295,8 @@ document.getElementById("popupBackground1").onclick = () => {
 
 document.getElementById("popupBackground2").onclick = () => {
     hideWeaponPopup();
+}
+
+document.getElementById("popupBackground3").onclick = () => {
+    hideSavePopup();
 }

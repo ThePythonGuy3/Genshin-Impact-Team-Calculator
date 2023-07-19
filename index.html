@@ -42,12 +42,12 @@
 		<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"
 			id="popupBackground1">
 		</div>
-		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 20px; padding: 20px; box-shadow: 0px 0px 9px 0px var(--dark);"
+		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 20px; padding-left: 10px; padding-right: 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
 			id="download-popup">
-			<p>Download team materials</p>
+			<p style="margin-left: 10px;">Download team materials</p>
 			<div style="display: flex; align-items: center;">
-				<input type="text" style="width: 100%; height: 32px;" class="nameinput" id="fileNameField">
-				<p style="line-height: 0px; color: var(--dark); margin-left: 5px;">.txt</p>
+				<input type="text" class="nameinput" id="fileNameField" placeholder="File name">
+				<p style="line-height: 0px; color: var(--dark); margin-left: 5px; margin-right: 5px;">.txt</p>
 			</div>
 			<div style="display: flex; align-items: center;">
 				<input type="submit" value="Cancel" style="width: 50%;" class="submBut" id="popupCancelButton">
@@ -77,6 +77,24 @@
 					<div style="overflow-y: auto; overflow-x: hidden; float: left;" id="weaponScrollPane"
 						class="specialScroll"></div>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;"
+		class="fadeOut" id="savePopupWindow">
+		<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"
+			id="popupBackground3">
+		</div>
+		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 25px; padding-left: 10px; padding-right: 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
+			id="save-popup">
+			<p style="margin-left: 10px;">Save Team</p>
+			<div style="display: flex; align-items: center;">
+				<input type="text" class="nameinput" id="saveNameField" placeholder="Team name">
+			</div>
+			<div style="display: flex; align-items: center;">
+				<input type="submit" value="Cancel" style="width: 50%;" class="submBut" id="savePopupCancelButton">
+				<input type="submit" value="Save" style="width: 50%;" class="submBut" id="popupSaveButton">
 			</div>
 		</div>
 	</div>
@@ -115,8 +133,8 @@
 						<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;"
 							id="weaponContainer">
 						</div> <!-- Weapon container -->
-						<div
-							style="display: flex; justify-content: center; height: 46px; gap: 10px;" id="buttonContainer">
+						<div style="display: flex; justify-content: center; height: 46px; gap: 10px;"
+							id="buttonContainer">
 							<p title="Calculate"
 								style="border-radius: 10px; flex-grow: 2; height: 25px; font-size: 15px; text-align: center; padding-top: 6px; box-shadow: 0px 0px 9px 0px var(--darkCinnamon);"
 								class="click-out" id="calculateButton">Calculate</p>
@@ -128,7 +146,9 @@
 					<div id="teamSaveArea" style="position: relative;">
 						<div style="position: absolute; left: 0; top: 0; display: flex; flex-direction: column; width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; background-color: var(--cinnamon); opacity: 0.85; border-radius: 10px; box-shadow: 0px 0px 9px 0px var(--darkCinnamon); transition: background-color 300ms;"
 							class="specialScroll">
-							<p style="width: 100%; text-align: center; margin-top: 18px; color: var(--materialTitleColor); font-size: 14px;">No Saved Teams Found</p>
+							<p
+								style="width: 100%; text-align: center; margin-top: 18px; color: var(--materialTitleColor); font-size: 14px;">
+								No Saved Teams Found</p>
 						</div>
 					</div>
 				</div>

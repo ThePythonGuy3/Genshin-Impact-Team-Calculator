@@ -530,7 +530,6 @@ input[type=number] {
 
     border-radius: 5px;
 
-    text-align: center;
     background: var(--fe);
 }
 
@@ -629,6 +628,47 @@ input[type=number] {
 
     margin-left: 5px;
     margin-bottom: 5px;
+
+    box-shadow: 0px 0px 9px 0px var(--darkGray);
+}
+
+#fileNameField {
+    border: none;
+
+    border-radius: 5px;
+
+    text-align: left;
+    background: var(--wpInput);
+
+    flex-grow: 1;
+    height: 25px;
+
+    flex-shrink: 0;
+
+    padding-left: 10px;
+
+    margin-left: 5px;
+    margin-bottom: 5px;
+
+    box-shadow: 0px 0px 9px 0px var(--darkGray);
+}
+
+#saveNameField {
+    border: none;
+
+    border-radius: 5px;
+
+    text-align: left;
+    background: var(--wpInput);
+
+    flex-grow: 1;
+    height: 25px;
+
+    flex-shrink: 0;
+
+    padding-left: 10px;
+
+    margin: 5px;
 
     box-shadow: 0px 0px 9px 0px var(--darkGray);
 }
@@ -747,9 +787,11 @@ input[type=number] {
     border-radius: 10px;
 
     height: 32px;
-    margin: 2px;
+    margin: 5px;
 
     margin-top: 10px;
+
+    box-shadow: 0px 0px 5px 0px var(--darkerGray);
 
     transition: 300ms;
 }
