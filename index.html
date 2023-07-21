@@ -7,6 +7,42 @@
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+
+		let consentMode = localStorage.getItem("consentMode");
+		let consentTimer = localStorage.getItem("consentTimer");
+
+		if (consentMode === null || consentMode === "0") {
+			gtag("consent", "default", {
+				"analytics_storage": "denied",
+			});
+		} else {
+			gtag("consent", "default", { "analytics_storage": "granted" });
+		}
+
+		if (consentMode !== null && consentMode === "0") {
+			if (consentTimer !== null) {
+				localStorage.setItem("consentTimer", parseInt(consentTimer) + 1);
+				if (parseInt(consentTimer) + 1 >= 10) {
+					localStorage.removeItem("consentMode");
+					localStorage.setItem("consentTimer", 0);
+					consentMode = null;
+				}
+			} else {
+				localStorage.setItem("consentTimer", 0);
+			}
+		}
+
+		function setConsent(granted) {
+			if (granted) {
+				localStorage.setItem("consentMode", "1");
+				gtag("consent", "update", { "analytics_storage": "granted" });
+			} else {
+				localStorage.setItem("consentMode", "0");
+				gtag("consent", "update", { "analytics_storage": "denied" });
+			}
+		}
+	</script>
+	<script>
 		gtag('js', new Date());
 
 		gtag('config', 'G-M3PFRVWJZ1');
@@ -42,7 +78,7 @@
 		<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"
 			id="popupBackground1">
 		</div>
-		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 20px; padding-left: 10px; padding-right: 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
+		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); width: 400px; right: calc(50vw - 220px); margin-right: auto; padding: 0 10px 10px 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
 			id="download-popup">
 			<p style="margin-left: 10px;">Download team materials</p>
 			<div style="display: flex; align-items: center;">
@@ -52,6 +88,36 @@
 			<div style="display: flex; align-items: center;">
 				<input type="submit" value="Cancel" style="width: 50%;" class="submBut" id="popupCancelButton">
 				<input type="submit" value="Download" style="width: 50%;" class="submBut" id="popupDownloadButton">
+			</div>
+		</div>
+	</div>
+
+	<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;"
+		class="fadeIn" id="cookiePopupWindow">
+		<div
+			style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;">
+		</div>
+		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); width: 400px; right: calc(50vw - 220px); margin-right: auto; padding: 0 10px 10px 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
+			id="cookie-popup">
+			<p style="margin-left: 5px;">Privacy notice</p>
+			<div style="display: flex; flex-direction: column; align-items: left;">
+				<p
+					style="color: var(--dark); margin-left: 5px; margin-right: 5px; text-align: justify; line-height: 25px;">
+					This website
+					uses Google Analytics to provide its creator with insight on the traffic and demographics.
+					Demographics information is only tracked when this notice is agreed, and is not associated with the
+					user at any moment. Otherwise the demographics details are not tracked and completely anonymous.
+					<b><i>The sole purpose of this information is
+							to
+							keep
+							track on what languages this tool should include in the future.</b></i> Thank you very much!
+				</p>
+				<p style="color: var(--dark); margin-left: 5px; margin-right: 5px; text-align: justify;">- ThePythonGuy
+				</p>
+			</div>
+			<div style="display: flex; align-items: center;">
+				<input type="submit" value="Deny" style="width: 50%;" class="submBut" id="cookieDeclineButton">
+				<input type="submit" value="Agree" style="width: 50%;" class="submBut" id="cookieAgreeButton">
 			</div>
 		</div>
 	</div>
@@ -86,7 +152,7 @@
 		<div style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; background-color: #020202; opacity: 25%;"
 			id="popupBackground3">
 		</div>
-		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); height: 120px; width: 400px; right: calc(50vw - 220px); margin-right: auto; padding-bottom: 25px; padding-left: 10px; padding-right: 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
+		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); width: 400px; right: calc(50vw - 220px); margin-right: auto; padding: 0 10px 10px 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
 			id="save-popup">
 			<p style="margin-left: 10px;">Save Team</p>
 			<div style="display: flex; align-items: center;">

@@ -27,7 +27,7 @@ let selectedCharacter = 0,
 
     text = "";
 
-let weaponPopupWindow, downloadPopupWindow, savePopupWindow;
+let weaponPopupWindow, downloadPopupWindow, savePopupWindow, cookiePopupWindow;
 let popupDownloadButton, popupCancelButton, weaponPopupCancelButton, savePopupCancelButton;
 
 // Get the weapon objects from the default names
@@ -561,6 +561,22 @@ function hideSavePopup() {
     }, 200);
 }
 
+function hideCookiePopup() {
+    cookiePopupWindow.classList.remove("fadeIn");
+    cookiePopupWindow.classList.add("fadeOut");
+
+    setTimeout(() => {
+        cookiePopupWindow.style.opacity = "0";
+        cookiePopupWindow.style.display = "none";
+
+        setTimeout(() => {
+            cookiePopupWindow.classList.remove("fadeOut");
+            cookiePopupWindow.classList.add("fadeIn");
+            cookiePopupWindow.style.opacity = "1";
+        }, 50); // Just in case
+    }, 200);
+}
+
 let nightFromStorage = localStorage.getItem("night");
 if (nightFromStorage !== null && nightFromStorage === "true") {
     darkModeSwitch.checked = true;
@@ -665,6 +681,7 @@ window.onload = function () {
     downloadPopupWindow = document.getElementById("downloadPopupWindow");
     weaponPopupWindow = document.getElementById("weaponPopupWindow");
     savePopupWindow = document.getElementById("savePopupWindow");
+    cookiePopupWindow = document.getElementById("cookiePopupWindow");
 
     let calculateButton = document.getElementById("calculateButton");
     let saveButton = document.getElementById("saveButton");
@@ -1258,6 +1275,20 @@ window.onload = function () {
         }
 
     });
+
+    if (localStorage.getItem("consentMode") === null) {
+        cookiePopupWindow.style.display = "flex";
+
+        document.getElementById("cookieAgreeButton").onclick = () => {
+            setConsent(true);
+            hideCookiePopup();
+        }
+
+        document.getElementById("cookieDeclineButton").onclick = () => {
+            setConsent(false);
+            hideCookiePopup();
+        }
+    }
 
     window.onresize();
 }
