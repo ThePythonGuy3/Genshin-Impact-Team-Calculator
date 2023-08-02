@@ -126,6 +126,7 @@ function addMaterialTag(parent, material, materialTextElement, amount) {
 
     let materialImage = document.createElement("img");
     materialImage.className = "materialImage";
+    materialImage.setAttribute("draggable", false);
     materialImage.src = "resources/materials/" + material.replaceAll(" ", "_") + ".png";
 
     let materialAmountText = document.createElement("p");
@@ -201,6 +202,7 @@ function generateCard(i) {
     characterLevelCard.className = "characterLevelCard";
 
     let characterImage = document.createElement("img");
+    characterImage.setAttribute("draggable", false);
     characterImage.src = "resources/plus.png";
     characterImage.className = "characterImage";
 
@@ -306,6 +308,7 @@ function generateCard(i) {
     characterAscensionTargetCheckbox.className = "check2";
 
     let im2 = document.createElement("img");
+    im2.setAttribute("draggable", false);
     im2.className = "weapon";
     im2.onerror = () => im2.style.display = 'none';
 
@@ -362,6 +365,7 @@ function generateWeaponCard(i, weaponPopup) {
     weaponLevelCard.className = "weaponLevelCard";
 
     let weaponImage = document.createElement("img");
+    weaponImage.setAttribute("draggable", false);
     weaponImage.src = "./resources/weapons/Dull_Blade.png";
     weaponImage.className = "characterImage";
 
@@ -716,6 +720,7 @@ window.onload = function () {
 
     // Loading resources
     let imageLoader = document.createElement("img");
+    imageLoader.setAttribute("draggable", false);
     imageLoader.style.display = "none";
     document.getElementsByTagName("body")[0].appendChild(imageLoader);
 
@@ -831,8 +836,8 @@ window.onload = function () {
             }
 
             let img = document.createElement("img"); // Face image
+            img.setAttribute("draggable", false);
             img.className = "image";
-
             img.src = "./resources/characters/" + el.replace(" ", "_") + ".png";
 
             let elem2 = document.createElement("p"); // Name
@@ -859,6 +864,7 @@ window.onload = function () {
 
             for (let s = 0; s < val.stars; s++) {
                 let elem2 = document.createElement("img");
+                elem2.setAttribute("draggable", false);
                 elem2.className = "star";
                 elem2.src = "./resources/star.png"
                 contDiv.appendChild(elem2);
@@ -925,8 +931,8 @@ window.onload = function () {
             }
 
             let img = document.createElement("img"); // Weapon image
+            img.setAttribute("draggable", false);
             img.className = "image";
-
             img.src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
 
             let elem2 = document.createElement("p"); // Name
@@ -947,6 +953,7 @@ window.onload = function () {
 
             for (let s = 0; s < val.stars; s++) {
                 let elem2 = document.createElement("img");
+                elem2.setAttribute("draggable", false);
                 elem2.className = "star";
                 elem2.src = "./resources/star.png"
                 contDiv.appendChild(elem2);

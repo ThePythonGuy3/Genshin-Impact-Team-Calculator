@@ -68,10 +68,10 @@
 <body style="overflow: hidden;">
 	<img id="backdrop1"
 		style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -100; user-select: none; filter: blur(8px); -webkit-filter: blur(8px); transform: scale(1.1);"
-		src="resources/backdrop-night.png">
+		src="resources/backdrop-night.png" draggable="false">
 	<img id="backdrop2"
 		style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -99; user-select: none; filter: blur(8px); -webkit-filter: blur(8px); transform: scale(1.1); transition: opacity 300ms;"
-		src="resources/backdrop-day.png">
+		src="resources/backdrop-day.png" draggable="false">
 
 	<div style="display: none; position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 100000; align-content: center; align-items: center;"
 		class="fadeOut" id="downloadPopupWindow">
@@ -133,7 +133,7 @@
 				<p style="margin-left: 10px; flex-grow: 1;">Weapon selection</p>
 				<img id="weaponPopupCancelButton"
 					style="width: 28px; height: 28px; border-radius: 100%; border: #F05050 solid 3px; margin-right: 10px; margin-top: 10px;"
-					src="resources/cross.png">
+					src="resources/cross.png" draggable="false">
 			</div>
 
 			<div style="display: flex; flex-direction: row;">
@@ -169,7 +169,7 @@
 		style="display: flex; position: absolute; left: -5px; top: -5px; width: 100vw; height: 47px; background: var(--lighterGray); border: 2px solid var(--lightGray); padding-left: 15px; padding-top: 10px; transition: background-color 300ms, border 300ms;">
 		<a href="https://github.com/ThePythonGuy3" target="_blank"><img alt="Tool creator"
 				src="https://avatars.githubusercontent.com/u/45978337"
-				style="width: 40px; height: 40px; border-radius: 5px; user-select: none;"></a>
+				style="width: 40px; height: 40px; border-radius: 5px; user-select: none;" draggable="false"></a>
 		<p style="margin-left: 10px; line-height: 10px; user-select: none; color: var(--black);" id="title">Genshin
 			Impact Team
 			Resource Calculator by ThePythonGuy</p>
@@ -236,7 +236,7 @@
 						</div>
 						<img title="Download as PDF"
 							style="position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 10px; margin: 2px; transition: opacity 200ms; user-select: none;"
-							class="disabled" src="resources/download.png" id="downloadButton">
+							class="disabled" src="resources/download.png" id="downloadButton" draggable="false">
 					</div>
 				</div>
 			</div>
