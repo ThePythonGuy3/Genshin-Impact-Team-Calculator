@@ -81,6 +81,7 @@
 
     --dark: #505050;
     --black: #303030;
+    --transparentBlack: #30303000;
     --blackest: #020202;
 
     --sliderBG: #F5F5F5;
@@ -1009,6 +1010,30 @@ input:checked+.darkModeSlider:before {
 #teamSaveArea {
     width: 100%;
     flex-grow: 1;
+}
+
+.ellipsisContainer {
+    overflow: hidden;
+    position: relative;
+
+    height: calc(100% - 4px);
+}
+
+.ellipsisContent {
+    margin: 0;
+    padding: 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+
+    line-height: 200%;
+}
+
+.ellipsisActive {
+    background: linear-gradient(to right, var(--black) 80%, var(--transparentBlack));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 @media (max-width: 770px) {

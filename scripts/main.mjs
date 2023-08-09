@@ -669,6 +669,19 @@ function getTeamFromString(str) {
     }
 }
 
+function isOverflown(element) {
+    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+}
+
+function updateEllipsis(container) {
+    if (isOverflown(container)) {
+        console.log("HIIIIIIIII");
+        container.classList.add("ellipsisActive");
+    } else {
+        container.classList.remove("ellipsisActive");
+    }
+}
+
 let title;
 window.onload = function () {
     let root = document.querySelector(":root");
@@ -1296,6 +1309,29 @@ window.onload = function () {
             hideCookiePopup();
         }
     }
+
+    const containers = document.querySelectorAll('.ellipsisContent');
+
+    containers.forEach(container => {
+        updateEllipsis(container);
+
+        new ResizeObserver(entries => {
+            for (const entry of entries) {
+                if (entry.target === container) {
+                    updateEllipsis(container);
+                }
+            }
+        }).observe(container);
+
+        new MutationObserver((mutations, observer) => {
+            console.log(mutations);
+            for (const mutation of mutations) {
+                updateEllipsis(container);
+            }
+        }).observe(container, {
+            characterData: false, childList: true, attributes: false
+        })
+    });
 
     window.onresize();
 }
