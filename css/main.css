@@ -1094,7 +1094,7 @@ input:checked+.darkModeSlider:before {
     width: 25px;
     height: 25px;
 
-    background-color: var(--cinnamon);
+    background-color: var(--gray);
     border-radius: 100%;
     box-shadow: 0px 0px 9px 0px var(--gray);
 

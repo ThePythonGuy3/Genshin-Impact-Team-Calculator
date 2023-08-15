@@ -175,7 +175,7 @@
 			Resource Calculator by ThePythonGuy</p>
 		<p
 			style="margin-left: 5px; margin-top: 18px; line-height: 10px; user-select: none; color: var(--darkerGray); font-size: 12px;">
-			v2.0</p>
+			v3.8</p>
 	</div>
 
 	<label id="darkModeSwitch" class="switch">
@@ -209,11 +209,16 @@
 								class="click-out" id="saveButton">Save</p>
 						</div>
 					</div>
-					<div id="teamSaveArea" style="position: relative;">
-						<div style="position: absolute; box-sizing: border-box; left: 0; top: 0; display: flex; flex-direction: column; width: 100%; height: 100%; padding: 15px; overflow-y: auto; overflow-x: hidden; background-color: var(--cinnamon); opacity: 0.85; border-radius: 10px; box-shadow: 0px 0px 9px 0px var(--darkCinnamon); transition: background-color 300ms; align-items: center; gap: 15px;"
+					<div id="teamSaveArea"
+						style="position: relative; background-color: var(--cinnamon); opacity: 0.85; border-radius: 10px; box-shadow: 0px 0px 9px 0px var(--darkCinnamon); transition: background-color 300ms;">
+						<p
+							style="position: absolute; left: 0; top: 0; width: 100%; height: 25px; text-align: center; color: var(--materialTitleColor); font-size: 14px;">
+							Saved teams</p>
+						<div style="position: absolute; box-sizing: border-box; left: 0; top: 40px; display: flex; flex-direction: column; width: 100%; height: calc(100% - 50px); padding-top: 9px; padding-bottom: 9px; padding-left: 15px; padding-right: 15px; overflow-y: auto; overflow-x: hidden; align-items: center; gap: 15px;"
 							class="specialScroll">
+
 							<!--<p
-								style="width: 100%; text-align: center; margin-top: 18px; color: var(--materialTitleColor); font-size: 14px;">
+								style="width: 100%; text-align: center; margin-top: 5px; color: var(--materialTitleColor); font-size: 14px; opacity: 0.5;">
 								No Saved Teams Found</p>-->
 							<div class="savedTeamCard" title="Team With a very looooooong name">
 								<div class="ellipsisContainer">
