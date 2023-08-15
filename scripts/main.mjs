@@ -675,7 +675,6 @@ function isOverflown(element) {
 
 function updateEllipsis(container) {
     if (isOverflown(container)) {
-        console.log("HIIIIIIIII");
         container.classList.add("ellipsisActive");
     } else {
         container.classList.remove("ellipsisActive");

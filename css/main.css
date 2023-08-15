@@ -1036,6 +1036,81 @@ input:checked+.darkModeSlider:before {
     color: transparent;
 }
 
+.savedTeamCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: 95%;
+    height: 35px;
+
+    padding-left: 15px;
+    padding-right: 5px;
+
+    background-color: var(--lighterGray);
+    border-radius: 35px;
+    box-shadow: 0px 0px 9px 0px var(--darkerGray);
+
+    transition: 300ms;
+}
+
+.savedTeamCard:hover {
+    background-color: var(--lightGray);
+}
+
+.savedTeamCard:active {
+    background-color: var(--gray);
+
+    transition: 50ms;
+}
+
+.savedTeamCard>.ellipsisContainer {
+    width: 60%;
+}
+
+.savedTeamCard>.ellipsisContainer>p {
+    font-size: 16px;
+}
+
+.savedTeamCardDateCross {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    width: 40%;
+
+    gap: 10px;
+}
+
+.savedTeamCardDateCross>p {
+    margin-top: 18px;
+}
+
+.savedTeamCardDateCross>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 25px;
+
+    background-color: var(--cinnamon);
+    border-radius: 100%;
+    box-shadow: 0px 0px 9px 0px var(--gray);
+
+    transition: 300ms;
+}
+
+.savedTeamCardDateCross>div:hover {
+    background-color: var(--darkCinnamon);
+}
+
+.savedTeamCardDateCross>div:active {
+    background-color: var(--darkerCinnamon);
+
+    transition: 50ms;
+}
+
 @media (max-width: 770px) {
     .name {
         display: none;
