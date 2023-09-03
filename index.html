@@ -159,8 +159,10 @@
 				<input type="text" class="nameinput" id="saveNameField" placeholder="Team name">
 			</div>
 			<div style="display: flex; align-items: center;">
-				<input type="submit" value="Cancel" style="width: 50%;" class="submBut" id="savePopupCancelButton">
-				<input type="submit" value="Save" style="width: 50%;" class="submBut" id="popupSaveButton">
+				<input type="submit" value="Cancel" style="width: 33%;" class="submBut" id="savePopupCancelButton">
+				<input type="submit" value="Save as File" style="width: 33%;" class="submBut" id="popupSaveFileButton">
+				<input type="submit" value="Save on Browser" style="width: 33%;" class="submBut"
+					id="popupSaveBrowserButton">
 			</div>
 		</div>
 	</div>
@@ -175,7 +177,7 @@
 			Resource Calculator by ThePythonGuy</p>
 		<p
 			style="margin-left: 5px; margin-top: 18px; line-height: 10px; user-select: none; color: var(--darkerGray); font-size: 12px;">
-			v3.8</p>
+			v3.8-2</p>
 	</div>
 
 	<label id="darkModeSwitch" class="switch">
@@ -215,23 +217,11 @@
 							style="position: absolute; left: 0; top: 0; width: 100%; height: 25px; text-align: center; color: var(--materialTitleColor); font-size: 14px;">
 							Saved teams</p>
 						<div style="position: absolute; box-sizing: border-box; left: 0; top: 40px; display: flex; flex-direction: column; width: 100%; height: calc(100% - 50px); padding-top: 9px; padding-bottom: 9px; padding-left: 15px; padding-right: 15px; overflow-y: auto; overflow-x: hidden; align-items: center; gap: 15px;"
-							class="specialScroll">
+							class="specialScroll" id="savedTeamsScrollPane">
 
-							<!--<p
-								style="width: 100%; text-align: center; margin-top: 5px; color: var(--materialTitleColor); font-size: 14px; opacity: 0.5;">
-								No Saved Teams Found</p>-->
-							<div class="savedTeamCard" title="Team With a very looooooong name">
-								<div class="ellipsisContainer">
-									<p class="ellipsisContent">Team With a very looooooong name
-									</p>
-								</div>
-								<div class="savedTeamCardDateCross">
-									<p>26/03/23</p>
-									<div>
-										<img src="resources/cross.png" width="23" height="23">
-									</div>
-								</div>
-							</div>
+							<p
+								style="width: 100%; text-align: center; margin-top: 5px; color: var(--materialTitleColor); font-size: 14px; opacity: 0;" id="noSavedTeamLabel">
+								No Saved Teams Found</p>
 						</div>
 					</div>
 				</div>

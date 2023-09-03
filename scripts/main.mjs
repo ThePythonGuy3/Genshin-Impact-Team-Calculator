@@ -588,8 +588,8 @@ if (nightFromStorage !== null && nightFromStorage === "true") {
     swapMode(document.querySelector(":root"), true);
 }
 
-function generateTeamString() {
-    let output = "";
+function generateTeamString(date) {
+    let output = date + "$";
 
     for (let i = 0; i < 4; i++) {
         let isNotNull = currentTeam[i] != null;
@@ -631,42 +631,46 @@ function generateTeamString() {
     return output;
 }
 
-function getTeamFromString(str) {
+function getTeamFromString(str, affect) {
     let splitString = str.split("$");
 
-    let title = splitString[0];
+    let date = splitString[0];
 
-    for (let i = 0; i < 4; i++) {
-        let character = characters[splitString[i * 10 + 1]];
-        currentTeam[i] = character ? character : null;
+    if (affect) {
+        for (let i = 0; i < 4; i++) {
+            let character = characters[splitString[i * 10 + 1]];
+            currentTeam[i] = character ? character : null;
 
-        let characterLevel = splitString[i * 10 + 2];
-        currentCharacterLevel[i] = characterLevel ? parseInt(characterLevel) : 0;
+            let characterLevel = splitString[i * 10 + 2];
+            currentCharacterLevel[i] = characterLevel ? parseInt(characterLevel) : 0;
 
-        let characterTargetLevel = splitString[i * 10 + 3];
-        currentCharacterTargetLevel[i] = characterTargetLevel ? parseInt(characterTargetLevel) : 0;
+            let characterTargetLevel = splitString[i * 10 + 3];
+            currentCharacterTargetLevel[i] = characterTargetLevel ? parseInt(characterTargetLevel) : 0;
 
-        let characterAscended = splitString[i * 10 + 4];
-        currentCharacterAscended[i] = characterAscended ? characterAscended === "true" : false;
+            let characterAscended = splitString[i * 10 + 4];
+            currentCharacterAscended[i] = characterAscended ? characterAscended === "true" : false;
 
-        let characterTargetAscended = splitString[i * 10 + 5];
-        currentCharacterTargetAscended[i] = characterTargetAscended ? characterTargetAscended === "true" : false;
+            let characterTargetAscended = splitString[i * 10 + 5];
+            currentCharacterTargetAscended[i] = characterTargetAscended ? characterTargetAscended === "true" : false;
 
-        let weapon = weapons[splitString[i * 10 + 6]];
-        currentWeapons[i] = weapon ? weapon : weapons["Dull Blade"];
+            let weapon = weapons[splitString[i * 10 + 6]];
+            currentWeapons[i] = weapon ? weapon : weapons["Dull Blade"];
 
-        let weaponLevel = splitString[i * 10 + 7];
-        currentWeaponLevel[i] = weaponLevel ? parseInt(weaponLevel) : 1;
+            let weaponLevel = splitString[i * 10 + 7];
+            currentWeaponLevel[i] = weaponLevel ? parseInt(weaponLevel) : 1;
 
-        let weaponTargetLevel = splitString[i * 10 + 8];
-        currentWeaponTargetLevel[i] = weaponTargetLevel ? parseInt(weaponTargetLevel) : 1;
+            let weaponTargetLevel = splitString[i * 10 + 8];
+            currentWeaponTargetLevel[i] = weaponTargetLevel ? parseInt(weaponTargetLevel) : 1;
 
-        let weaponAscended = splitString[i * 10 + 9];
-        currentWeaponAscended[i] = weaponAscended ? weaponAscended === "true" : false;
+            let weaponAscended = splitString[i * 10 + 9];
+            currentWeaponAscended[i] = weaponAscended ? weaponAscended === "true" : false;
 
-        let weaponTargetAscended = splitString[(i + 1) * 10];
-        currentWeaponTargetAscended[i] = weaponTargetAscended ? weaponTargetAscended === "true" : false;
+            let weaponTargetAscended = splitString[(i + 1) * 10];
+            currentWeaponTargetAscended[i] = weaponTargetAscended ? weaponTargetAscended === "true" : false;
+        }
     }
+
+    return date;
 }
 
 function isOverflown(element) {
@@ -679,6 +683,64 @@ function updateEllipsis(container) {
     } else {
         container.classList.remove("ellipsisActive");
     }
+}
+
+function generateSavedTeamBanner(title, dateString) {
+    let savedTeamBanner = document.createElement("div");
+    savedTeamBanner.classList.add("savedTeamCard");
+    savedTeamBanner.title = title;
+
+    let ellipsisContainer = document.createElement("div");
+    ellipsisContainer.classList.add("ellipsisContainer");
+
+    let ellipsisContent = document.createElement("p");
+    ellipsisContent.classList.add("ellipsisContent");
+    ellipsisContent.innerHTML = title;
+
+    // Ellipsis observer
+    updateEllipsis(ellipsisContent);
+
+    new ResizeObserver(entries => {
+        for (const entry of entries) {
+            if (entry.target === ellipsisContent) {
+                updateEllipsis(ellipsisContent);
+            }
+        }
+    }).observe(ellipsisContent);
+
+    new MutationObserver((mutations, observer) => {
+        console.log(mutations);
+        for (const mutation of mutations) {
+            updateEllipsis(ellipsisContent);
+        }
+    }).observe(ellipsisContent, {
+        characterData: false, childList: true, attributes: false
+    });
+    // -
+
+    ellipsisContainer.appendChild(ellipsisContent);
+
+    let dateCrossContainer = document.createElement("div");
+    dateCrossContainer.classList.add("savedTeamCardDateCross");
+
+    let date = document.createElement("p");
+    date.innerHTML = dateString;
+
+    let crossContainer = document.createElement("div");
+    let img = document.createElement("img");
+    img.src = "resources/cross.png";
+    img.width = 23;
+    img.height = 23;
+
+    crossContainer.appendChild(img);
+
+    dateCrossContainer.appendChild(date);
+    dateCrossContainer.appendChild(crossContainer);
+
+    savedTeamBanner.appendChild(ellipsisContainer);
+    savedTeamBanner.appendChild(dateCrossContainer);
+
+    return savedTeamBanner;
 }
 
 let title;
@@ -711,11 +773,35 @@ window.onload = function () {
     weaponPopupCancelButton = document.getElementById("weaponPopupCancelButton");
     savePopupCancelButton = document.getElementById("savePopupCancelButton");
 
+    let saveNameField = document.getElementById("saveNameField");
+    let popupSaveBrowserButton = document.getElementById("popupSaveBrowserButton");
+    let popupSaveFileButton = document.getElementById("popupSaveFileButton");
+
     let characterMaterialPane = document.getElementById("characterMaterialPane");
     let weaponMaterialPane = document.getElementById("weaponMaterialPane");
 
     let teamContainer = document.getElementById("teamContainer");
     let weaponContainer = document.getElementById("weaponContainer");
+
+    let savedTeamsScrollPane = document.getElementById("savedTeamsScrollPane");
+
+    let noSavedTeamLabel = document.getElementById("noSavedTeamLabel");
+
+    let savedTeams = localStorage.getItem("savedTeams");
+    let savedTeamList = {};
+
+    if (savedTeams == null || savedTeams == "") {
+        noSavedTeamLabel.style.opacity = "0.5";
+    } else {
+        noSavedTeamLabel.style.display = "none";
+        savedTeamList = JSON.parse(savedTeams);
+
+        for (const [title, value] of Object.entries(savedTeamList)) {
+            let date = getTeamFromString(value, false);
+
+            savedTeamsScrollPane.appendChild(generateSavedTeamBanner(title, date));
+        }
+    }
 
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         darkModeSwitch.checked = true;
@@ -1260,6 +1346,30 @@ window.onload = function () {
             savePopupWindow.style.display = "flex";
         }
 
+        popupSaveBrowserButton.onclick = event => {
+            let date = new Date();
+            let dateString = date.getDate().toString().padStart(2, "0") + "/" + (date.getMonth() + 1).toString().padStart(2, "0") + "/" + date.getFullYear().toString().slice(-2).padStart(2, "0");
+
+            if (!(saveNameField.value in savedTeamList)) {
+                if (saveNameField.value != "") {
+                    savedTeamList[saveNameField.value] = generateTeamString(dateString);
+                    savedTeamsScrollPane.appendChild(generateSavedTeamBanner(saveNameField.value, dateString));
+                    hideSavePopup();
+                } else {
+                    alert("Name cannot be blank.")
+                }
+            } else {
+                if (confirm("A team with that name already exists. Override?")) {
+
+                    savedTeamList[saveNameField.value] = generateTeamString(dateString);
+                    savedTeamsScrollPane.appendChild(generateSavedTeamBanner(saveNameField.value, dateString));
+                    hideSavePopup();
+                }
+            }
+
+            localStorage.setItem("savedTeams", JSON.stringify(savedTeamList));
+        }
+
         downloadButton.onclick = event => {
             if (text != "") {
                 downloadPopupWindow.classList.remove("fadeOut");
@@ -1329,7 +1439,7 @@ window.onload = function () {
             }
         }).observe(container, {
             characterData: false, childList: true, attributes: false
-        })
+        });
     });
 
     window.onresize();
