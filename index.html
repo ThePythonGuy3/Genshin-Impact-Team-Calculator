@@ -155,9 +155,17 @@
 		<div style="position: absolute; border-radius: 10px; background-color: var(--lightGray); width: 400px; right: calc(50vw - 220px); margin-right: auto; padding: 0 10px 10px 10px; box-shadow: 0px 0px 9px 0px var(--dark);"
 			id="save-popup">
 			<p style="margin-left: 10px;">Save Team</p>
-			<div style="display: flex; align-items: center;">
-				<input type="text" class="nameinput" id="saveNameField" placeholder="Team name">
+
+			<div
+				style="display: flex; flex-direction: column; align-items: baseline; gap: 10px; margin-top: 0; width: 100%;">
+				<p style="color: #f05050; font-size: 14px; margin-top: 0;" id="saveErrorText">Name cannot be blank.
+				</p>
+
+				<div style="display: flex; align-items: center;">
+					<input type="text" class="nameinput" id="saveNameField" placeholder="Team name">
+				</div>
 			</div>
+
 			<div style="display: flex; align-items: center;">
 				<input type="submit" value="Cancel" style="width: 33%;" class="submBut" id="savePopupCancelButton">
 				<input type="submit" value="Save as File" style="width: 33%;" class="submBut" id="popupSaveFileButton">
@@ -218,9 +226,8 @@
 							Saved teams</p>
 						<div style="position: absolute; box-sizing: border-box; left: 0; top: 40px; display: flex; flex-direction: column; width: 100%; height: calc(100% - 50px); padding-top: 9px; padding-bottom: 9px; padding-left: 15px; padding-right: 15px; overflow-y: auto; overflow-x: hidden; align-items: center; gap: 15px;"
 							class="specialScroll" id="savedTeamsScrollPane">
-
-							<p
-								style="width: 100%; text-align: center; margin-top: 5px; color: var(--materialTitleColor); font-size: 14px; opacity: 0;" id="noSavedTeamLabel">
+							<p style="width: 100%; text-align: center; margin-top: 5px; color: var(--materialTitleColor); font-size: 14px; opacity: 0;"
+								id="noSavedTeamLabel">
 								No Saved Teams Found</p>
 						</div>
 					</div>

@@ -25,10 +25,13 @@ let selectedCharacter = 0,
     currentWeaponAscended = [false, false, false, false],
     currentWeaponTargetAscended = [false, false, false, false],
 
-    text = "";
+    text = "",
+
+    savedTeamList = {};
 
 let weaponPopupWindow, downloadPopupWindow, savePopupWindow, cookiePopupWindow;
 let popupDownloadButton, popupCancelButton, weaponPopupCancelButton, savePopupCancelButton;
+let saveNameField, saveErrorText;
 
 // Get the weapon objects from the default names
 for (const [type, name] of Object.entries(defaultWeaponNames)) {
@@ -553,6 +556,8 @@ function hideSavePopup() {
     savePopupWindow.classList.remove("fadeIn");
     savePopupWindow.classList.add("fadeOut");
 
+    saveNameField.value = "";
+
     setTimeout(() => {
         savePopupWindow.style.opacity = "0";
         savePopupWindow.style.display = "none";
@@ -685,7 +690,11 @@ function updateEllipsis(container) {
     }
 }
 
-function generateSavedTeamBanner(title, dateString) {
+function updateSavedTeams() {
+    localStorage.setItem("savedTeams", JSON.stringify(savedTeamList));
+}
+
+function generateSavedTeamBanner(title, dateString, noSavedTeamLabel) {
     let savedTeamBanner = document.createElement("div");
     savedTeamBanner.classList.add("savedTeamCard");
     savedTeamBanner.title = title;
@@ -732,6 +741,20 @@ function generateSavedTeamBanner(title, dateString) {
     img.width = 23;
     img.height = 23;
 
+    img.onclick = event => {
+        if (title in savedTeamList) {
+            delete savedTeamList[title];
+        }
+
+        savedTeamBanner.parentNode.removeChild(savedTeamBanner);
+        updateSavedTeams();
+
+        if (Object.keys(savedTeamList).length <= 0) {
+            noSavedTeamLabel.style.display = "block";
+            noSavedTeamLabel.style.opacity = "0.5";
+        }
+    }
+
     crossContainer.appendChild(img);
 
     dateCrossContainer.appendChild(date);
@@ -773,7 +796,7 @@ window.onload = function () {
     weaponPopupCancelButton = document.getElementById("weaponPopupCancelButton");
     savePopupCancelButton = document.getElementById("savePopupCancelButton");
 
-    let saveNameField = document.getElementById("saveNameField");
+    saveNameField = document.getElementById("saveNameField");
     let popupSaveBrowserButton = document.getElementById("popupSaveBrowserButton");
     let popupSaveFileButton = document.getElementById("popupSaveFileButton");
 
@@ -788,18 +811,26 @@ window.onload = function () {
     let noSavedTeamLabel = document.getElementById("noSavedTeamLabel");
 
     let savedTeams = localStorage.getItem("savedTeams");
-    let savedTeamList = {};
 
     if (savedTeams == null || savedTeams == "") {
+        noSavedTeamLabel.style.display = "block";
         noSavedTeamLabel.style.opacity = "0.5";
     } else {
-        noSavedTeamLabel.style.display = "none";
         savedTeamList = JSON.parse(savedTeams);
 
-        for (const [title, value] of Object.entries(savedTeamList)) {
-            let date = getTeamFromString(value, false);
+        if (Object.keys(savedTeamList).length > 0) {
+            noSavedTeamLabel.style.display = "none";
 
-            savedTeamsScrollPane.appendChild(generateSavedTeamBanner(title, date));
+
+            for (const [title, value] of Object.entries(savedTeamList)) {
+                let date = getTeamFromString(value, false);
+
+                noSavedTeamLabel.style.display = "none";
+                savedTeamsScrollPane.appendChild(generateSavedTeamBanner(title, date, noSavedTeamLabel));
+            }
+        } else {
+            noSavedTeamLabel.style.display = "block";
+            noSavedTeamLabel.style.opacity = "0.5";
         }
     }
 
@@ -1344,30 +1375,32 @@ window.onload = function () {
             savePopupWindow.classList.remove("fadeOut");
             savePopupWindow.classList.add("fadeIn");
             savePopupWindow.style.display = "flex";
+
+            saveNameField.focus();
         }
 
         popupSaveBrowserButton.onclick = event => {
             let date = new Date();
             let dateString = date.getDate().toString().padStart(2, "0") + "/" + (date.getMonth() + 1).toString().padStart(2, "0") + "/" + date.getFullYear().toString().slice(-2).padStart(2, "0");
 
-            if (!(saveNameField.value in savedTeamList)) {
-                if (saveNameField.value != "") {
-                    savedTeamList[saveNameField.value] = generateTeamString(dateString);
-                    savedTeamsScrollPane.appendChild(generateSavedTeamBanner(saveNameField.value, dateString));
+            if (!(saveNameField.value.trim() in savedTeamList)) {
+                if (saveNameField.value.trim() != "") {
+                    savedTeamList[saveNameField.value.trim()] = generateTeamString(dateString);
+                    noSavedTeamLabel.style.display = "none";
+                    savedTeamsScrollPane.appendChild(generateSavedTeamBanner(saveNameField.value.trim(), dateString, noSavedTeamLabel));
                     hideSavePopup();
                 } else {
                     alert("Name cannot be blank.")
                 }
             } else {
                 if (confirm("A team with that name already exists. Override?")) {
-
-                    savedTeamList[saveNameField.value] = generateTeamString(dateString);
-                    savedTeamsScrollPane.appendChild(generateSavedTeamBanner(saveNameField.value, dateString));
+                    savedTeamList[saveNameField.value.trim()] = generateTeamString(dateString);
+                    noSavedTeamLabel.style.display = "none";
                     hideSavePopup();
                 }
             }
 
-            localStorage.setItem("savedTeams", JSON.stringify(savedTeamList));
+            updateSavedTeams();
         }
 
         downloadButton.onclick = event => {
@@ -1396,7 +1429,7 @@ window.onload = function () {
             let blob = new Blob([text], { type: "text/plain;charset=utf-8" });
 
             let name = "My Team.txt";
-            if (fileNamefield.value != "") name = fileNamefield.value + ".txt";
+            if (fileNamefield.value.trim() != "") name = fileNamefield.value + ".txt";
 
             saveAs(blob, name, { type: "text/plain;charset=utf-8" });
 
