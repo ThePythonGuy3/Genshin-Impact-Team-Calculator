@@ -35,6 +35,8 @@ let saveNameField, saveErrorText;
 
 let characterCards = [], weaponCards = [];
 
+let resetTeam = "$$$$$$Dull Blade$1$1$false$false$$$$$$Dull Blade$1$1$false$false$$$$$$Dull Blade$1$1$false$false$$$$$$Dull Blade$1$1$false$false";
+
 // Get the weapon objects from the default names
 for (const [type, name] of Object.entries(defaultWeaponNames)) {
     defaultWeapons[type] = weapons[name];
@@ -325,6 +327,7 @@ function generateCard(i) {
         im2.src = "";
 
         currentTeam[i - 1] = null;
+        currentTeamNames[i - 1] = "";
 
         characterImage.src = "resources/plus.png";
         characterLevelTag.children[0].value = 0;
@@ -397,10 +400,12 @@ function generateWeaponCard(i, weaponPopup) {
     weaponLevelTag.className = "teamLevelTag";
 
     let weaponAscensionCheckbox = document.createElement("input");
+    weaponAscensionCheckbox.id = "weaponAscCheckbox" + i;
     weaponAscensionCheckbox.disabled = true;
     weaponAscensionCheckbox.checked = false;
 
     let weaponAscensionTargetCheckbox = document.createElement("input");
+    weaponAscensionTargetCheckbox.id = "weaponAscTargetCheckbox" + i;
     weaponAscensionTargetCheckbox.disabled = true;
     weaponAscensionTargetCheckbox.checked = false;
 
@@ -471,10 +476,12 @@ function generateWeaponCard(i, weaponPopup) {
     weaponRemove.onclick = event => {
         if (currentTeam[i - 1] == null) {
             currentWeapons[i - 1] = defaultWeapons["sword"];
+            currentWeaponNames[i - 1] = defaultWeaponNames["sword"];
 
             weaponImage.src = "./resources/weapons/" + defaultWeaponNames["sword"].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
         } else {
             currentWeapons[i - 1] = defaultWeapons[currentTeam[i - 1].weaponType];
+            currentWeaponNames[i - 1] = defaultWeaponNames[currentTeam[i - 1].weaponType];
 
             weaponImage.src = "./resources/weapons/" + defaultWeaponNames[currentTeam[i - 1].weaponType].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
         }
@@ -492,11 +499,9 @@ function generateWeaponCard(i, weaponPopup) {
         weaponAscensionTargetCheckbox.checked = false;
     }
 
-    weaponAscensionCheckbox.id = "weapSel" + i;
     weaponAscensionCheckbox.type = "checkbox";
     weaponAscensionCheckbox.className = "check";
 
-    weaponAscensionTargetCheckbox.id = "weapSelTarget" + i;
     weaponAscensionTargetCheckbox.type = "checkbox";
     weaponAscensionTargetCheckbox.className = "check2";
 
@@ -636,7 +641,6 @@ function generateTeamString(date) {
 
     output = output.slice(0, -1);
 
-    console.log(output);
     return output;
 }
 
@@ -649,7 +653,15 @@ function getTeamFromString(str, affect) {
         for (let i = 0; i < 4; i++) {
             let character = characters[splitString[i * 10 + 1]];
             currentTeam[i] = character ? character : null;
-            characterCards[i].children[1].children[0].src = character ? "resources/characters/" + splitString[i * 10 + 1] + ".png" : "resources/plus.png";
+            currentTeamNames[i] = splitString[i * 10 + 1];
+            characterCards[i].children[1].children[0].src = character ? "resources/characters/" + splitString[i * 10 + 1].replaceAll(' ', '_') + ".png" : "resources/plus.png";
+
+            if (currentTeam[i] != null) {
+                characterCards[i].children[1].children[2].style.display = "block";
+                characterCards[i].children[1].children[2].src = "resources/" + currentTeam[i].weaponType + ".png";
+            } else {
+                characterCards[i].children[1].children[2].style.display = "none";
+            }
 
             let characterLevel = splitString[i * 10 + 2];
             currentCharacterLevel[i] = characterLevel ? parseInt(characterLevel) : 0;
@@ -671,8 +683,9 @@ function getTeamFromString(str, affect) {
 
             let weapon = weapons[splitString[i * 10 + 6]];
             currentWeapons[i] = weapon ? weapon : weapons["Dull Blade"];
-            weaponCards[i].children[1].children[0].src = weapon ? "resources/weapons/" + splitString[i * 10 + 6] + ".png" : "resources/weapons/Dull_Blade.png";
-            
+            currentWeaponNames[i] = splitString[i * 10 + 6];
+            weaponCards[i].children[1].children[0].src = weapon ? "resources/weapons/" + splitString[i * 10 + 6].replaceAll(' ', '_').replaceAll('"', '') + ".png" : "resources/weapons/Dull_Blade.png";
+
             let weaponLevel = splitString[i * 10 + 7];
             currentWeaponLevel[i] = weaponLevel ? parseInt(weaponLevel) : 1;
             weaponCards[i].children[1].children[1].children[0].value = currentWeaponLevel[i];
@@ -736,7 +749,6 @@ function generateSavedTeamBanner(title, dateString, noSavedTeamLabel) {
     }).observe(ellipsisContent);
 
     new MutationObserver((mutations, observer) => {
-        console.log(mutations);
         for (const mutation of mutations) {
             updateEllipsis(ellipsisContent);
         }
@@ -816,6 +828,7 @@ window.onload = function () {
     savePopupWindow = document.getElementById("savePopupWindow");
     cookiePopupWindow = document.getElementById("cookiePopupWindow");
 
+    let resetButton = document.getElementById("resetButton");
     let calculateButton = document.getElementById("calculateButton");
     let saveButton = document.getElementById("saveButton");
     let downloadButton = document.getElementById("downloadButton");
@@ -965,6 +978,11 @@ window.onload = function () {
                         doc.children[1].children[1].disabled = false;
                         doc.children[1].children[0].value = 1;
                         doc.children[1].children[1].value = 90;
+                        doc.children[1].children[2].disabled = true;
+                        doc.children[1].children[3].disabled = true;
+                        doc.children[1].children[2].checked = false;
+                        doc.children[1].children[3].checked = false;
+
                         currentCharacterLevel[selectedCharacter - 1] = 1;
                         currentCharacterTargetLevel[selectedCharacter - 1] = 90;
                         currentCharacterAscended[selectedCharacter - 1] = false;
@@ -978,6 +996,7 @@ window.onload = function () {
 
                         if (currentWeapons[selectedCharacter - 1].type != val.weaponType) {
                             currentWeapons[selectedCharacter - 1] = defaultWeapons[val.weaponType];
+                            currentWeaponNames[selectedCharacter - 1] = defaultWeaponNames[val.weaponType];
                             document.getElementById("weapon" + selectedCharacter).children[0].src = "./resources/weapons/" + defaultWeaponNames[val.weaponType].replaceAll(" ", "_").replaceAll("\"", "") + ".png";
 
                             currentWeaponLevel[selectedCharacter - 1] = 1;
@@ -1084,10 +1103,18 @@ window.onload = function () {
                     currentWeapons[selectedWeapon - 1] = val;
                     currentWeaponNames[selectedWeapon - 1] = el;
 
-                    currentWeaponTargetLevel[selectedWeapon - 1] = 90
+                    currentWeaponLevel[selectedWeapon - 1] = 1;
+                    currentWeaponTargetLevel[selectedWeapon - 1] = 90;
+                    currentWeaponAscended[selectedWeapon - 1] = false;
+                    currentWeaponTargetAscended[selectedWeapon - 1] = false;
 
                     document.getElementById("weapon" + selectedWeapon).children[0].src = "./resources/weapons/" + el.replaceAll(" ", "_").replaceAll("\"", "") + ".png";
+                    document.getElementById("weaponInput" + selectedWeapon).value = 1;
                     document.getElementById("weaponTargetinput" + selectedWeapon).value = 90;
+                    document.getElementById("weaponAscCheckbox" + selectedWeapon).disabled = true;
+                    document.getElementById("weaponAscCheckbox" + selectedWeapon).checked = false;
+                    document.getElementById("weaponAscTargetCheckbox" + selectedWeapon).disabled = true;
+                    document.getElementById("weaponAscTargetCheckbox" + selectedWeapon).checked = false;
 
                     hideWeaponPopup();
                 }
@@ -1141,9 +1168,14 @@ window.onload = function () {
             weaponContainer.appendChild(weaponCard);
         }
 
+        resetButton.onclick = event => {
+            if (confirm("Are you sure you want to start fresh with default settings for your team?")) {
+                getTeamFromString(resetTeam, true);
+            }
+        }
+
         calculateButton.onclick = event => {
             // Characters
-
             let done = false;
             let matDict = {};
             let added = false;
@@ -1410,11 +1442,15 @@ window.onload = function () {
         }
 
         saveButton.onclick = event => {
-            savePopupWindow.classList.remove("fadeOut");
-            savePopupWindow.classList.add("fadeIn");
-            savePopupWindow.style.display = "flex";
+            if (Object.keys(savedTeamList).length >= 200) {
+                alert("Max team count reached, you may not save any more teams until you delete some.");
+            } else {
+                savePopupWindow.classList.remove("fadeOut");
+                savePopupWindow.classList.add("fadeIn");
+                savePopupWindow.style.display = "flex";
 
-            saveNameField.focus();
+                saveNameField.focus();
+            }
         }
 
         saveNameField.addEventListener('keydown', event => {
@@ -1424,28 +1460,42 @@ window.onload = function () {
         });
 
         popupSaveBrowserButton.onclick = event => {
-            let date = new Date();
-            let dateString = date.getDate().toString().padStart(2, "0") + "/" + (date.getMonth() + 1).toString().padStart(2, "0") + "/" + date.getFullYear().toString().slice(-2).padStart(2, "0");
-
-            if (!(saveNameField.value.trim() in savedTeamList)) {
-                if (saveNameField.value.trim() != "") {
-                    savedTeamList[saveNameField.value.trim()] = generateTeamString(dateString);
-                    noSavedTeamLabel.style.display = "none";
-                    savedTeamsScrollPane.appendChild(generateSavedTeamBanner(saveNameField.value.trim(), dateString, noSavedTeamLabel));
-                    hideSavePopup();
-                } else {
-                    saveErrorText.innerHTML = "Name cannot be blank.";
-                }
-            } else {
-
-                if (confirm("A team with that name already exists. Override?")) {
-                    savedTeamList[saveNameField.value.trim()] = generateTeamString(dateString);
-                    noSavedTeamLabel.style.display = "none";
-                    hideSavePopup();
-                }
+            if (Object.keys(savedTeamList).length >= 5) {
+                alert("Max team count reached, you may not save any more teams until you delete some.");
+                hideSavePopup();
             }
+            else {
 
-            updateSavedTeams();
+                let date = new Date();
+                let dateString = date.getDate().toString().padStart(2, "0") + "/" + (date.getMonth() + 1).toString().padStart(2, "0") + "/" + date.getFullYear().toString().slice(-2).padStart(2, "0");
+
+                if (!(saveNameField.value.trim() in savedTeamList)) {
+                    if (saveNameField.value.trim() != "") {
+                        savedTeamList[saveNameField.value.trim()] = generateTeamString(dateString);
+                        noSavedTeamLabel.style.display = "none";
+                        savedTeamsScrollPane.appendChild(generateSavedTeamBanner(saveNameField.value.trim(), dateString, noSavedTeamLabel));
+                        hideSavePopup();
+                    } else {
+                        saveErrorText.innerHTML = "Name cannot be blank.";
+                    }
+                } else {
+
+                    if (confirm("A team with that name already exists. Do you wish to override it?")) {
+                        savedTeamList[saveNameField.value.trim()] = generateTeamString(dateString);
+                        noSavedTeamLabel.style.display = "none";
+
+                        for (let bar of document.getElementsByClassName("savedTeamCard")) {
+                            if (bar.children[0].children[0].innerHTML == saveNameField.value.trim()) {
+                                bar.children[1].children[0].innerHTML = dateString
+                                break;
+                            }
+                        }
+
+                        hideSavePopup();
+                    }
+                }
+                updateSavedTeams();
+            }
         }
 
         downloadButton.onclick = event => {
@@ -1511,7 +1561,6 @@ window.onload = function () {
         }).observe(container);
 
         new MutationObserver((mutations, observer) => {
-            console.log(mutations);
             for (const mutation of mutations) {
                 updateEllipsis(container);
             }

@@ -1001,6 +1001,8 @@ input:checked+.darkModeSlider:before {
 
 #teamArea {
     flex-direction: column;
+
+    margin-right: -10px;
 }
 
 #teamTopArea {
@@ -1161,6 +1163,10 @@ input:checked+.darkModeSlider:before {
 
     #teamArea {
         flex-direction: row;
+
+        margin-bottom: -10px;
+
+        margin-right: 0;
     }
 
     #teamTopArea {
@@ -1177,6 +1183,10 @@ input:checked+.darkModeSlider:before {
     #buttonContainer {
         margin-bottom: 0px;
     }
+
+    /*#matContainer {
+        margin-top: -10px;
+    }*/
 }
 
 
